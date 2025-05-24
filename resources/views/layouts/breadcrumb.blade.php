@@ -3,10 +3,9 @@
         <li class="breadcrumb-item text-sm">
             <a class="opacity-5 text-dark" href="javascript:;">Page</a>
         </li>
-        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
+        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">{{ $breadcrumb->list }}</li>
     </ol>
 </nav>
-
 <div class="px-3 mt-1">
     <h4 id="greeting-title" class="text-dark fw-bold">Selamat</h4>
     <p class="text-sm text-dark opacity-75" id="greeting-subtitle">Selamat datang kembali ...</p>

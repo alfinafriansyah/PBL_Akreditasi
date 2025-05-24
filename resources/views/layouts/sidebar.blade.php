@@ -10,7 +10,7 @@
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link active" href="#">
+                <a class="nav-link {{ ($activeMenu == 'kriteria1') ? 'active' : '' }}" href="{{ url('/') }}">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                     </div>
                     <span class="nav-link-text ms-1">Dashboard</span>
@@ -36,13 +36,31 @@
                 <div class="collapse" id="submenuKriteria">
                     <ul class="nav ms-4 ps-3">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Action</a>
+                            <a class="nav-link {{ ($activeMenu == 'kriteria1') ? 'active' : '' }}" href="{{ url('/kriteria1') }}">Kriteria 1</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Another action</a>
+                            <a class="nav-link" href="#">Kriteria 2</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Something else here</a>
+                            <a class="nav-link" href="#">Kriteria 3</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Kriteria 4</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Kriteria 5</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Kriteria 6</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Kriteria 7</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Kriteria 8</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Kriteria 9</a>
                         </li>
                     </ul>
                 </div>

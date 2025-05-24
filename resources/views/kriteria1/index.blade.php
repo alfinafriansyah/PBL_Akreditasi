@@ -1,0 +1,126 @@
+@extends('layouts.template')
+{{--Card--}}
+@section('content')
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+          <div class="card mb-4">
+            <div class="card-header pb-0">
+              <h6>{{ $page->title }}</h6>
+            </div>
+            <div class="card-body pt-4 p-3">
+                <div class="row">
+                    <div class="col">
+                        <button onclick="modalAction('{{ url('kriteria1/create') }}')" class="btn btn-primary float-end me-3">Tambah</button>
+                    </div>
+                </div>
+
+                @if (session('success'))
+                    <div class="alert alert-success">{{ session('success') }}</div>
+                @endif
+                @if (session('error'))
+                    <div class="alert alert-danger">{{ session('error') }}</div>
+                @endif
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-1 control-label col-form-label">Filter:</label>
+                            <div class="col-3">
+                                <select name="status" id="status" class="form-select" required>
+                                    <option value="">- Semua -</option>
+                                    @foreach ($status as $status)
+                                        <option value="{{ $status->status_id }}">{{ ucfirst($status->keterangan) }}</option>
+                                    @endforeach
+                                </select>
+                                <small class="form-text text-muted">Status Kriteria</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped" id="table_kriteria1">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Kode</th>
+                                <th>Nama</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+@endsection
+
+@push('css')
+@endpush
+
+@push('js')
+<script>
+var dataKriteria1;
+function modalAction(url = '') {
+    $('#myModal').load(url, function() {
+        $('#myModal').modal('show');
+    });
+}
+$(document).ready(function() {
+    dataKriteria1 = $('#table_kriteria1').DataTable({
+        serverSide: true,
+        processing: true, 
+        ajax: {
+            url: "{{ url('kriteria1/list') }}",
+            type: "POST",
+            data: function(d) {
+                d.status = $('#status').val();
+                d._token = "{{ csrf_token() }}"; 
+            },
+            error: function(xhr) {
+                console.log('Error:', xhr.responseText);
+            }
+        },
+        columns: [
+            {
+                data: "DT_RowIndex",
+                className: "text-center",
+                orderable: false,
+                searchable: false
+            },
+            {
+                data: "kriteria_kode",
+                className: "",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "kriteria_nama",
+                className: "",
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "status.keterangan",
+                className: "",
+                defaultContent: "-", // Tampilkan "-" jika null
+                orderable: true,
+                searchable: true
+            },
+            {
+                data: "aksi",
+                className: "",
+                orderable: false,
+                searchable: false
+            }
+        ]
+    });
+
+    $('#status').on('change', function() {
+        dataKriteria1.ajax.reload();
+    });
+});
+</script>
+@endpush
