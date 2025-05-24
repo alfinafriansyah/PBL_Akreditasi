@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('kriteria_id');
             $table->string('kriteria_kode', 20)->unique();
             $table->string('kriteria_nama', 255);
-            $table->unsignedBigInteger('status_id')->index();
+            $table->unsignedBigInteger('status_id')->index()->nullable();
             $table->text('komentar')->nullable();
             $table->timestamps();
 
