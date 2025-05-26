@@ -20,7 +20,8 @@ Route::get('/', [WelcomeController::class,'index']);
 Route::group(['prefix' => 'kriteria1'], function () {
     Route::get('/', [Kriteria1Controller::class, 'index']);
     Route::post('/list', [Kriteria1Controller::class, 'list']);
-    Route::post('/', [Kriteria1Controller::class, 'store']);
+    Route::get('/create', [Kriteria1Controller::class, 'create']);
+    Route::post('/store', [Kriteria1Controller::class, 'store']);
     // Ajax
     Route::get('/create_ajax', [Kriteria1Controller::class, 'create_ajax']);
     Route::post('/ajax', [Kriteria1Controller::class, 'store_ajax']);

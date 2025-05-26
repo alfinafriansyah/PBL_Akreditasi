@@ -8,10 +8,10 @@
             <div class="card-header pb-0">
               <h6>{{ $page->title }}</h6>
             </div>
-            <div class="card-body pt-4 p-3">
+            <div class="card-body pt-1 p-3">
                 <div class="row">
                     <div class="col">
-                        <button onclick="modalAction('{{ url('kriteria1/create') }}')" class="btn btn-primary float-end me-3">Tambah</button>
+                        <a href="{{ url('kriteria1/create')}}" class="btn btn-primary float-end me-3">Tambah</a>
                     </div>
                 </div>
 
