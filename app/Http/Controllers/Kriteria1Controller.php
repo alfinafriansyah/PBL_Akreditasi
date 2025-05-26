@@ -161,7 +161,7 @@ class Kriteria1Controller extends Controller
             // Save detail
             DetailModel::create([
                 'user_id' => 1,
-                'kriteria_id' => 1,
+                'kriteria_id' => auth()->user()->user_id,
                 'penetapan_id' => $penetapan->penetapan_id,
                 'pelaksanaan_id' => $pelaksanaan->pelaksanaan_id,
                 'evaluasi_id' => $evaluasi->evaluasi_id,
