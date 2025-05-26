@@ -87,7 +87,7 @@
       color: #333;
       line-height: 1.4;
       margin-top: 10px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
   </style>
 </head>
@@ -120,6 +120,81 @@
       <strong>081359345579</strong>
     </div>
   </div>
+
+  <!-- jQuery dan SweetAlert -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
+<script>
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+
+  $(document).ready(function () {
+    $("form").validate({
+      rules: {
+        username: {
+          required: true,
+          minlength: 4
+        },
+        password: {
+          required: true,
+          minlength: 4
+        }
+      },
+      submitHandler: function (form) {
+        $.ajax({
+          url: $(form).attr('action'),
+          method: $(form).attr('method'),
+          data: $(form).serialize(),
+          success: function (response) {
+            if (response.status) {
+              Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: response.message
+              }).then(() => {
+                window.location.href = response.redirect;
+              });
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: 'Login Gagal',
+                text: response.message
+              });
+            }
+          },
+          error: function () {
+            Swal.fire({
+              icon: 'error',
+              title: 'Kesalahan',
+              text: 'Terjadi kesalahan saat login.'
+            });
+          }
+        });
+        return false;
+      },
+      errorPlacement: function (error, element) {
+        error.addClass('text-danger mt-1 small d-block');
+        error.insertAfter(element);
+      },
+      highlight: function (element) {
+        $(element).addClass('is-invalid');
+      },
+      unhighlight: function (element) {
+        $(element).removeClass('is-invalid');
+      }
+    });
+  });
+</script>
+</div>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</div>
 
 </body>
 </html>
