@@ -20,26 +20,26 @@ class KriteriaModel extends Model
 
     public function penetapan()
     {
-        return $this->hasMany(PenetapanModel::class, 'kriteria_id', 'kriteria_id');
+        return $this->hasOne(PenetapanModel::class, 'kriteria_id', 'kriteria_id');
     }
 
     public function pelaksanaan()
     {
-        return $this->hasMany(PelaksanaanModel::class, 'kriteria_id', 'kriteria_id');
+        return $this->hasOne(PelaksanaanModel::class, 'kriteria_id', 'kriteria_id');
     }
 
     public function evaluasi()
     {
-        return $this->hasMany(EvaluasiModel::class, 'kriteria_id', 'kriteria_id');
+        return $this->hasOne(EvaluasiModel::class, 'kriteria_id', 'kriteria_id');
     }
 
     public function pengendalian()
     {
-        return $this->hasMany(PengendalianModel::class, 'kriteria_id', 'kriteria_id');
+        return $this->hasOne(PengendalianModel::class, 'kriteria_id', 'kriteria_id');
     }
 
     public function peningkatan()
     {
-        return $this->hasMany(PeningkatanModel::class, 'kriteria_id', 'kriteria_id');
+        return $this->hasOne(PeningkatanModel::class, 'kriteria_id', 'kriteria_id');
     }
 }

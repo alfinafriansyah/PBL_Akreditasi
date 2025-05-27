@@ -1,7 +1,7 @@
 @extends('layouts.template')
 {{--Card--}}
 @section('content')
-<div class="container-fluid py-4">
+<div class="container-fluid">
     <div class="row">
         <div class="col-12">
           <div class="card mb-4">
@@ -136,19 +136,19 @@
             tinymce.triggerSave();
             
             // Validasi manual
-            // let isValid = true;
-            // document.querySelectorAll('[data-required="true"]').forEach(el => {
-            //     if (!el.value.trim()) {
-            //         isValid = false;
-            //         // Tambahkan class error
-            //         tinymce.get(el.id)?.getContainer().querySelector('.tox-editor-container').classList.add('invalid');
-            //     }
-            // });
+            let isValid = true;
+            document.querySelectorAll('[data-required="true"]').forEach(el => {
+                if (!el.value.trim()) {
+                    isValid = false;
+                    // Tambahkan class error
+                    tinymce.get(el.id)?.getContainer().querySelector('.tox-editor-container').classList.add('invalid');
+                }
+            });
             
-            // if (!isValid) {
-            //     e.preventDefault();
-            //     Swal.fire('Error', 'Harap isi semua field yang wajib diisi', 'error');
-            // }
+            if (!isValid) {
+                e.preventDefault();
+                Swal.fire('Error', 'Harap isi semua field yang wajib diisi', 'error');
+            }
         });
     });
 </script>

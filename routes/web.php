@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/list', [Kriteria1Controller::class, 'list']);
         Route::get('/create', [Kriteria1Controller::class, 'create']);
         Route::post('/store', [Kriteria1Controller::class, 'store']);
+        Route::get('/{id}/detail', [Kriteria1Controller::class, 'detail']);
 
         // Ajax
         Route::get('/create_ajax', [Kriteria1Controller::class, 'create_ajax']);

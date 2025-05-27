@@ -1,10 +1,10 @@
 @extends('layouts.template')
 {{--Card--}}
 @section('content')
-<div class="container-fluid py-4">
+<div class="container-fluid">
     <div class="row">
         <div class="col-12">
-          <div class="card mb-4">
+          <div class="card">
             <div class="card-header pb-0">
               <h6>{{ $page->title }}</h6>
             </div>
@@ -52,9 +52,11 @@
                 </div>
             </div>
           </div>
+            <div id="myModal" class="modal fade animate shake" tabindex="-1" role="dialog" data- backdrop="static" data-keyboard="false" data-width="75%" aria-hidden="true"></div>
         </div>
     </div>
 </div>
+
 @endsection
 
 @push('css')
