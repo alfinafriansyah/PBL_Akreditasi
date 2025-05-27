@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\AkunController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DosenController;
 use App\Http\Controllers\Kriteria1Controller;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
@@ -52,4 +54,11 @@ Route::middleware('auth')->group(function () {
         // Export PDF
         Route::get('/export_pdf', [Kriteria1Controller::class, 'export_pdf']);
     });
+
+    Route::prefix('dosen')->group(function () {
+        Route::get('/', [DosenController::class, 'index']);
+        Route::post('/list', [DosenController::class, 'list']);
+    });
+
+    // Route::get('dosen', [DosenController::class, 'index']); 
 });
