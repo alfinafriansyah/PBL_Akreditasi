@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Kriteria1Controller;
-use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\Kriteria1Controller;
 
 // Global pattern
 Route::pattern('id', '[0-9]+');
@@ -52,4 +53,13 @@ Route::middleware('auth')->group(function () {
         // Export PDF
         Route::get('/export_pdf', [Kriteria1Controller::class, 'export_pdf']);
     });
+
+    //route admin
+    // Semua route admin dibungkus agar hanya bisa diakses setelah login
+    Route::prefix('user')->group(function () {
+        Route::get('/', [AdminController::class, 'index']); //menampilkan halamann awal user
+        Route::get('/{id}/edit_ajax', [AdminController::class, 'edit_ajax']); //menampilkan halaman form edit user ajax
+        Route::put('/{id}/update_ajax', [AdminController::class, 'update_ajax']); //menyimpan perubahan data user ajax
+        Route::get('/{id}/show_ajax', [AdminController::class, 'show_ajax']); //detail user ajaxRoute::delete('/{id}/show_ajax'
+    }); 
 });
