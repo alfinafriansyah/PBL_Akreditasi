@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AkunController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DosenController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\Kriteria1Controller;
 
@@ -62,4 +64,10 @@ Route::middleware('auth')->group(function () {
         Route::put('/{id}/update_ajax', [AdminController::class, 'update_ajax']); //menyimpan perubahan data user ajax
         Route::get('/{id}/show_ajax', [AdminController::class, 'show_ajax']); //detail user ajaxRoute::delete('/{id}/show_ajax'
     }); 
+    Route::prefix('dosen')->group(function () {
+        Route::get('/', [DosenController::class, 'index']);
+        Route::post('/list', [DosenController::class, 'list']);
+    });
+
+    // Route::get('dosen', [DosenController::class, 'index']); 
 });
