@@ -3,11 +3,13 @@
         <li class="breadcrumb-item text-sm">
             <a class="opacity-5 text-dark" href="javascript:;">Page</a>
         </li>
-        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">{{ $breadcrumb->list }}</li>
+        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">
+            {{ $breadcrumb->list ?? 'Unknown' }}
+        </li>
     </ol>
 </nav>
 
-@if ($activeMenu == "dashboard")
+@if (isset($activeMenu) && $activeMenu == "dashboard")
     <div class="px-3 mt-1">
         <h4 id="greeting-title" class="text-dark fw-bold">Selamat</h4>
         <p class="text-sm text-dark opacity-75" id="greeting-subtitle">Selamat datang kembali ...</p>
@@ -33,6 +35,6 @@
     </script>
 @else
     <div class="px-3 mt-1">
-        <h4 class="text-dark fw-bold">{{ $breadcrumb->title }}</h4>
+        <h4 class="text-dark fw-bold">{{ $breadcrumb->title ?? 'No Title' }}</h4>
     </div>
 @endif
