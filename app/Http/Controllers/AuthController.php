@@ -15,28 +15,41 @@ class AuthController extends Controller
     }
 
     public function postlogin(Request $request) {
-        if($request->ajax() || $request->wantsJson()) {
-            $credentials = $request->only('username', 'password');
+        $credentials = $request->only('username', 'password');
 
-            if(Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+
+            // Cek role_id untuk admin
+            if ($user->role_id == 10) {
                 return response()->json([
                     'status' => true,
-                    'message'=> 'Login Berhasil',
-                    'redirect' => url('/')
+                    'message' => 'Login Berhasil (Admin)',
+                    'redirect' => url('/admin/dashboard'),
                 ]);
             }
+
+            // Redirect default untuk user biasa
             return response()->json([
-               'status' => false,
-               'message'=> 'Login Gagal'
+                'status' => true,
+                'message' => 'Login Berhasil',
+                'redirect' => url('/'), // bisa diganti ke route user dashboard jika perlu
             ]);
         }
-        return redirect('login');
-    }
-    public function logout(Request $request) {
-        Auth::logout();
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect('login');
+        // Login gagal
+        return response()->json([
+            'status' => false,
+            'message' => 'Login Gagal. Username atau password salah.',
+        ]);
+    }
+    public function logout(Request $request)
+    {
+        Auth::logout(); // Hapus session pengguna
+
+        $request->session()->invalidate(); // Nonaktifkan session
+        $request->session()->regenerateToken(); // Buat ulang token CSRF
+
+        return redirect('/login')->with('message', 'Berhasil logout.');
     }
 }

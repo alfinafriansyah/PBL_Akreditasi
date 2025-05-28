@@ -17,58 +17,60 @@ Route::middleware('guest')->group(function () {
     Route::post('login', [AuthController::class, 'postlogin']);
 });
 
-// Route untuk yang sudah login
+// Route untuk user yang sudah login
 Route::middleware('auth')->group(function () {
     Route::get('logout', [AuthController::class, 'logout']);
     Route::get('/', [WelcomeController::class, 'index']);
 
-    // Semua route kriteria1 dibungkus agar hanya bisa diakses setelah login
+    // Kriteria 1 routes
     Route::prefix('kriteria1')->group(function () {
         Route::get('/', [Kriteria1Controller::class, 'index']);
         Route::post('/list', [Kriteria1Controller::class, 'list']);
         Route::get('/create', [Kriteria1Controller::class, 'create']);
         Route::post('/store', [Kriteria1Controller::class, 'store']);
         Route::get('/{id}/detail', [Kriteria1Controller::class, 'detail']);
-
-        // Ajax
         Route::get('/create_ajax', [Kriteria1Controller::class, 'create_ajax']);
         Route::post('/ajax', [Kriteria1Controller::class, 'store_ajax']);
         Route::get('/{id}', [Kriteria1Controller::class, 'show']);
         Route::get('/{id}/edit', [Kriteria1Controller::class, 'edit']);
         Route::put('/{id}', [Kriteria1Controller::class, 'update']);
         Route::delete('/{id}', [Kriteria1Controller::class, 'destroy']);
-
-        // Ajax Update
         Route::get('/{id}/edit_ajax', [Kriteria1Controller::class, 'edit_ajax']);
         Route::put('/{id}/update_ajax', [Kriteria1Controller::class, 'update_ajax']);
-
-        // Ajax Delete
         Route::get('/{id}/delete_ajax', [Kriteria1Controller::class, 'confirm_ajax']);
         Route::delete('/{id}/delete_ajax', [Kriteria1Controller::class, 'delete_ajax']);
-
-        // Import Excel
         Route::get('/import', [Kriteria1Controller::class, 'import']);
         Route::post('/import_ajax', [Kriteria1Controller::class, 'import_ajax']);
-
-        // Export Excel
         Route::get('/export_excel', [Kriteria1Controller::class, 'export_excel']);
-
-        // Export PDF
         Route::get('/export_pdf', [Kriteria1Controller::class, 'export_pdf']);
     });
 
-    //route admin
-    // Semua route admin dibungkus agar hanya bisa diakses setelah login
+    // User routes (Admin mengelola user)
     Route::prefix('user')->group(function () {
-        Route::get('/', [AdminController::class, 'index']); //menampilkan halamann awal user
-        Route::get('/{id}/edit_ajax', [AdminController::class, 'edit_ajax']); //menampilkan halaman form edit user ajax
-        Route::put('/{id}/update_ajax', [AdminController::class, 'update_ajax']); //menyimpan perubahan data user ajax
-        Route::get('/{id}/show_ajax', [AdminController::class, 'show_ajax']); //detail user ajaxRoute::delete('/{id}/show_ajax'
-    }); 
-    Route::prefix('dosen')->group(function () {
-        Route::get('/', [DosenController::class, 'index']);
-        Route::post('/list', [DosenController::class, 'list']);
+        Route::get('/', [AdminController::class, 'index']);
+        Route::get('/{id}/edit_ajax', [AdminController::class, 'edit_ajax']);
+        Route::put('/{id}/update_ajax', [AdminController::class, 'update_ajax']);
+        Route::get('/{id}/show_ajax', [AdminController::class, 'show_ajax']);
     });
+});
 
-    // Route::get('dosen', [DosenController::class, 'index']); 
+// Route untuk ADMIN (auth + admin middleware)
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+
+    // Manajemen akun pengguna
+    Route::get('/akunpengguna', [AdminController::class, 'akunpengguna'])->name('admin.akunpengguna');
+    Route::get('/akunpengguna/{id}/detail_ajax', [AdminController::class, 'show_ajax'])->name('admin.show_ajax');
+    Route::get('/akunpengguna/{id}/edit_ajax', [AdminController::class, 'edit_ajax'])->name('admin.edit_ajax');
+
+    // Data Dosen
+    Route::get('/datadosen', [DosenController::class, 'index'])->name('admin.datadosen');
+    Route::post('/datadosen/list', [DosenController::class, 'list'])->name('admin.datadosen.list');
+
+    // Tambah jika kamu punya: create, edit, delete AJAX untuk dosen
+    Route::get('/datadosen/create', [DosenController::class, 'create'])->name('admin.datadosen.create');
+    Route::post('/datadosen/store', [DosenController::class, 'store'])->name('admin.datadosen.store');
+    Route::get('/datadosen/{id}/edit_ajax', [DosenController::class, 'edit_ajax'])->name('admin.datadosen.edit_ajax');
+    Route::put('/datadosen/{id}/update_ajax', [DosenController::class, 'update_ajax'])->name('admin.datadosen.update_ajax');
+    Route::delete('/datadosen/{id}/delete_ajax', [DosenController::class, 'delete_ajax'])->name('admin.datadosen.delete_ajax');
 });
