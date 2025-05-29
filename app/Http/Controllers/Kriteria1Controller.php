@@ -85,11 +85,11 @@ class Kriteria1Controller extends Controller
             'evaluasi' => 'required',
             'pengendalian' => 'required',
             'peningkatan' => 'required',
-            'doc_penetapan.*' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png|max:2048',
-            'doc_pelaksanaan.*' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png|max:2048',
-            'doc_evaluasi.*' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png|max:2048',
-            'doc_pengendalian.*' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png|max:2048',
-            'doc_peningkatan.*' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png|max:2048',
+            'doc_penetapan.*' => 'nullable|file|mimes:gif,jpg,jpeg,png|max:2048',
+            'doc_pelaksanaan.*' => 'nullable|file|mimes:gif,jpg,jpeg,png|max:2048',
+            'doc_evaluasi.*' => 'nullable|file|mimes:gif,jpg,jpeg,png|max:2048',
+            'doc_pengendalian.*' => 'nullable|file|mimes:gif,jpg,jpeg,png|max:2048',
+            'doc_peningkatan.*' => 'nullable|file|mimes:gif,jpg,jpeg,png|max:2048',
         ]);
 
         if ($validator->fails()) {

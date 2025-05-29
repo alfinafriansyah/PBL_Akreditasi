@@ -32,7 +32,7 @@
                     </div>
                     <div class="mb-3">
                         <label><h6>Dokumen Pendukung</h6></label>
-                        <input type="file" class="form-control" name="doc_penetapan[]" id="doc_penetapan" multiple>
+                        <input type="file" class="form-control" name="doc_penetapan[]" id="doc_penetapan" accept=".jpg,.gif,.png,.jpeg" multiple>
                     </div>
                     <div class="mb-3">
                         <label><h5>Pelaksanaan</h5></label>
@@ -40,7 +40,7 @@
                     </div>
                     <div class="mb-3">
                         <label><h6>Dokumen Pendukung</h6></label>
-                        <input type="file" class="form-control" name="doc_pelaksanaan[]" id="doc_pelaksanaan" multiple>
+                        <input type="file" class="form-control" name="doc_pelaksanaan[]" id="doc_pelaksanaan" accept=".jpg,.gif,.png,.jpeg" multiple>
                     </div>
                     <div class="mb-3">
                         <label><h5>Evaluasi</h5></label>
@@ -48,7 +48,7 @@
                     </div>
                     <div class="mb-3">
                         <label><h6>Dokumen Pendukung</h6></label>
-                        <input type="file" class="form-control" name="doc_evaluasi[]" id="doc_evaluasi" multiple>
+                        <input type="file" class="form-control" name="doc_evaluasi[]" id="doc_evaluasi" accept=".jpg,.gif,.png,.jpeg" multiple>
                     </div>
                     <div class="mb-3">
                         <label><h5>Pengendalian</h5></label>
@@ -56,7 +56,7 @@
                     </div>
                     <div class="mb-3">
                         <label><h6>Dokumen Pendukung</h6></label>
-                        <input type="file" class="form-control" name="doc_pengendalian[]" id="doc_pengendalian" multiple>
+                        <input type="file" class="form-control" name="doc_pengendalian[]" id="doc_pengendalian" accept=".jpg,.gif,.png,.jpeg" multiple>
                     </div>
                     <div class="mb-3">
                         <label><h5>Peningkatan</h5></label>
@@ -64,7 +64,7 @@
                     </div>
                     <div class="mb-3">
                         <label><h6>Dokumen Pendukung</h6></label>
-                        <input type="file" class="form-control" name="doc_peningkatan[]" id="doc_peningkatan" multiple>
+                        <input type="file" class="form-control" name="doc_peningkatan[]" id="doc_peningkatan" accept=".jpg,.gif,.png,.jpeg" multiple>
                     </div>
                     <div class="mb-3">
                         <a href="{{ url('kriteria1/') }}" class="btn btn-warning">Kembali</a>
