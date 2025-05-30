@@ -37,6 +37,11 @@
     <link href="{{ asset('argon/vendor/datatables/dataTables.bootstrap5.css')}}" rel="stylesheet">
       {{-- SweetAlert2 --}}
     <link rel="stylesheet" href="{{ asset('argon/vendor/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
+    <style>        
+        #sidenav-main {
+        z-index: 1030;
+        }
+    </style>
     @stack('css')
 
 <body class="g-sidenav-show" style="background-color: #F9F7F8;">

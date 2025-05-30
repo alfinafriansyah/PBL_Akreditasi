@@ -15,12 +15,6 @@
                     </div>
                 </div>
 
-                @if (session('success'))
-                    <div class="alert alert-success">{{ session('success') }}</div>
-                @endif
-                @if (session('error'))
-                    <div class="alert alert-danger">{{ session('error') }}</div>
-                @endif
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group row">
@@ -64,6 +58,21 @@
 
 @push('js')
 <script>
+@if(session('success'))
+    Swal.fire({
+        icon: 'success',
+        title: 'Berhasil',
+        text: '{{ session('success') }}'
+    });
+@endif
+@if(session('error'))
+    Swal.fire({
+        icon: 'error',
+        title: 'Gagal',
+        text: '{{ session('error') }}'
+    });
+@endif
+
 var dataKriteria1;
 function modalAction(url = '') {
     $('#myModal').load(url, function() {
@@ -123,6 +132,23 @@ $(document).ready(function() {
     $('#status').on('change', function() {
         dataKriteria1.ajax.reload();
     });
+
 });
+function confirmDelete(url) {
+    Swal.fire({
+        title: 'Yakin ingin menghapus data ini?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Ya, hapus!',
+        cancelButtonText: 'Batal'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Kirim request hapus (bisa pakai AJAX atau redirect)
+            window.location.href = url;
+        }
+    });
+}
 </script>
 @endpush
