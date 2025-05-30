@@ -7,10 +7,12 @@ use App\Models\RoleModel;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $breadcrumb = (object)[
             'list' => 'Dashboard',
             'title' => 'Dashboard'
@@ -33,41 +35,43 @@ class AdminController extends Controller
 
     public function update_ajax(Request $request, $id)
     {
-        // cek apakah request dari ajax
-        if ($request->ajax() || $request->wantsJson()) {
-            $rules = [
-                'username' => 'readonly|string|min:10|max:10|unique:user,username,' . $id . ',user_id',
-                'dosen_id' => 'required|string|max:100', // nama user harus diisi, berupa string, dan maksimal 100 karakter
-                'role_id' => 'readonly|string|max:100',
-                'password' => 'required|string|min:5',
-            ];
-            // use Illuminate\Support\Facades\Validator;
-            $validator = Validator::make($request->all(), $rules);
+        $rules = [
+            'dosen_id' => 'required|string|max:100',
+            'password' => 'nullable|string|min:5',
+        ];
 
-            if ($validator->fails()) {
-                return response()->json([
-                    'status'   => false,    // respon json, true: berhasil, false: gagal
-                    'message'  => 'Validasi gagal.',
-                    'msgField' => $validator->errors()  // menunjukkan field mana yang error
-                ]);
-            }
+        $validator = Validator::make($request->all(), $rules);
 
-            $check = UserModel::find($id);
-            if ($check) {
-                $check->update($request->all());
-                return response()->json([
-                    'status'  => true,
-                    'message' => 'Data berhasil diupdate'
-                ]);
-            } else {
-                return response()->json([
-                    'status'  => false,
-                    'message' => 'Data tidak ditemukan'
-                ]);
-            }
+        if ($validator->fails()) {
+            return response()->json([
+                'status'   => false,
+                'message'  => 'Validasi gagal',
+                'msgField' => $validator->errors()
+            ], 422);
         }
-        return redirect('/');
+
+        $user = UserModel::find($id);
+        if (!$user) {
+            return response()->json([
+                'status'  => false,
+                'message' => 'Data tidak ditemukan'
+            ], 404);
+        }
+
+        $data = ['dosen_id' => $request->dosen_id];
+
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
+        }
+
+        $user->update($data);
+
+        return response()->json([
+            'status'  => true,
+            'message' => 'Data berhasil diupdate'
+        ]);
     }
+
     public function show_ajax(string $id)
     {
         $user = UserModel::find($id);
@@ -103,6 +107,4 @@ class AdminController extends Controller
 
         return view('admin.akunpengguna', compact('breadcrumb', 'activeMenu', 'users', 'roles'));
     }
-
-
 }
