@@ -60,8 +60,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     // Manajemen akun pengguna
     Route::get('/akunpengguna', [AdminController::class, 'akunpengguna'])->name('admin.akunpengguna');
-    Route::get('/akunpengguna/{id}/detail_ajax', [AdminController::class, 'show_ajax'])->name('admin.show_ajax');
     Route::get('/akunpengguna/{id}/edit_ajax', [AdminController::class, 'edit_ajax'])->name('admin.edit_ajax');
+    Route::put('/akunpengguna/{id}/update_ajax', [AdminController::class, 'update_ajax'])->name('admin.update_ajax');
+    Route::get('/akunpengguna/{id}/detail_ajax', [AdminController::class, 'show_ajax'])->name('admin.show_ajax');
 
     // Data Dosen
     Route::get('/datadosen', [DosenController::class, 'index'])->name('admin.datadosen');

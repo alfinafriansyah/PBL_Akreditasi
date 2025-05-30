@@ -1,113 +1,64 @@
-@empty($user) 
-    <div id="modal-master" class="modal-dialog modal-lg" role="document"> 
-        <div class="modal-content"> 
-            <div class="modal-header"> 
-                <h5 class="modal-title" id="exampleModalLabel">Kesalahan</h5> 
-                <button type="button" class="close" data-dismiss="modal" aria-
-                label="Close"><span aria-hidden="true">&times;</span></button>
-            </div> 
-            <div class="modal-body"> 
-                <div class="alert alert-danger"> 
-                    <h5><i class="icon fas fa-ban"></i> Kesalahan!!!</h5> 
-                    Data yang anda cari tidak ditemukan</div> 
-                <a href="{{ url('/user') }}" class="btn btn-warning">Kembali</a> 
-            </div> 
-        </div> 
-    </div> 
-@else 
-    <form action="{{ url('/user/' . $user->user_id.'/update_ajax') }}" method="POST" id="form-edit"> 
-    @csrf  
-    @method('PUT') 
-    <div id="modal-master" class="modal-dialog modal-lg" role="document"> 
-        <div class="modal-content"> 
-            <div class="modal-header"> 
-                <h5 class="modal-title" id="exampleModalLabel">Edit Data User</h5> 
-                <button type="button" class="close" data-dismiss="modal" aria-
-                label="Close"><span aria-hidden="true">&times;</span></button> 
-            </div> 
-            <div class="modal-body"> 
-                <div class="form-group"> 
-                    <label>Nama Dosen</label> 
-                    <select name="dosen_id" id="dosen_id" class="form-control" required> 
-                        <option value="">- Pilih Dosen -</option> 
-                        @foreach($dosen as $d) 
-                            <option {{ ($d->dosen_id == $user->dosen_id)? 'selected' : '' }} 
-                                value="{{ $d->dosen_id }}">{{ $d->nama }}</option> 
-                        @endforeach 
-                    </select> 
-                    <small id="error-dosen_id" class="error-text form-text text-danger"></small> 
-                </div> 
-                 <div class="form-group"> 
-                    <label>Username</label> 
-                    <input value="{{ $user->username }}" type="text" name="username" 
-                    id="username" class="form-control" readonly> 
-                    <small id="error-username" class="error-text form-text text-danger"></small> 
-                </div> 
-                <div class="form-group"> 
-                    <label>Password</label> 
-                    <input value="" type="password" name="password" id="password" class="form-control" required> 
-                    <small class="form-text text-muted">Abaikan jika tidak ingin ubah password</small> 
-                    <small id="error-password" class="error-text form-text text-danger"></small> 
-                </div> 
-            </div> 
-            <div class="modal-footer"> 
-                <button type="button" data-dismiss="modal" class="btn btn-warning">Batal</button> 
-                <button type="submit" class="btn btn-primary">Simpan</button> 
-            </div> 
-        </div> 
-    </div> 
-    </form> 
-    @push('js')
-    <script>
-         $(document).ready(function() { 
-            $("#form-edit").validate({ 
-                rules: { 
-                    dosen_id: {required: true, number: true}, 
-                    username: {minlength: 3, maxlength: 20}, 
-                    password: {required: true, minlength: 6, maxlength: 20} 
-                }, 
-                submitHandler: function(form) { 
-                    $.ajax({ 
-                        url: form.action, 
-                        type: 'POST', 
-                        data: $(form).serialize(), 
-                        success: function(response) { 
-                            if(response.status){ 
-                                $('#myModal').modal('hide'); 
-                                Swal.fire({ 
-                                    icon: 'success', 
-                                    title: 'Berhasil', 
-                                    text: response.message 
-                                }); 
-                                tableUser.ajax.reload(); 
-                            }else{ 
-                                $('.error-text').text(''); 
-                                $.each(response.msgField, function(prefix, val) { 
-                                    $('#error-'+prefix).text(val[0]); 
-                                }); 
-                                Swal.fire({ 
-                                    icon: 'error', 
-                                    title: 'Terjadi Kesalahan', 
-                                    text: response.message 
-                                }); 
-                            } 
-                        }             
-                    }); 
-                    return false; 
-                }, 
-                 errorElement: 'span', 
-                errorPlacement: function (error, element) { 
-                    error.addClass('invalid-feedback'); 
-                    element.closest('.form-group').append(error); 
-                }, 
-                highlight: function (element, errorClass, validClass) { 
-                    $(element).addClass('is-invalid'); 
-                }, 
-                unhighlight: function (element, errorClass, validClass) { 
-                    $(element).removeClass('is-invalid'); 
-                } 
-            }); 
-        }); 
-    </script>
-    @endpush
-@endempty 
+<div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form action="{{ route('admin.update_ajax', $user->user_id) }}" method="POST" id="form-edit">
+                @csrf
+                @method('PUT')
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Data User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Dosen</label>
+                        <select name="dosen_id" class="form-control" required>
+                            <option value="">- Pilih Dosen -</option>
+                            @foreach ($dosen as $d)
+                                <option value="{{ $d->dosen_id }}"
+                                    {{ $d->dosen_id == $user->dosen_id ? 'selected' : '' }}>
+                                    {{ $d->nama }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <small id="error-dosen_id" class="text-danger error-text"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Role</label>
+                        <select name="role_id" class="form-control" disabled>
+                            <option value="">- Pilih Role -</option>
+                            @foreach ($role as $r)
+                                <option value="{{ $r->role_id }}"
+                                    {{ $r->role_id == $user->role_id ? 'selected' : '' }}>
+                                    {{ $r->role_nama }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <small id="error-role_id" class="text-danger error-text"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input name="username" type="text" class="form-control" value="{{ $user->username }}"
+                            readonly>
+                        <small id="error-username" class="text-danger error-text"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input name="password" type="password" class="form-control" placeholder="*****">
+                        <small class="form-text text-muted">Biarkan kosong jika tidak ingin ubah password</small>
+                        <small id="error-password" class="text-danger error-text"></small>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" data-bs-dismiss="modal" class="btn btn-secondary">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

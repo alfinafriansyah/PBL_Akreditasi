@@ -13,21 +13,11 @@
     <div class="container mt-4">
         <form method="GET" action="{{ url()->current() }}" class="d-flex justify-content-between align-items-center mb-3">
             <div class="d-flex align-items-center gap-2">
-                <input
-                    type="text"
-                    name="search"
-                    value="{{ request('search') }}"
-                    class="form-control form-control-sm"
-                    placeholder="Cari nama dosen..."
-                    style="max-width: 180px;"
-                >
-                <select
-                    name="role_id"
-                    class="form-select form-select-sm"
-                    style="max-width: 150px;"
-                >
+                <input type="text" name="search" value="{{ request('search') }}" class="form-control form-control-sm"
+                    placeholder="Cari nama dosen..." style="max-width: 180px;">
+                <select name="role_id" class="form-select form-select-sm" style="max-width: 150px;">
                     <option value="">Semua Role</option>
-                    @foreach($roles as $role)
+                    @foreach ($roles as $role)
                         <option value="{{ $role->role_id }}" {{ request('role_id') == $role->role_id ? 'selected' : '' }}>
                             {{ $role->role_nama }}
                         </option>
@@ -41,49 +31,43 @@
             <div class="card-body table-responsive">
                 <table class="table table-hover align-middle mb-0">
                     <thead class="table-light">
-                    <tr>
-                        <th>Nama Dosen</th>
-                        <th>NIP</th>
-                        <th>Username</th>
-                        <th>Role Pengguna</th>
-                        <th class="text-center">Aksi</th>
-                    </tr>
+                        <tr>
+                            <th>Nama Dosen</th>
+                            <th>NIP</th>
+                            <th>Username</th>
+                            <th>Role Pengguna</th>
+                            <th class="text-center">Aksi</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    @forelse ($users as $user)
-                        @if ($user->role_id != 10 && $user->username !== 'admin')
-                            <tr>
-                                <td class="d-flex align-items-center">
-                                    <img
-                                        src="https://ui-avatars.com/api/?name={{ urlencode($user->dosen->nama ?? 'Pengguna') }}&background=random&size=40"
-                                        class="rounded-circle me-3" width="40" height="40" alt="avatar"
-                                    >
-                                    <div>{{ $user->dosen->nama ?? '-' }}</div>
-                                </td>
-                                <td>{{ $user->dosen->nip ?? '-' }}</td>
-                                <td>{{ $user->username }}</td>
-                                <td>{{ $user->role->role_nama ?? '-' }}</td>
-                                <td class="text-center">
-                                    <a href="{{route('admin.edit_ajax', $user->user_id)}}" class="btn btn-sm btn-outline-primary me-1" title="Edit" data-id="{{$user->user_id}}">
-                                        <i class="bi bi-pencil-square"></i> Edit
-                                    </a>
+                        @forelse ($users as $user)
+                            @if ($user->role_id != 10 && $user->username !== 'admin')
+                                <tr>
+                                    <td class="d-flex align-items-center">
+                                        <img src="https://ui-avatars.com/api/?name={{ urlencode($user->dosen->nama ?? 'Pengguna') }}&background=random&size=40"
+                                            class="rounded-circle me-3" width="40" height="40" alt="avatar">
+                                        <div>{{ $user->dosen->nama ?? '-' }}</div>
+                                    </td>
+                                    <td>{{ $user->dosen->nip ?? '-' }}</td>
+                                    <td>{{ $user->username }}</td>
+                                    <td>{{ $user->role->role_nama ?? '-' }}</td>
+                                    <td class="text-center">
 
-                                    {{--                                    Tempat show detail --}}
-                                    <a href="{{ route('admin.show_ajax', $user->user_id) }}"
-                                       class="btn btn-sm btn-outline-info btn-detail"
-                                       data-id="{{ $user->user_id }}">
-                                        <i class="bi bi-info-circle"></i> Detail
-                                    </a>
+                                        {{--                                    Bagian ini aku ubah jadi button misal mau di ganti warna ada di class=".. " sebelum </button> --}}
+                                        <button onclick="modalAction('{{ route('admin.edit_ajax', $user->user_id) }}')"
+                                            class="btn btn-warning btn-sm">Edit</button>
+                                        <button onclick="modalAction('{{ route('admin.show_ajax', $user->user_id) }}')"
+                                            class="btn btn-facebook btn-sm">Detail</button>
+                                    </td>
+                                </tr>
+                            @endif
+                        @empty
+                            <tr>
+                                <td colspan="5" class="text-center text-muted py-4">
+                                    Tidak ada data pengguna ditemukan.
                                 </td>
                             </tr>
-                        @endif
-                    @empty
-                        <tr>
-                            <td colspan="5" class="text-center text-muted py-4">
-                                Tidak ada data pengguna ditemukan.
-                            </td>
-                        </tr>
-                    @endforelse
+                        @endforelse
                     </tbody>
                 </table>
             </div>
@@ -91,7 +75,8 @@
             @if ($users->hasPages())
                 <div class="card-footer bg-white d-flex justify-content-between align-items-center">
                     <small class="text-muted">
-                        Menampilkan {{ $users->firstItem() }} sampai {{ $users->lastItem() }} dari total {{ $users->total() }} data
+                        Menampilkan {{ $users->firstItem() }} sampai {{ $users->lastItem() }} dari total
+                        {{ $users->total() }} data
                     </small>
                     <div>
                         {{ $users->links() }}
@@ -100,39 +85,77 @@
             @endif
         </div>
     </div>
-
-    <!-- Modal Detail -->
-    <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="detailModalLabel">Detail Pengguna</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" id="detailContent">
-                    <div class="text-center text-muted py-4">Memuat...</div>
-                </div>
-            </div>
-        </div>
+    {{-- Perubahan dari Axel - ini kita bikin dlu modal kosongan atau kontainernya buat isinya nantinya --}}
+    <div id="modalContainer">
+        {{--        kita biarkan kosong --}}
     </div>
-@endsection
-
-@push('scripts')
+    // dari diatas ini kita ambil id= "modalContainer nya masuk ke function js di bawah"
     <script>
-        $(document).ready(function () {
-            $('.btn-detail').click(function (e) {
-                e.preventDefault();
-                const url = $(this).attr('href');
+        function modalAction(url) {
+            $.get(url, function(data) {
+                $('#modalContainer').html(data);
 
-                $('#detailContent').html('<div class="text-center text-muted py-4">Memuat...</div>');
-                $('#detailModal').modal('show');
+                // Deteksi jenis modal
+                if (data.includes("editModal")) {
+                    const editModal = new bootstrap.Modal(document.getElementById(
+                    "editModal")); // ✅ Definisikan di sini
+                    editModal.show();
 
-                $.get(url, function (data) {
-                    $('#detailContent').html(data);
-                }).fail(function () {
-                    $('#detailContent').html('<div class="text-danger text-center py-4">Gagal memuat data.</div>');
+                    // Handle form edit
+                    $("#form-edit").on("submit", function(e) {
+                        e.preventDefault();
+
+                        $.ajax({
+                            url: $(this).attr("action"),
+                            type: "PUT",
+                            data: $(this).serialize(),
+                            dataType: "json",
+                            beforeSend: function() {
+                                $(".error-text").text("");
+                                $(this).find('button[type="submit"]').prop("disabled", true);
+                            },
+                            success: function(response) {
+                                if (response.status) {
+                                    editModal.hide(); // ✅ Sekarang variabel bisa diakses
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "Sukses",
+                                        text: response.message,
+                                        showConfirmButton: false,
+                                        timer: 1500,
+                                    }).then(() => {
+                                        location.reload();
+                                    });
+                                }
+                            },
+                            error: function(xhr) {
+                                $(document).find('button[type="submit"]').prop("disabled",
+                                    false);
+
+                                if (xhr.status === 422) {
+                                    // Validation errors
+                                    $.each(xhr.responseJSON.msgField, function(field, errors) {
+                                        $("#error-" + field).text(errors[0]);
+                                    });
+                                } else {
+                                    Swal.fire("Error", "Terjadi kesalahan server", "error");
+                                }
+                            }
+                        });
+                    });
+
+                } else if (data.includes("detailModal")) {
+                    const modal = new bootstrap.Modal(document.getElementById("detailModal"));
+                    modal.show();
+                }
+            }).fail(function() {
+                Swal.fire({
+                    icon: "error",
+                    title: "Gagal Memuat Data",
+                    text: "Terjadi kesalahan saat mengambil data",
                 });
             });
-        });
+        }
     </script>
-@endpush
+    {{-- Dari code diatas menurut ku ini dia merupaakn function untuk membuka edit content / ajax  di show .. --}}
+@endsection
