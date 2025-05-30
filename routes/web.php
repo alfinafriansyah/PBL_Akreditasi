@@ -7,6 +7,14 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\Kriteria1Controller;
+use App\Http\Controllers\Kriteria2Controller;
+use App\Http\Controllers\Kriteria3Controller;
+use App\Http\Controllers\Kriteria4Controller;
+use App\Http\Controllers\Kriteria5Controller;
+use App\Http\Controllers\Kriteria6Controller;
+use App\Http\Controllers\Kriteria7Controller;
+use App\Http\Controllers\Kriteria8Controller;
+use App\Http\Controllers\Kriteria9Controller;
 
 // Global pattern
 Route::pattern('id', '[0-9]+');
@@ -30,11 +38,140 @@ Route::middleware('auth')->group(function () {
         Route::post('/store', [Kriteria1Controller::class, 'store']);
         Route::get('/{id}/detail', [Kriteria1Controller::class, 'detail']);
         Route::get('/{id}/edit', [Kriteria1Controller::class, 'edit']);
+        Route::put('/{id}', [Kriteria1Controller::class, 'update']);
         Route::get('/{id}/delete', [Kriteria1Controller::class, 'destroy']);
         Route::get('/import', [Kriteria1Controller::class, 'import']);
         Route::post('/import_ajax', [Kriteria1Controller::class, 'import_ajax']);
         Route::get('/export_excel', [Kriteria1Controller::class, 'export_excel']);
         Route::get('/export_pdf', [Kriteria1Controller::class, 'export_pdf']);
+    });
+
+    // Kriteria 2 routes
+    Route::prefix('kriteria2')->group(function () {
+        Route::get('/', [Kriteria2Controller::class, 'index']);
+        Route::post('/list', [Kriteria2Controller::class, 'list']);
+        Route::get('/create', [Kriteria2Controller::class, 'create']);
+        Route::post('/store', [Kriteria2Controller::class, 'store']);
+        Route::get('/{id}/detail', [Kriteria2Controller::class, 'detail']);
+        Route::get('/{id}/edit', [Kriteria2Controller::class, 'edit']);
+        Route::put('/{id}', [Kriteria2Controller::class, 'update']);
+        Route::get('/{id}/delete', [Kriteria2Controller::class, 'destroy']);
+        Route::get('/import', [Kriteria2Controller::class, 'import']);
+        Route::post('/import_ajax', [Kriteria2Controller::class, 'import_ajax']);
+        Route::get('/export_excel', [Kriteria2Controller::class, 'export_excel']);
+        Route::get('/export_pdf', [Kriteria2Controller::class, 'export_pdf']);
+    });
+
+    // Kriteria 3 routes
+    Route::prefix('kriteria3')->group(function () {
+        Route::get('/', [Kriteria3Controller::class, 'index']);
+        Route::post('/list', [Kriteria3Controller::class, 'list']);
+        Route::get('/create', [Kriteria3Controller::class, 'create']);
+        Route::post('/store', [Kriteria3Controller::class, 'store']);
+        Route::get('/{id}/detail', [Kriteria3Controller::class, 'detail']);
+        Route::get('/{id}/edit', [Kriteria3Controller::class, 'edit']);
+        Route::put('/{id}', [Kriteria3Controller::class, 'update']);
+        Route::get('/{id}/delete', [Kriteria3Controller::class, 'destroy']);
+        Route::get('/import', [Kriteria3Controller::class, 'import']);
+        Route::post('/import_ajax', [Kriteria3Controller::class, 'import_ajax']);
+        Route::get('/export_excel', [Kriteria3Controller::class, 'export_excel']);
+        Route::get('/export_pdf', [Kriteria3Controller::class, 'export_pdf']);
+    });
+
+    // Kriteria 4 routes
+    Route::prefix('kriteria4')->group(function () {
+        Route::get('/', [Kriteria4Controller::class, 'index']);
+        Route::post('/list', [Kriteria4Controller::class, 'list']);
+        Route::get('/create', [Kriteria4Controller::class, 'create']);
+        Route::post('/store', [Kriteria4Controller::class, 'store']);
+        Route::get('/{id}/detail', [Kriteria4Controller::class, 'detail']);
+        Route::get('/{id}/edit', [Kriteria4Controller::class, 'edit']);
+        Route::put('/{id}', [Kriteria4Controller::class, 'update']);
+        Route::get('/{id}/delete', [Kriteria4Controller::class, 'destroy']);
+        Route::get('/import', [Kriteria4Controller::class, 'import']);
+        Route::post('/import_ajax', [Kriteria4Controller::class, 'import_ajax']);
+        Route::get('/export_excel', [Kriteria4Controller::class, 'export_excel']);
+        Route::get('/export_pdf', [Kriteria4Controller::class, 'export_pdf']);
+    });
+
+    // Kriteria 5 routes
+    Route::prefix('kriteria5')->group(function () {
+        Route::get('/', [Kriteria5Controller::class, 'index']);
+        Route::post('/list', [Kriteria5Controller::class, 'list']);
+        Route::get('/create', [Kriteria5Controller::class, 'create']);
+        Route::post('/store', [Kriteria5Controller::class, 'store']);
+        Route::get('/{id}/detail', [Kriteria5Controller::class, 'detail']);
+        Route::get('/{id}/edit', [Kriteria5Controller::class, 'edit']);
+        Route::put('/{id}', [Kriteria5Controller::class, 'update']);
+        Route::get('/{id}/delete', [Kriteria5Controller::class, 'destroy']);
+        Route::get('/import', [Kriteria5Controller::class, 'import']);
+        Route::post('/import_ajax', [Kriteria5Controller::class, 'import_ajax']);
+        Route::get('/export_excel', [Kriteria5Controller::class, 'export_excel']);
+        Route::get('/export_pdf', [Kriteria5Controller::class, 'export_pdf']);
+    });
+
+    // Kriteria 6 routes
+    Route::prefix('kriteria6')->group(function () {
+        Route::get('/', [Kriteria6Controller::class, 'index']);
+        Route::post('/list', [Kriteria6Controller::class, 'list']);
+        Route::get('/create', [Kriteria6Controller::class, 'create']);
+        Route::post('/store', [Kriteria6Controller::class, 'store']);
+        Route::get('/{id}/detail', [Kriteria6Controller::class, 'detail']);
+        Route::get('/{id}/edit', [Kriteria6Controller::class, 'edit']);
+        Route::put('/{id}', [Kriteria6Controller::class, 'update']);
+        Route::get('/{id}/delete', [Kriteria6Controller::class, 'destroy']);
+        Route::get('/import', [Kriteria6Controller::class, 'import']);
+        Route::post('/import_ajax', [Kriteria6Controller::class, 'import_ajax']);
+        Route::get('/export_excel', [Kriteria6Controller::class, 'export_excel']);
+        Route::get('/export_pdf', [Kriteria6Controller::class, 'export_pdf']);
+    });
+
+    // Kriteria 7 routes
+    Route::prefix('kriteria7')->group(function () {
+        Route::get('/', [Kriteria7Controller::class, 'index']);
+        Route::post('/list', [Kriteria7Controller::class, 'list']);
+        Route::get('/create', [Kriteria7Controller::class, 'create']);
+        Route::post('/store', [Kriteria7Controller::class, 'store']);
+        Route::get('/{id}/detail', [Kriteria7Controller::class, 'detail']);
+        Route::get('/{id}/edit', [Kriteria7Controller::class, 'edit']);
+        Route::put('/{id}', [Kriteria7Controller::class, 'update']);
+        Route::get('/{id}/delete', [Kriteria7Controller::class, 'destroy']);
+        Route::get('/import', [Kriteria7Controller::class, 'import']);
+        Route::post('/import_ajax', [Kriteria7Controller::class, 'import_ajax']);
+        Route::get('/export_excel', [Kriteria7Controller::class, 'export_excel']);
+        Route::get('/export_pdf', [Kriteria7Controller::class, 'export_pdf']);
+    });
+
+    // Kriteria 8 routes
+    Route::prefix('kriteria8')->group(function () {
+        Route::get('/', [Kriteria8Controller::class, 'index']);
+        Route::post('/list', [Kriteria8Controller::class, 'list']);
+        Route::get('/create', [Kriteria8Controller::class, 'create']);
+        Route::post('/store', [Kriteria8Controller::class, 'store']);
+        Route::get('/{id}/detail', [Kriteria8Controller::class, 'detail']);
+        Route::get('/{id}/edit', [Kriteria8Controller::class, 'edit']);
+        Route::put('/{id}', [Kriteria8Controller::class, 'update']);
+        Route::get('/{id}/delete', [Kriteria8Controller::class, 'destroy']);
+        Route::get('/import', [Kriteria8Controller::class, 'import']);
+        Route::post('/import_ajax', [Kriteria8Controller::class, 'import_ajax']);
+        Route::get('/export_excel', [Kriteria8Controller::class, 'export_excel']);
+        Route::get('/export_pdf', [Kriteria8Controller::class, 'export_pdf']);
+    });
+
+    // Kriteria 9 routes
+    Route::prefix('kriteria9')->group(function () {
+        Route::get('/', [Kriteria9Controller::class, 'index']);
+        Route::post('/list', [Kriteria9Controller::class, 'list']);
+        Route::get('/create', [Kriteria9Controller::class, 'create']);
+        Route::post('/store', [Kriteria9Controller::class, 'store']);
+        Route::get('/{id}/detail', [Kriteria9Controller::class, 'detail']);
+        Route::get('/{id}/edit', [Kriteria9Controller::class, 'edit']);
+        Route::put('/{id}', [Kriteria9Controller::class, 'update']);
+        Route::get('/{id}/delete', [Kriteria9Controller::class, 'destroy']);
+        Route::get('/import', [Kriteria9Controller::class, 'import']);
+        Route::post('/import_ajax', [Kriteria9Controller::class, 'import_ajax']);
+        Route::get('/export_excel', [Kriteria9Controller::class, 'export_excel']);
+        Route::get('/export_pdf', [Kriteria9Controller::class, 'export_pdf']);
     });
 
     // User routes (Admin mengelola user)
