@@ -54,7 +54,7 @@ class Kriteria1Controller extends Controller
  
                 $btn .= '<a href="'.url('/kriteria1/' . $kriteria->kriteria_id . '/edit').'" class="btn btn-warning btn-sm">Edit</a> ';
 
-                $btn .= '<button onclick="confirmDelete(\'' . url('/kriteria1/' . $kriteria->kriteria_id . '/delete') . '\')" class="btn btn-danger btn-sm">Hapus</button> ';
+                $btn .= '<button onclick="confirmDelete(\'' . url('/kriteria1/' . $kriteria->kriteria_id . '/delete') . '\', \'' . $kriteria->kriteria_id . '\')" class="btn btn-danger btn-sm">Hapus</button> ';
                 
                 return $btn;
             })
@@ -353,6 +353,47 @@ class Kriteria1Controller extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Gagal update: ' . $e->getMessage())->withInput();
+        }
+    }
+
+    public function destroy($id)
+    {
+        DB::beginTransaction();
+        try {
+            $kriteria = KriteriaModel::with([
+                'penetapan', 'pelaksanaan', 'evaluasi', 'pengendalian', 'peningkatan'
+            ])->findOrFail($id);
+
+            // Hapus detail jika ada
+            if ($kriteria->detail) {
+                $kriteria->detail->delete();
+            }
+
+            // Hapus file dokumen pada setiap relasi jika ada
+            $relasiList = ['penetapan', 'pelaksanaan', 'evaluasi', 'pengendalian', 'peningkatan'];
+            foreach ($relasiList as $relasi) {
+                if ($kriteria->$relasi && $kriteria->$relasi->dokumen) {
+                    $files = json_decode($kriteria->$relasi->dokumen, true) ?? [];
+                    foreach ($files as $file) {
+                        $storagePath = str_replace('storage/', 'public/', $file);
+                        if (Storage::exists($storagePath)) {
+                            Storage::delete($storagePath);
+                        }
+                    }
+                    // Hapus data relasi
+                    $kriteria->$relasi->delete();
+                }
+            }
+
+            // Update status_id menjadi null
+            $kriteria->status_id = null;
+            $kriteria->save();
+
+            DB::commit();
+            return redirect('/kriteria1')->with('success', 'Data berhasil dihapus!');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect('/kriteria1')->with('error', 'Gagal menghapus data: ' . $e->getMessage());
         }
     }
 

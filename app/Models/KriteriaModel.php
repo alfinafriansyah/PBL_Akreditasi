@@ -18,6 +18,11 @@ class KriteriaModel extends Model
         return $this->belongsTo(StatusModel::class, 'status_id', 'status_id');
     }
 
+    public function detail()
+    {
+        return $this->hasOne(DetailModel::class, 'kriteria_id', 'kriteria_id');
+    }
+
     public function penetapan()
     {
         return $this->hasOne(PenetapanModel::class, 'kriteria_id', 'kriteria_id');

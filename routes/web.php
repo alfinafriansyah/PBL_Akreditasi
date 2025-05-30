@@ -29,16 +29,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/create', [Kriteria1Controller::class, 'create']);
         Route::post('/store', [Kriteria1Controller::class, 'store']);
         Route::get('/{id}/detail', [Kriteria1Controller::class, 'detail']);
-        Route::get('/create_ajax', [Kriteria1Controller::class, 'create_ajax']);
-        Route::post('/ajax', [Kriteria1Controller::class, 'store_ajax']);
-        Route::get('/{id}', [Kriteria1Controller::class, 'show']);
         Route::get('/{id}/edit', [Kriteria1Controller::class, 'edit']);
-        Route::put('/{id}', [Kriteria1Controller::class, 'update']);
-        Route::delete('/{id}', [Kriteria1Controller::class, 'destroy']);
-        Route::get('/{id}/edit_ajax', [Kriteria1Controller::class, 'edit_ajax']);
-        Route::put('/{id}/update_ajax', [Kriteria1Controller::class, 'update_ajax']);
-        Route::get('/{id}/delete_ajax', [Kriteria1Controller::class, 'confirm_ajax']);
-        Route::delete('/{id}/delete_ajax', [Kriteria1Controller::class, 'delete_ajax']);
+        Route::get('/{id}/delete', [Kriteria1Controller::class, 'destroy']);
         Route::get('/import', [Kriteria1Controller::class, 'import']);
         Route::post('/import_ajax', [Kriteria1Controller::class, 'import_ajax']);
         Route::get('/export_excel', [Kriteria1Controller::class, 'export_excel']);

@@ -19,6 +19,11 @@ class DetailModel extends Model
         return $this->belongsTo(User::class, 'user_id', 'user_id');
     }
 
+    public function kriteria()
+    {
+        return $this->belongsTo(KriteriaModel::class, 'kriteria_id', 'kriteria_id');
+    }
+
     public function penetapan()
     {
         return $this->belongsTo(PenetapanModel::class, 'penetapan_id', 'penetapan_id');

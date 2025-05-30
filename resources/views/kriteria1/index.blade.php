@@ -134,9 +134,9 @@ $(document).ready(function() {
     });
 
 });
-function confirmDelete(url) {
+function confirmDelete(url, id) {
     Swal.fire({
-        title: 'Yakin ingin menghapus data ini?',
+        title: 'Yakin ingin menghapus data Kriteria ' + id + '?',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#d33',
