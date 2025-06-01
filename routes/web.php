@@ -204,3 +204,13 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::put('/datadosen/{id}/update_ajax', [DosenController::class, 'update_ajax'])->name('admin.datadosen.update_ajax');
     Route::delete('/datadosen/{id}/delete_ajax', [DosenController::class, 'delete_ajax'])->name('admin.datadosen.delete_ajax');
 });
+
+// Login sbg dosen 
+Route::prefix('dosen')->group(function () {
+    Route::get('/', [DosenController::class, 'index'])->name('dosen.index');
+    Route::get('/create', [DosenController::class, 'create'])->name('dosen.create');
+    Route::post('/store', [DosenController::class, 'store'])->name('dosen.store');
+    Route::post('/list', [DosenController::class, 'list']);
+    Route::get('/edit/{id}', [DosenController::class, 'edit'])->name('dosen.edit');
+    Route::put('/update/{id}', [DosenController::class, 'update'])->name('dosen.update');
+});

@@ -24,26 +24,33 @@ class DosenController extends Controller
 
         $activeMenu = 'data_dosen';
 
-        $user = UserModel::all();
+        return view('admin.datadosen', [
+            'breadcrumb' => $breadcrumb,
+            'activeMenu' => $activeMenu,
+            'page' => $page
+        ]);
+    }
 
-        return view('admin.datadosen', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'page' => $page, 'user' => $user]);
+    public function create()
+    {
+        return view('admin.dosen_create');
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required|string|min:3|max:100',
-            'NIP' => 'required|numeric|digits_between:8,20|unique:data_dosen,NIP',
+            'nip' => 'required|numeric|digits_between:8,20|unique:data_dosen,nip',
         ], [
-            'NIP.unique' => 'NIP sudah terdaftar',
-            'NIP.digits_between' => 'NIP harus antara 8 sampai 20 digit'
+            'nip.unique' => 'NIP sudah terdaftar',
+            'nip.digits_between' => 'NIP harus antara 8 sampai 20 digit'
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'status' => false,
                 'message' => 'Validasi gagal',
-                'msgField' => $validator->errors()
+                'errors' => $validator->errors()
             ], 422);
         }
 
@@ -51,7 +58,7 @@ class DosenController extends Controller
             DB::beginTransaction();
 
             DosenModel::create([
-                'NIP' => $request->NIP,
+                'nip' => $request->nip,
                 'nama' => $request->nama,
             ]);
 
@@ -73,43 +80,108 @@ class DosenController extends Controller
     public function list(Request $request)
     {
         if ($request->ajax()) {
-            // Ambil data dari model sesuai field tabel
             $dosen = DosenModel::select('dosen_id', 'nip', 'nama');
 
             return DataTables::of($dosen)
                 ->addIndexColumn()
-                ->addColumn('nip', fn($row) => $row->nip)
-                ->addColumn('nama', fn($row) => $row->nama)
                 ->addColumn('aksi', function ($row) {
-                    return '
-                    <button class="btn btn-sm btn-primary" onclick="editDosen(' . $row->dosen_id . ')">Edit</button>
-                    <button class="btn btn-sm btn-danger" onclick="hapusDosen(' . $row->dosen_id . ')">Hapus</button>
-                ';
+                    $btn = '<button class="btn btn-sm btn-primary" onclick="editDosen('.$row->dosen_id.')">Edit</button> ';
+                    $btn .= '<button class="btn btn-sm btn-danger" onclick="hapusDosen('.$row->dosen_id.')">Hapus</button>';
+                    return $btn;
                 })
                 ->rawColumns(['aksi'])
                 ->make(true);
         }
     }
 
+    public function edit($id)
+    {
+        $dosen = DosenModel::find($id);
+        
+        if (!$dosen) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data dosen tidak ditemukan'
+            ], 404);
+        }
 
-    //     $dosens = DosenModel::select('dosen_id', 'dosen_nama', 'nip', 'role_nama')
-    //         ->with('user');
+        return response()->json([
+            'status' => true,
+            'data' => $dosen
+        ]);
+    }
 
+    public function update(Request $request, $id)
+{
+    $validator = Validator::make($request->all(), [
+        'nama' => 'required|string|min:3|max:100',
+        'nip' => 'required|numeric|digits_between:8,20|unique:data_dosen,nip,'.$id.',dosen_id',
+    ], [
+        'nip.unique' => 'NIP sudah terdaftar',
+        'nip.digits_between' => 'NIP harus antara 8 sampai 20 digit'
+    ]);
 
-    //     $users =
+    if ($validator->fails()) {
+        return redirect()->back()
+                    ->withErrors($validator)
+                    ->withInput();
+    }
 
-    //     if ($request->status) {
-    //         $kriterias->where('status_id', $request->status);
-    //     }
-    //     return DataTables::of($data)
-    //         ->addIndexColumn()
-    //         ->addColumn('aksi', function ($row) {
-    //             $btn = '<button class="btn btn-sm btn-primary">Edit</button> ';
-    //             $btn .= '<button class="btn btn-sm btn-danger">Hapus</button>';
-    //             return $btn;
-    //         })
-    //         ->rawColumns(['aksi'])
-    //         ->make(true);
-    // }
+    try {
+        DB::beginTransaction();
 
+        $dosen = DosenModel::find($id);
+        if (!$dosen) {
+            return redirect()->route('dosen.index')
+                ->with('error', 'Data dosen tidak ditemukan');
+        }
+
+        $dosen->update([
+            'nama' => $request->nama,
+            'nip' => $request->nip,
+        ]);
+
+        DB::commit();
+
+        return redirect()->route('dosen.index')
+            ->with('success', 'Data dosen berhasil diperbarui.');
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return redirect()->back()
+            ->with('error', 'Terjadi kesalahan saat memperbarui data: ' . $e->getMessage())
+            ->withInput();
+    }
+}
+
+    public function destroy($id)
+    {
+        try {
+            DB::beginTransaction();
+
+            $dosen = DosenModel::find($id);
+            
+            if (!$dosen) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Data dosen tidak ditemukan'
+                ], 404);
+            }
+
+            $dosen->delete();
+
+            DB::commit();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Data dosen berhasil dihapus.'
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'status' => false,
+                'message' => 'Terjadi kesalahan saat menghapus data: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+    
 }
