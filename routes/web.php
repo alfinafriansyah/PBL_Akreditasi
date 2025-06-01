@@ -2,11 +2,15 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Kriteria1Controller;
+use App\Http\Controllers\LandingController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
 // Global pattern
 Route::pattern('id', '[0-9]+');
+
+// Route untuk halaman landing
+Route::get('/landing', [LandingController::class, 'index'])->name('landing');
 
 // Route untuk tamu (belum login)
 Route::middleware('guest')->group(function () {
