@@ -213,4 +213,5 @@ Route::prefix('dosen')->group(function () {
     Route::post('/list', [DosenController::class, 'list']);
     Route::get('/edit/{id}', [DosenController::class, 'edit'])->name('dosen.edit');
     Route::put('/update/{id}', [DosenController::class, 'update'])->name('dosen.update');
+    Route::get('/{id}/delete', [Kriteria9Controller::class, 'destroy']);
 });

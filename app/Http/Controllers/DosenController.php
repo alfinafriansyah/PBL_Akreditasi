@@ -153,24 +153,14 @@ class DosenController extends Controller
     }
 }
 
-    public function destroy($id)
+        public function destroy($id)
     {
+        DB::beginTransaction();
         try {
-            DB::beginTransaction();
-
-            $dosen = DosenModel::find($id);
-            
-            if (!$dosen) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Data dosen tidak ditemukan'
-                ], 404);
-            }
-
+            $dosen = DosenModel::findOrFail($id);
             $dosen->delete();
 
             DB::commit();
-
             return response()->json([
                 'status' => true,
                 'message' => 'Data dosen berhasil dihapus.'
@@ -183,5 +173,4 @@ class DosenController extends Controller
             ], 500);
         }
     }
-    
 }
