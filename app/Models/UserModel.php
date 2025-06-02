@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Auth\User as Authenticatable;  //implekentasi class Authenticatable
+use Illuminate\Foundation\Auth\User as Authenticable;
 
-class UserModel extends Authenticatable
+class UserModel extends Authenticable
 {
     use HasFactory;
 
@@ -27,10 +27,10 @@ class UserModel extends Authenticatable
 
     public function dosen()
     {
-        return $this->belongsTo(DataDosen::class, 'dosen_id', 'dosen_id');
+        return $this->belongsTo(DosenModel::class, 'dosen_id', 'dosen_id');
     }
     public function role()
     {
-        return $this->belongsTo(Role::class, 'role_id', 'role_id');
+        return $this->belongsTo(RoleModel::class, 'role_id', 'role_id');
     }
 }

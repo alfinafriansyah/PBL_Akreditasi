@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('penetapan_id');
             $table->unsignedBigInteger('kriteria_id')->index();
             $table->text('penetapan');
-            $table->string('dokumen', 255)->nullable();
+            $table->text('dokumen')->nullable();
             $table->timestamps();
 
             $table->foreign('kriteria_id')->references('kriteria_id')->on('kriteria');

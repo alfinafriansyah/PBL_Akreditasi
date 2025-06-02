@@ -18,8 +18,9 @@ class DosenModel extends Model
         'created_at',
         'updated_at',
     ];
-    public function User()
+    public function user()
     {
-        return $this->hasMany(UserModel::class, 'dosen_id', 'dosen_id');
+        return $this->hasOne(UserModel::class, 'dosen_id', 'dosen_id');
     }
+
 }

@@ -1,26 +1,20 @@
 @extends('layouts.template')
 {{--Card--}}
 @section('content')
-<div class="container-fluid py-4">
+<div class="container-fluid">
     <div class="row">
         <div class="col-12">
-          <div class="card mb-4">
+          <div class="card">
             <div class="card-header pb-0">
               <h6>{{ $page->title }}</h6>
             </div>
-            <div class="card-body pt-4 p-3">
+            <div class="card-body pt-1 p-3">
                 <div class="row">
                     <div class="col">
-                        <button onclick="modalAction('{{ url('kriteria1/create') }}')" class="btn btn-primary float-end me-3">Tambah</button>
+                        <a href="{{ url('kriteria1/create')}}" class="btn btn-primary float-end me-3">Tambah</a>
                     </div>
                 </div>
 
-                @if (session('success'))
-                    <div class="alert alert-success">{{ session('success') }}</div>
-                @endif
-                @if (session('error'))
-                    <div class="alert alert-danger">{{ session('error') }}</div>
-                @endif
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group row">
@@ -52,9 +46,11 @@
                 </div>
             </div>
           </div>
+            <div id="myModal" class="modal fade animate shake" tabindex="-1" role="dialog" data- backdrop="static" data-keyboard="false" data-width="75%" aria-hidden="true"></div>
         </div>
     </div>
 </div>
+
 @endsection
 
 @push('css')
@@ -62,6 +58,21 @@
 
 @push('js')
 <script>
+@if(session('success'))
+    Swal.fire({
+        icon: 'success',
+        title: 'Berhasil',
+        text: '{{ session('success') }}'
+    });
+@endif
+@if(session('error'))
+    Swal.fire({
+        icon: 'error',
+        title: 'Gagal',
+        text: '{{ session('error') }}'
+    });
+@endif
+
 var dataKriteria1;
 function modalAction(url = '') {
     $('#myModal').load(url, function() {
@@ -121,6 +132,23 @@ $(document).ready(function() {
     $('#status').on('change', function() {
         dataKriteria1.ajax.reload();
     });
+
 });
+function confirmDelete(url, id) {
+    Swal.fire({
+        title: 'Yakin ingin menghapus data Kriteria ' + id + '?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Ya, hapus!',
+        cancelButtonText: 'Batal'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Kirim request hapus (bisa pakai AJAX atau redirect)
+            window.location.href = url;
+        }
+    });
+}
 </script>
 @endpush

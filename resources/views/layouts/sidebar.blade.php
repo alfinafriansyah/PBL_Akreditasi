@@ -34,6 +34,16 @@
                 </a>
             </li>
 
+            <!-- Data Dosen -->
+            <li class="nav-item">
+                <a class="nav-link {{ ($activeMenu == 'akun') ? 'active' : '' }}" href="{{ url('/dosen') }}">
+                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Data Dosen</span>
+                </a>
+            </li>
+
             <!-- Dropdown Kriteria -->
             <li class="nav-item">
                 <a class="nav-link {{ Str::startsWith($activeMenu, 'kriteria') ? '' : 'collapsed' }}" data-bs-toggle="collapse" href="#submenuKriteria"
@@ -53,13 +63,27 @@
                         <li class="nav-item">
                             <a class="nav-link {{ ($activeMenu == 'kriteria2') ? 'active' : '' }}" href="{{ url('/kriteria2') }}">Kriteria 2</a>
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="#">Kriteria 3</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Kriteria 4</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Kriteria 5</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Kriteria 6</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Kriteria 7</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Kriteria 8</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Kriteria 9</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ ($activeMenu == 'kriteria3') ? 'active' : '' }}" href="{{ url('/kriteria3') }}">Kriteria 3</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ ($activeMenu == 'kriteria4') ? 'active' : '' }}" href="{{ url('/kriteria4') }}">Kriteria 4</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ ($activeMenu == 'kriteria5') ? 'active' : '' }}" href="{{ url('/kriteria5') }}">Kriteria 5</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ ($activeMenu == 'kriteria6') ? 'active' : '' }}" href="{{ url('/kriteria6') }}">Kriteria 6</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ ($activeMenu == 'kriteria7') ? 'active' : '' }}" href="{{ url('/kriteria7') }}">Kriteria 7</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ ($activeMenu == 'kriteria8') ? 'active' : '' }}" href="{{ url('/kriteria8') }}">Kriteria 8</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ ($activeMenu == 'kriteria9') ? 'active' : '' }}" href="{{ url('/kriteria9') }}">Kriteria 9</a>
+                        </li>
                     </ul>
                 </div>
             </li>
