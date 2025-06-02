@@ -1,13 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Validator;
-use App\Models\DosenModel;
-use App\Models\UserModel;
-use Illuminate\Support\Facades\DB;
-use Yajra\DataTables\Facades\DataTables;
 
+use App\Models\DosenModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\Facades\DataTables;
 
 class DosenController extends Controller
 {
@@ -24,11 +23,24 @@ class DosenController extends Controller
 
         $activeMenu = 'data_dosen';
 
-        return view('admin.datadosen', [
-            'breadcrumb' => $breadcrumb,
-            'activeMenu' => $activeMenu,
-            'page' => $page
-        ]);
+        return view('admin.datadosen', compact('breadcrumb', 'page', 'activeMenu'));
+    }
+
+    public function list(Request $request)
+    {
+        if ($request->ajax()) {
+            $dosen = DosenModel::select('dosen_id', 'nip', 'nama');
+
+            return DataTables::of($dosen)
+                ->addIndexColumn()
+                ->addColumn('aksi', function ($row) {
+                    $btn = '<button class="btn btn-sm btn-warning me-1" onclick="modalAction(`' . url("datadosen/{$row->dosen_id}/edit_ajax") . '`)">Edit</button>';
+                    $btn .= '<button class="btn btn-sm btn-danger" onclick="confirmDelete(' . $row->dosen_id . ')">Hapus</button>';
+                    return $btn;
+                })
+                ->rawColumns(['aksi'])
+                ->make(true);
+        }
     }
 
     public function create()
@@ -77,96 +89,82 @@ class DosenController extends Controller
         }
     }
 
-    public function list(Request $request)
-    {
-        if ($request->ajax()) {
-            $dosen = DosenModel::select('dosen_id', 'nip', 'nama');
-
-            return DataTables::of($dosen)
-                ->addIndexColumn()
-                ->addColumn('aksi', function ($row) {
-                    $btn = '<button class="btn btn-sm btn-primary" onclick="editDosen('.$row->dosen_id.')">Edit</button> ';
-                    $btn .= '<button class="btn btn-sm btn-danger" onclick="hapusDosen('.$row->dosen_id.')">Hapus</button>';
-                    return $btn;
-                })
-                ->rawColumns(['aksi'])
-                ->make(true);
-        }
-    }
-
-    public function edit($id)
+    public function edit_ajax($id)
     {
         $dosen = DosenModel::find($id);
-        
         if (!$dosen) {
+            return "<div class='alert alert-danger'>Data dosen tidak ditemukan</div>";
+        }
+
+        return view('admin.dosen_edit', compact('dosen'));
+    }
+
+    public function update_ajax(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'nama' => 'required|string|min:3|max:100',
+            'nip' => 'required|numeric|digits_between:8,20|unique:data_dosen,nip,' . $id . ',dosen_id',
+        ], [
+            'nip.unique' => 'NIP sudah terdaftar',
+            'nip.digits_between' => 'NIP harus antara 8 sampai 20 digit'
+        ]);
+
+        if ($validator->fails()) {
             return response()->json([
                 'status' => false,
-                'message' => 'Data dosen tidak ditemukan'
-            ], 404);
+                'message' => 'Validasi gagal',
+                'errors' => $validator->errors()
+            ], 422);
         }
 
-        return response()->json([
-            'status' => true,
-            'data' => $dosen
-        ]);
-    }
-
-    public function update(Request $request, $id)
-{
-    $validator = Validator::make($request->all(), [
-        'nama' => 'required|string|min:3|max:100',
-        'nip' => 'required|numeric|digits_between:8,20|unique:data_dosen,nip,'.$id.',dosen_id',
-    ], [
-        'nip.unique' => 'NIP sudah terdaftar',
-        'nip.digits_between' => 'NIP harus antara 8 sampai 20 digit'
-    ]);
-
-    if ($validator->fails()) {
-        return redirect()->back()
-                    ->withErrors($validator)
-                    ->withInput();
-    }
-
-    try {
-        DB::beginTransaction();
-
-        $dosen = DosenModel::find($id);
-        if (!$dosen) {
-            return redirect()->route('dosen.index')
-                ->with('error', 'Data dosen tidak ditemukan');
-        }
-
-        $dosen->update([
-            'nama' => $request->nama,
-            'nip' => $request->nip,
-        ]);
-
-        DB::commit();
-
-        return redirect()->route('dosen.index')
-            ->with('success', 'Data dosen berhasil diperbarui.');
-    } catch (\Exception $e) {
-        DB::rollBack();
-        return redirect()->back()
-            ->with('error', 'Terjadi kesalahan saat memperbarui data: ' . $e->getMessage())
-            ->withInput();
-    }
-}
-
-        public function destroy($id)
-    {
-        DB::beginTransaction();
         try {
+            DB::beginTransaction();
+
+            $dosen = DosenModel::find($id);
+            if (!$dosen) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Data dosen tidak ditemukan.'
+                ], 404);
+            }
+
+            $dosen->update([
+                'nama' => $request->nama,
+                'nip' => $request->nip,
+            ]);
+
+            DB::commit();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Data dosen berhasil diperbarui.'
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'status' => false,
+                'message' => 'Terjadi kesalahan saat memperbarui data: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function delete_ajax($id)
+    {
+        try {
+            DB::beginTransaction();
+
             $dosen = DosenModel::findOrFail($id);
             $dosen->delete();
 
             DB::commit();
+
             return response()->json([
                 'status' => true,
                 'message' => 'Data dosen berhasil dihapus.'
             ]);
         } catch (\Exception $e) {
             DB::rollBack();
+
             return response()->json([
                 'status' => false,
                 'message' => 'Terjadi kesalahan saat menghapus data: ' . $e->getMessage()

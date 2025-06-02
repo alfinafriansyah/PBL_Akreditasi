@@ -99,6 +99,7 @@ class AdminController extends Controller
         return view('Admin.show_ajax', ['user' => $user]);
     }
 
+//    Function untuk menampilkan data pengguna (user) dengan pengecualian untuk user admin
     public function akunpengguna(Request $request)
     {
         $breadcrumb = (object)[

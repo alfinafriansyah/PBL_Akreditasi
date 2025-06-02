@@ -197,7 +197,7 @@
     <!-- End Navbar -->
     <!-- -------- Welcoming Bar ------- -->
     <header class="bg-gradient-dark">
-        <div class="page-header min-vh-75" style="background-image: url('../img/background.png');">
+        <div class="page-header min-vh-75" style="background-image: {{url('public/img/background.png')}};">
             <span class="mask bg-gradient-dark opacity-6"></span>
             <div class="container">
                 <div class="row justify-content-center">
