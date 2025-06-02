@@ -1,4 +1,3 @@
-@extends('layouts.template')
 
 @section('content')
 <div class="container-fluid py-4">
@@ -53,7 +52,7 @@ function modalAction(url = '') {
     $(document).ready(function() {
         dataDosen = $('#table_dosen').DataTable({
         serverSide: true,
-        processing: true, 
+        processing: true,
         ajax: {
             url: "{{ url('dosen/list') }}",
             type: "POST",

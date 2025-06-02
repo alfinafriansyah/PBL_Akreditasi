@@ -12,7 +12,10 @@ class UserModel extends Authenticable
 
     protected $table = 'user';
     protected $primaryKey = 'user_id';
-    public $timestamps = false;
+    public $timestamps = true;
+
+    const CREATED_AT = null;
+    const UPDATED_AT = 'updated_at';
 
     protected $fillable = [
         'dosen_id',

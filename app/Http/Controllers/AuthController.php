@@ -52,4 +52,5 @@ class AuthController extends Controller
 
         return redirect('/login')->with('message', 'Berhasil logout.');
     }
+
 }

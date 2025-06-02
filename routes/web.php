@@ -19,6 +19,8 @@ use App\Http\Controllers\Kriteria9Controller;
 // Global pattern
 Route::pattern('id', '[0-9]+');
 
+
+
 // Route untuk tamu (belum login)
 Route::middleware('guest')->group(function () {
     Route::get('login', [AuthController::class, 'login'])->name('login');
@@ -29,6 +31,10 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('logout', [AuthController::class, 'logout']);
     Route::get('/', [WelcomeController::class, 'index']);
+    //untuk dropdown profile
+    Route::get('/profile', function () {
+        return view('profile'); // Pastikan ada file resources/views/profile.blade.php
+    })->name('profile');
 
     // Kriteria 1 routes
     Route::prefix('kriteria1')->group(function () {
@@ -187,6 +193,8 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 
+
+
     // Manajemen akun pengguna
     Route::get('/akunpengguna', [AdminController::class, 'akunpengguna'])->name('admin.akunpengguna');
     Route::get('/akunpengguna/{id}/edit_ajax', [AdminController::class, 'edit_ajax'])->name('admin.edit_ajax');
@@ -205,7 +213,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::delete('/datadosen/{id}/delete_ajax', [DosenController::class, 'delete_ajax'])->name('admin.datadosen.delete_ajax');
 });
 
-// Login sbg dosen 
+// Login sbg dosen
 Route::prefix('dosen')->group(function () {
     Route::get('/', [DosenController::class, 'index'])->name('dosen.index');
     Route::get('/create', [DosenController::class, 'create'])->name('dosen.create');

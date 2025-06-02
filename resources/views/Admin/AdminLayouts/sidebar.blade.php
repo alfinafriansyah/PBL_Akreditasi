@@ -1,4 +1,4 @@
-<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4"
+<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-2 fixed-start ms-2"
        id="sidenav-main"
        style="background-color: #F5EEDC; height: 100vh; overflow: hidden;">
     <div class="sidenav-header">

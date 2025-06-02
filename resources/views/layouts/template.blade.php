@@ -22,7 +22,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="{{asset('argon/assets/img/apple-icon.png')}}">
     <link rel="icon" type="image/png" href="{{asset('argon/assets/img/favicon.png')}}">
     <title>
-        {{ config('app.name') }}
+        Sistem Akreditasi
     </title>
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet"/>
@@ -37,7 +37,7 @@
     <link href="{{ asset('argon/vendor/datatables/dataTables.bootstrap5.css')}}" rel="stylesheet">
       {{-- SweetAlert2 --}}
     <link rel="stylesheet" href="{{ asset('argon/vendor/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
-    <style>        
+    <style>
         #sidenav-main {
         z-index: 1030;
         }
@@ -57,6 +57,7 @@
 {{--/Sidebar--}}
 <main class="main-content position-relative border-radius-lg ">
  {{--    Header --}}
+
     @include('layouts.header')
     @include('layouts.breadcrumb')
  {{--    /Header --}}

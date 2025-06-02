@@ -8,6 +8,7 @@ use App\Models\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Carbon;
 
 class AdminController extends Controller
 {
@@ -20,9 +21,29 @@ class AdminController extends Controller
 
         $activeMenu = 'dashboard';
 
-        return view('admin.dashboard', compact('breadcrumb', 'activeMenu'));
-    }
+        // Hitung total user yang update_at hari ini
+        $todaysUserEdit = UserModel::whereDate('updated_at', Carbon::today())->count();
 
+        // Hitung total user dan dosen
+        $totalUser = UserModel::count('user_id');
+        $totalDatadosen = DosenModel::count('dosen_id');
+
+        // Ambil semua user yang pernah diupdate (updated_at ≠ created_at) yakni data saat admin update ntar muncul di tabel nya itu
+        $updatedUsers  = UserModel::with(['dosen', 'role'])
+            ->whereNotNull('updated_at')
+            ->orderBy('updated_at', 'desc')
+            ->limit(5)
+            ->get();
+
+        return view('admin.dashboard', compact(
+            'breadcrumb',
+            'activeMenu',
+            'todaysUserEdit', //-> ini kita masukkan untuk ntar di panggil oleh table view di dashboard
+            'totalUser',
+            'totalDatadosen',
+            'updatedUsers'
+        ));
+    }
 
     public function edit_ajax(string $id)
     {
@@ -77,6 +98,7 @@ class AdminController extends Controller
         $user = UserModel::find($id);
         return view('Admin.show_ajax', ['user' => $user]);
     }
+
     public function akunpengguna(Request $request)
     {
         $breadcrumb = (object)[
@@ -107,4 +129,5 @@ class AdminController extends Controller
 
         return view('admin.akunpengguna', compact('breadcrumb', 'activeMenu', 'users', 'roles'));
     }
+
 }
