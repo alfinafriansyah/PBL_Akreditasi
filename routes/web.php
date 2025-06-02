@@ -19,8 +19,6 @@ use App\Http\Controllers\Kriteria9Controller;
 // Global pattern
 Route::pattern('id', '[0-9]+');
 
-
-
 // Route untuk tamu (belum login)
 Route::middleware('guest')->group(function () {
     Route::get('login', [AuthController::class, 'login'])->name('login');
@@ -31,10 +29,6 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('logout', [AuthController::class, 'logout']);
     Route::get('/', [WelcomeController::class, 'index']);
-    //untuk dropdown profile
-    Route::get('/profile', function () {
-        return view('profile'); // Pastikan ada file resources/views/profile.blade.php
-    })->name('profile');
 
     // Kriteria 1 routes
     Route::prefix('kriteria1')->group(function () {
@@ -192,8 +186,6 @@ Route::middleware('auth')->group(function () {
 // Route untuk ADMIN (auth + admin middleware)
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
-
-
 
     // Manajemen akun pengguna
     Route::get('/akunpengguna', [AdminController::class, 'akunpengguna'])->name('admin.akunpengguna');
