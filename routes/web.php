@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AkunController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Kriteria1Controller;
+use App\Http\Controllers\LandingController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\Kriteria1Controller;
@@ -18,6 +20,9 @@ use App\Http\Controllers\Kriteria9Controller;
 
 // Global pattern
 Route::pattern('id', '[0-9]+');
+
+// Route untuk halaman landing
+Route::get('/landing', [LandingController::class, 'index'])->name('landing');
 
 // Route untuk tamu (belum login)
 Route::middleware('guest')->group(function () {
