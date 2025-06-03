@@ -75,7 +75,18 @@
                         <img src="{{ asset($file) }}" alt="Dokumen" style="max-width:200px;">
                     @endforeach
                 </div>
+            </div>
+            <div class="card-footer">
+                <a href="{{ url('validasi/koordinator/' . $kriteria->kriteria_id . '/validate') }}" class="btn btn-success me-2 float-end">Validasi</a>
+            </div>
+          </div>
+        </div>
+    </div>
 
+    <div class="row">
+        <div class="col-12">
+          <div class="card mb-4">
+            <div class="card-body pt-3 p-3">
                 {{-- Komentar --}}
                 <form method="POST" action="{{ url('validasi/' . $kriteria->kriteria_id . '/komentar')}}" id="form-komentar" enctype="multipart/form-data">
                     @csrf
@@ -90,7 +101,6 @@
                     <div class="card-footer">
                         <a href="{{ url('validasi/koordinator/') }}" class="btn btn-warning">Kembali</a>
                         <button type="submit" class="btn btn-primary float-end">Komentar</button>
-                        <a href="{{ url('validasi/koordinator/' . $kriteria->kriteria_id . '/validate') }}" class="btn btn-success me-2 float-end">Validasi</a>
                     </div>
                 </form>
             </div>
