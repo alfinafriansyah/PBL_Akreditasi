@@ -16,6 +16,7 @@ use App\Http\Controllers\Kriteria7Controller;
 use App\Http\Controllers\Kriteria8Controller;
 use App\Http\Controllers\Kriteria9Controller;
 use App\Http\Controllers\LandingController;
+use App\Http\Controllers\ValidasiController;
 
 // Global pattern
 Route::pattern('id', '[0-9]+');
@@ -180,6 +181,30 @@ Route::middleware('auth')->group(function () {
         Route::post('/import_ajax', [Kriteria9Controller::class, 'import_ajax']);
         Route::get('/export_excel', [Kriteria9Controller::class, 'export_excel']);
         Route::get('/export_pdf', [Kriteria9Controller::class, 'export_pdf']);
+    });
+
+    // Route untuk validasi
+    Route::prefix('validasi')->group(function () {
+        // Koordinator
+        Route::get('/koordinator', [ValidasiController::class, 'koordinator'])->name('validasi.koordinator');
+        Route::get('/koordinator/{id}/form', [ValidasiController::class, 'koordinator_form']);
+        Route::get('/koordinator/{id}/validate', [ValidasiController::class, 'koordinator_validate']);
+        // KPS / Kajur
+        Route::get('/kpskajur', [ValidasiController::class, 'kpskajur'])->name('validasi.kpskajur');
+        Route::get('/kpskajur/{id}/form', [ValidasiController::class, 'kpskajur_form']);
+        Route::get('/kpskajur/{id}/validate', [ValidasiController::class, 'kpskajur_validate']);
+        // KJM 
+        Route::get('/kjm', [ValidasiController::class, 'kjm'])->name('validasi.kjm');
+        Route::get('/kjm/{id}/form', [ValidasiController::class, 'kjm_form']);
+        Route::get('/kjm/{id}/validate', [ValidasiController::class, 'kjm_validate']);
+        // Direktur
+        Route::get('/direktur', [ValidasiController::class, 'direktur'])->name('validasi.direktur');
+        Route::get('/direktur/{id}/form', [ValidasiController::class, 'direktur_form']);
+        Route::get('/direktur/{id}/validate', [ValidasiController::class, 'direktur_validate']);
+        // List Kriteria
+        Route::post('list', [ValidasiController::class, 'list']);
+        // Tambah komentar
+        Route::put('/{id}/komentar', [ValidasiController::class, 'addKomentar']);
     });
 
     // User routes (Admin mengelola user)

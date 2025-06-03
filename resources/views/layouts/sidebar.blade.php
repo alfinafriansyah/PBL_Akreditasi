@@ -57,6 +57,46 @@
                 </div>
             </li>
 
+            <!-- Validasi Koordinator -->
+            <li class="nav-item">
+                <a class="nav-link {{ ($activeMenu == 'validasi_koordinator') ? 'active' : '' }}" href="{{ url('/validasi/koordinator') }}">
+                    <div class="icon icon-shape icon-sm border-radius-md text-center me-1 d-flex align-items-center justify-content-center">
+                        <i class="ni ni-tv-2 text-dark text-sm opacity-10"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Validasi Koordinator</span>
+                </a>
+            </li>
+
+            <!-- Validasi KPS / Kajur -->
+            <li class="nav-item">
+                <a class="nav-link {{ ($activeMenu == 'validasi_kpskajur') ? 'active' : '' }}" href="{{ url('/validasi/kpskajur') }}">
+                    <div class="icon icon-shape icon-sm border-radius-md text-center me-1 d-flex align-items-center justify-content-center">
+                        <i class="ni ni-tv-2 text-dark text-sm opacity-10"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Validasi KPS /Kajur</span>
+                </a>
+            </li>
+
+            <!-- Validasi KJM -->
+            <li class="nav-item">
+                <a class="nav-link {{ ($activeMenu == 'validasi_kjm') ? 'active' : '' }}" href="{{ url('/validasi/kjm') }}">
+                    <div class="icon icon-shape icon-sm border-radius-md text-center me-1 d-flex align-items-center justify-content-center">
+                        <i class="ni ni-tv-2 text-dark text-sm opacity-10"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Validasi KJM</span>
+                </a>
+            </li>
+
+            <!-- Validasi Koordinator -->
+            <li class="nav-item">
+                <a class="nav-link {{ ($activeMenu == 'validasi_direktur') ? 'active' : '' }}" href="{{ url('/validasi/direktur') }}">
+                    <div class="icon icon-shape icon-sm border-radius-md text-center me-1 d-flex align-items-center justify-content-center">
+                        <i class="ni ni-tv-2 text-dark text-sm opacity-10"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Validasi Koordinator</span>
+                </a>
+            </li>
+
             <!-- Notifikasi -->
             <li class="nav-item">
                 <a class="nav-link {{ ($activeMenu == 'notifikasi') ? 'active' : '' }}" href="{{ url('/notifikasi') }}">
