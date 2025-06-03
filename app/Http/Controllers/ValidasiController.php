@@ -161,4 +161,68 @@ class ValidasiController extends Controller
 
         return redirect()->route('validasi.kpskajur')->with('success', 'Status kriteria berhasil diperbarui.');
     }
+
+    public function kjm()
+    {
+        
+        $breadcrumb = (object) [
+            'title' => 'Validasi KJM',
+            'list' => 'Validasi KJM',
+        ];
+
+        $page = (object) [
+            'title' => 'Daftar kriteria yang tersimpan',
+        ];
+
+        $activeMenu = 'validasi_kjm';
+
+        $status = StatusModel::all();
+ 
+        return view('validasi.kjm.index', compact('status', 'breadcrumb', 'activeMenu', 'page'));
+    }
+
+    public function kjm_form(string $id)
+    {
+
+        $breadcrumb = (object) [
+            'title' => 'Kriteria ' . $id,
+            'list' => 'Validasi KJM',
+        ];
+
+        $page = (object) [
+            'title' => 'Kriteria ' . $id,
+        ];
+
+        $activeMenu = 'validasi_kjm';
+
+        $kriteria = KriteriaModel::with([
+            'penetapan',
+            'pelaksanaan',
+            'evaluasi',
+            'pengendalian',
+            'peningkatan'
+        ])->findOrFail($id);
+
+        // Jika data kosong, tampilkan error
+        if (
+            !$kriteria->penetapan &&
+            !$kriteria->pelaksanaan &&
+            !$kriteria->evaluasi &&
+            !$kriteria->pengendalian &&
+            !$kriteria->peningkatan
+        ) {
+           return redirect()->back()->with('error', 'Data kriteria tidak ditemukan atau belum diisi.');
+        }
+ 
+        return view('validasi.kjm.form', compact('kriteria', 'breadcrumb', 'activeMenu', 'page'));
+    }
+
+    public function kjm_validate(string $id)
+    {
+        $kriteria = KriteriaModel::findOrFail($id);
+        $kriteria->status_id = 5;
+        $kriteria->save();
+
+        return redirect()->route('validasi.kjm')->with('success', 'Status kriteria berhasil diperbarui.');
+    }
 }

@@ -121,11 +121,11 @@ $(document).ready(function() {
                 searchable: false,
                 render: function(data, type, row) {
                     let btn = '';
-                    // Jika status_id bukan 3, tombol disable
-                    if (row.status_id != 3) {
-                        btn += '<a href="kpskajur/' + row.kriteria_id + '/form" class="btn btn-success btn-sm disabled" tabindex="-1" aria-disabled="true">Validasi & Komentar</a>';
+                    // Jika status_id bukan 4, tombol disable
+                    if (row.status_id != 4) {
+                        btn += '<a href="kjm/' + row.kriteria_id + '/form" class="btn btn-success btn-sm disabled" tabindex="-1" aria-disabled="true">Validasi & Komentar</a>';
                     } else {
-                        btn += '<a href="kpskajur/' + row.kriteria_id + '/form" class="btn btn-success btn-sm">Validasi & Komentar</a>';
+                        btn += '<a href="kjm/' + row.kriteria_id + '/form" class="btn btn-success btn-sm">Validasi & Komentar</a>';
                     }
                     return btn;
                 }
