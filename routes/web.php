@@ -4,8 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AkunController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Kriteria1Controller;
-use App\Http\Controllers\LandingController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\Kriteria1Controller;
@@ -20,9 +18,6 @@ use App\Http\Controllers\Kriteria9Controller;
 
 // Global pattern
 Route::pattern('id', '[0-9]+');
-
-// Route untuk halaman landing
-Route::get('/landing', [LandingController::class, 'index'])->name('landing');
 
 // Route untuk tamu (belum login)
 Route::middleware('guest')->group(function () {
@@ -210,13 +205,13 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::delete('/datadosen/{id}/delete_ajax', [DosenController::class, 'delete_ajax'])->name('admin.datadosen.delete_ajax');
 });
 
-// Login sbg dosen 
-Route::prefix('dosen')->group(function () {
-    Route::get('/', [DosenController::class, 'index'])->name('dosen.index');
-    Route::get('/create', [DosenController::class, 'create'])->name('dosen.create');
-    Route::post('/store', [DosenController::class, 'store'])->name('dosen.store');
-    Route::post('/list', [DosenController::class, 'list']);
-    Route::get('/edit/{id}', [DosenController::class, 'edit'])->name('dosen.edit');
-    Route::put('/update/{id}', [DosenController::class, 'update'])->name('dosen.update');
-    Route::get('/{id}/delete', [Kriteria9Controller::class, 'destroy']);
-});
+//// Login sbg dosen
+//Route::prefix('dosen')->group(function () {
+//    Route::get('/', [DosenController::class, 'index'])->name('dosen.index');
+//    Route::get('/create', [DosenController::class, 'create'])->name('dosen.create');
+//    Route::post('/store', [DosenController::class, 'store'])->name('dosen.store');
+//    Route::post('/list', [DosenController::class, 'list']);
+//    Route::get('/edit/{id}', [DosenController::class, 'edit'])->name('dosen.edit');
+//    Route::put('/update/{id}', [DosenController::class, 'update'])->name('dosen.update');
+//    Route::get('/{id}/delete', [Kriteria9Controller::class, 'destroy']);
+//});

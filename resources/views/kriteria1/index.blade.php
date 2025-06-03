@@ -82,13 +82,13 @@ function modalAction(url = '') {
 $(document).ready(function() {
     dataKriteria1 = $('#table_kriteria1').DataTable({
         serverSide: true,
-        processing: true, 
+        processing: true,
         ajax: {
             url: "{{ url('kriteria1/list') }}",
             type: "POST",
             data: function(d) {
                 d.status = $('#status').val();
-                d._token = "{{ csrf_token() }}"; 
+                d._token = "{{ csrf_token() }}";
             },
             error: function(xhr) {
                 console.log('Error:', xhr.responseText);

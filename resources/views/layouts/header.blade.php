@@ -9,34 +9,44 @@
                     <input type="text" class="form-control" placeholder="Type here...">
                 </div>
             </div>
-            <ul class="navbar-nav  justify-content-end">
+            <ul class="navbar-nav justify-content-end">
                 <li class="nav-item d-flex align-items-center">
-                    <a href="javascript:;" class="nav-link text-dark font-weight-bold px-0">
+                    <a href="javascript:;" id="btnProfile" class="nav-link text-dark font-weight-bold px-0">
                         <i class="fa fa-user me-sm-1"></i>
                         <span class="d-sm-inline d-none">Profile</span>
                     </a>
                 </li>
-                {{--                <li class="nav-item d-xl-none ps-3 d-flex align-items-center">--}}
-                {{--                    <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">--}}
-                {{--                        <div class="sidenav-toggler-inner">--}}
-                {{--                            <i class="sidenav-toggler-line bg-white"></i>--}}
-                {{--                            <i class="sidenav-toggler-line bg-white"></i>--}}
-                {{--                            <i class="sidenav-toggler-line bg-white"></i>--}}
-                {{--                        </div>--}}
-                {{--                    </a>--}}
-                {{--                </li>--}}
-                {{--                <li class="nav-item px-3 d-flex align-items-center">--}}
-                {{--                    <a href="javascript:;" class="nav-link text-white p-0">--}}
-                {{--                        <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>--}}
-                {{--                    </a>--}}
-                {{--                </li>--}}
-                {{--                <li class="nav-item dropdown pe-2 d-flex align-items-center">--}}
-                {{--                    <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">--}}
-                {{--                        <i class="fa fa-bell cursor-pointer"></i>--}}
-                {{--                    </a>--}}
-                {{--                </li>--}}
             </ul>
         </div>
     </div>
 </nav>
 <!-- End Navbar -->
+
+<!-- Profile Card Container -->
+<div id="profileCardContainer" class="card shadow-sm" style="display:none; position:absolute; top:70px; right:40px; z-index:1050; width: 250px;">
+    <div class="card-body p-3">
+        <div class="d-flex align-items-center mb-3">
+            <i class="fa fa-user-circle fa-2x me-2 text-primary"></i>
+            <div>
+                <h6 class="mb-0">{{ Auth::user()->username }}</h6>
+            </div>
+        </div>
+        <hr>
+    </div>
+</div>
+
+<script>
+    const btnProfile = document.getElementById('btnProfile');
+    const profileCard = document.getElementById('profileCardContainer');
+
+    btnProfile.addEventListener('click', function (e) {
+        e.stopPropagation();
+        profileCard.style.display = (profileCard.style.display === 'none' || profileCard.style.display === '') ? 'block' : 'none';
+    });
+
+    document.addEventListener('click', function (e) {
+        if (!profileCard.contains(e.target) && e.target.id !== 'btnProfile') {
+            profileCard.style.display = 'none';
+        }
+    });
+</script>
