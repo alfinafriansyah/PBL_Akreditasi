@@ -97,4 +97,68 @@ class ValidasiController extends Controller
 
         return redirect()->route('validasi.koordinator')->with('success', 'Status kriteria berhasil diperbarui.');
     }
+
+    public function kpskajur()
+    {
+        
+        $breadcrumb = (object) [
+            'title' => 'Validasi KPS / Kajur',
+            'list' => 'Validasi KPS / Kajur',
+        ];
+
+        $page = (object) [
+            'title' => 'Daftar kriteria yang tersimpan',
+        ];
+
+        $activeMenu = 'validasi_kpskajur';
+
+        $status = StatusModel::all();
+ 
+        return view('validasi.kpskajur.index', compact('status', 'breadcrumb', 'activeMenu', 'page'));
+    }
+
+    public function kpskajur_form(string $id)
+    {
+
+        $breadcrumb = (object) [
+            'title' => 'Kriteria ' . $id,
+            'list' => 'Validasi KPS / Kajur',
+        ];
+
+        $page = (object) [
+            'title' => 'Kriteria ' . $id,
+        ];
+
+        $activeMenu = 'validasi_kpskajur';
+
+        $kriteria = KriteriaModel::with([
+            'penetapan',
+            'pelaksanaan',
+            'evaluasi',
+            'pengendalian',
+            'peningkatan'
+        ])->findOrFail($id);
+
+        // Jika data kosong, tampilkan error
+        if (
+            !$kriteria->penetapan &&
+            !$kriteria->pelaksanaan &&
+            !$kriteria->evaluasi &&
+            !$kriteria->pengendalian &&
+            !$kriteria->peningkatan
+        ) {
+           return redirect()->back()->with('error', 'Data kriteria tidak ditemukan atau belum diisi.');
+        }
+ 
+        return view('validasi.kpskajur.form', compact('kriteria', 'breadcrumb', 'activeMenu', 'page'));
+    }
+
+    public function kpskajur_validate(string $id)
+    {
+        $kriteria = KriteriaModel::findOrFail($id);
+        $kriteria->status_id = 4;
+        $kriteria->save();
+
+        return redirect()->route('validasi.kpskajur')->with('success', 'Status kriteria berhasil diperbarui.');
+    }
 }
