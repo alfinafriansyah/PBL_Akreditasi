@@ -87,13 +87,13 @@
                 </a>
             </li>
 
-            <!-- Validasi Koordinator -->
+            <!-- Validasi Direktur -->
             <li class="nav-item">
                 <a class="nav-link {{ ($activeMenu == 'validasi_direktur') ? 'active' : '' }}" href="{{ url('/validasi/direktur') }}">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-1 d-flex align-items-center justify-content-center">
                         <i class="ni ni-tv-2 text-dark text-sm opacity-10"></i>
                     </div>
-                    <span class="nav-link-text ms-1">Validasi Koordinator</span>
+                    <span class="nav-link-text ms-1">Validasi Direktur</span>
                 </a>
             </li>
 

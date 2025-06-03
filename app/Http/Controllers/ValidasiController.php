@@ -225,4 +225,68 @@ class ValidasiController extends Controller
 
         return redirect()->route('validasi.kjm')->with('success', 'Status kriteria berhasil diperbarui.');
     }
+
+    public function direktur()
+    {
+        
+        $breadcrumb = (object) [
+            'title' => 'Validasi Direktur',
+            'list' => 'Validasi Direktur',
+        ];
+
+        $page = (object) [
+            'title' => 'Daftar kriteria yang tersimpan',
+        ];
+
+        $activeMenu = 'validasi_direktur';
+
+        $status = StatusModel::all();
+ 
+        return view('validasi.direktur.index', compact('status', 'breadcrumb', 'activeMenu', 'page'));
+    }
+
+    public function direktur_form(string $id)
+    {
+
+        $breadcrumb = (object) [
+            'title' => 'Kriteria ' . $id,
+            'list' => 'Validasi Direktur',
+        ];
+
+        $page = (object) [
+            'title' => 'Kriteria ' . $id,
+        ];
+
+        $activeMenu = 'validasi_direktur';
+
+        $kriteria = KriteriaModel::with([
+            'penetapan',
+            'pelaksanaan',
+            'evaluasi',
+            'pengendalian',
+            'peningkatan'
+        ])->findOrFail($id);
+
+        // Jika data kosong, tampilkan error
+        if (
+            !$kriteria->penetapan &&
+            !$kriteria->pelaksanaan &&
+            !$kriteria->evaluasi &&
+            !$kriteria->pengendalian &&
+            !$kriteria->peningkatan
+        ) {
+           return redirect()->back()->with('error', 'Data kriteria tidak ditemukan atau belum diisi.');
+        }
+ 
+        return view('validasi.direktur.form', compact('kriteria', 'breadcrumb', 'activeMenu', 'page'));
+    }
+
+    public function direktur_validate(string $id)
+    {
+        $kriteria = KriteriaModel::findOrFail($id);
+        $kriteria->status_id = 6;
+        $kriteria->save();
+
+        return redirect()->route('validasi.direktur')->with('success', 'Status kriteria berhasil diperbarui.');
+    }
 }
