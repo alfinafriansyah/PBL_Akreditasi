@@ -169,6 +169,7 @@ class Kriteria5Controller extends Controller
             // Update Kriteria status
             $kriteria = KriteriaModel::find(5);
             $kriteria->status_id = 1; 
+            $kriteria->komentar = null; // Reset komentar jika ada
             $kriteria->save();
             // Commit the transaction
 
@@ -344,7 +345,8 @@ class Kriteria5Controller extends Controller
                 ]);
             }
 
-            $kriteria->status_id = 1; // atau sesuai kebutuhan
+            $kriteria->status_id = 1; 
+            $kriteria->komentar = null; // Reset komentar jika ada
             $kriteria->save();
 
             DB::commit();
