@@ -15,12 +15,20 @@ use App\Http\Controllers\Kriteria6Controller;
 use App\Http\Controllers\Kriteria7Controller;
 use App\Http\Controllers\Kriteria8Controller;
 use App\Http\Controllers\Kriteria9Controller;
+use App\Http\Controllers\LandingController;
 
 // Global pattern
 Route::pattern('id', '[0-9]+');
 
 // Route untuk tamu (belum login)
 Route::middleware('guest')->group(function () {
+    // Redirect root ke landing page jika belum login
+    Route::get('/', function () {
+        return redirect()->route('landing');
+    });
+
+    // Route untuk halaman landing
+    Route::get('landing', [LandingController::class, 'index'])->name('landing');
     Route::get('login', [AuthController::class, 'login'])->name('login');
     Route::post('login', [AuthController::class, 'postlogin']);
 });
@@ -28,7 +36,7 @@ Route::middleware('guest')->group(function () {
 // Route untuk user yang sudah login
 Route::middleware('auth')->group(function () {
     Route::get('logout', [AuthController::class, 'logout']);
-    Route::get('/', [WelcomeController::class, 'index']);
+    Route::get('/dashboard', [WelcomeController::class, 'index']);
 
     // Kriteria 1 routes
     Route::prefix('kriteria1')->group(function () {

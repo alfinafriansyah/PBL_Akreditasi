@@ -187,7 +187,7 @@
 
                     <!-- Login Button -->
                     <li class="nav-item">
-                        <a href="{{url('login')}}" target="_blank" class="btn btn-sm bg-white text-dark ms-2">Login</a>
+                        <a href="{{url('/login')}}" target="_blank" class="btn btn-sm bg-white text-dark ms-2">Login</a>
                     </li>
                 </ul>
             </div>

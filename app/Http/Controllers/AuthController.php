@@ -33,7 +33,7 @@ class AuthController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'Login Berhasil',
-                'redirect' => url('/'), // bisa diganti ke route user dashboard jika perlu
+                'redirect' => url('/dashboard'), // bisa diganti ke route user dashboard jika perlu
             ]);
         }
 
