@@ -7,7 +7,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="{{url('img/jti.png')}}">
     <link rel="icon" type="image/png" href="img/jti.png">
     <title>
-        Landing Page - Sistem Akreditasi
+        Sistem Informasi Akreditasi JTI
     </title>
     <!-- Fonts and icons -->
     <link rel="stylesheet" type="text/css"
@@ -118,101 +118,42 @@
     </style>
 </head>
 
+{{--body class ini mengatur bg di paling belakang dari content--}}
 <body class="about-us bg-gray-100">
-    <!-- Navbar Transparent -->
-    <nav class="navbar navbar-expand-lg position-absolute top-0 z-index-3 w-100 shadow-none my-3 navbar-transparent">
-        <div class="container">
-            <!-- Branding -->
-            <a class="navbar-brand text-white" href="#">Welcome to Sistem Akreditasi</a>
-
-            <!-- Toggle button (for mobile) -->
-            <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon mt-2">
-                    <span class="navbar-toggler-bar bar1"></span>
-                    <span class="navbar-toggler-bar bar2"></span>
-                    <span class="navbar-toggler-bar bar3"></span>
-                </span>
-            </button>
-
-            <!-- Navigation Items -->
-            <div class="collapse navbar-collapse w-100 pt-3 pb-2 py-lg-0" id="navigation">
-                <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
-                    <!-- Beranda -->
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="#">
-                            <i class="fa fa-home me-1"></i> Beranda
-                        </a>
-                    </li>
-
-                    <!-- Dropdown Kriteria -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-white d-flex align-items-center" href="#"
-                            id="dropdownKriteria" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="material-symbols-rounded me-1">dashboard</i> Kriteria
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownKriteria">
-                            <li><a class="dropdown-item" href="#">Kriteria 1 </a></li>
-                            <li><a class="dropdown-item" href="#">Kriteria 2 </a></li>
-                            <li><a class="dropdown-item" href="#">Kriteria 3 </a></li>
-                            <li><a class="dropdown-item" href="#">Kriteria 4 </a></li>
-                            <li><a class="dropdown-item" href="#">Kriteria 5 </a></li>
-                            <li><a class="dropdown-item" href="#">Kriteria 6 </a></li>
-                            <li><a class="dropdown-item" href="#">Kriteria 7 </a></li>
-                            <li><a class="dropdown-item" href="#">Kriteria 8 </a></li>
-                            <li><a class="dropdown-item" href="#">Kriteria 9 </a></li>
-                        </ul>
-                    </li>
-
-                    <!-- Dropdown Informasi -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-white d-flex align-items-center" href="#"
-                            id="dropdownInformasi" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="material-symbols-rounded me-1">info</i> Informasi
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownInformasi">
-                            <li><a class="dropdown-item" href="#">Informasi Umum</a></li>
-                            <li><a class="dropdown-item" href="#">Profil Program Studi</a></li>
-                            <li><a class="dropdown-item" href="#">Kontak</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- Website Polinema -->
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="https://www.polinema.ac.id/" target="_blank">
-                            <i class="fa fa-globe me-1"></i> Website Polinema
-                        </a>
-                    </li>
-
-                    <!-- Login Button -->
-                    <li class="nav-item">
-                        <a href="{{url('/login')}}" target="_blank" class="btn btn-sm bg-white text-dark ms-2">Login</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <!-- End Navbar -->
+<!-- Navbar -->
+@include('componentLanding.navbar')
+<!-- End Navbar -->
     <!-- -------- Welcoming Bar ------- -->
-    <header class="bg-gradient-dark">
-        <div class="page-header min-vh-75" style="background-image: {{url('public/img/background.png')}};">
-            <span class="mask bg-gradient-dark opacity-6"></span>
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-8 text-center mx-auto my-auto">
-                        <h1 class="text-white">Selamat Datang!</h1>
-                        <p class="lead mb-4 text-white opacity-8">
-                            Di sini, Anda dapat memantau, mengelola,
-                            dan melaporkan seluruh proses akreditasi dengan mudah.
-                        </p>
-                    </div>
+<header>
+    <div class="page-header min-vh-100 position-relative overflow-hidden">
+        <!-- YouTube video background -->
+        <div class="position-absolute top-0 start-0 w-100 h-100">
+            <video autoplay muted loop playsinline class="w-full h-auto">
+                <source src="/img/landingpage.Mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+        <!-- Overlay -->
+        <span class="mask bg-gradient-dark opacity-6 position-absolute w-100 h-100"></span>
+
+        <!-- Konten -->
+        <div class="container position-relative z-index-2">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center mx-auto my-auto">
+                    <h1 class="text-white">Selamat Datang!</h1>
+                    <p class="lead mb-4 text-white opacity-8">
+                        Di sini, Anda dapat memantau, mengelola,
+                        dan melaporkan seluruh proses akreditasi dengan mudah.
+                    </p>
                 </div>
             </div>
         </div>
-    </header>
-    <!-- -------- END Welcoming Bar ------- -->
+    </div>
+</header>
+
+
+<!-- -------- END Welcoming Bar ------- -->
     <div class="card card-body shadow-xl mx-3 mx-md-4 mt-n6">
         <!-- Section with four info areas left & one card right with image and waves -->
         <section id="profil" class="about">
