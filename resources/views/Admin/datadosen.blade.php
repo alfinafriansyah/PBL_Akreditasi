@@ -1,114 +1,119 @@
-@extends('Admin.AdminLayouts.template')
-@section('content')
-<div class="container-fluid py-4">
-    <div class="row">
-        <div class="col-12">
-          <div class="card mb-4">
-            <div class="card-header pb-0">
-              <h6>{{ $page->title }}</h6>
-            </div>
-            <div class="card-body pt-1 p-3">
-                <div class="row">
-                    <div class="col">
-                        <a href="javascript:void(0)" onclick="modalAction('{{ url('dosen/create') }}')" class="btn btn-primary float-end me-3">Tambah Data Dosen</a>
-                    </div>
-                </div>
-                @if (session('success'))
-                    <div class="alert alert-success">{{ session('success') }}</div>
-                @endif
-                @if (session('error'))
-                    <div class="alert alert-danger">{{ session('error') }}</div>
-                @endif
+@extends('Admin.Adminlayouts.template')
 
-                <div class="table-responsive">
-                    <table class="table table-bordered table-striped" id="table_dosen" style="text-align: center">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Nama Dosen</th>
-                                <th>Nomor Induk Pegawai</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
-            </div>
+@section('content')
+    <div class="card card-outline card-primary">
+        <div class="card-header">
+            <h3 class="card-title">{{ $page->title }}</h3>
+            <div class="card-tools">
+                <a class="btn btn-primary float-end me-1" href="{{ url('datadosen/create') }}" data-bs-toggle="modal" data-bs-target="#modal-dosen">
+                    Tambah Data Dosen
+                </a>
             </div>
         </div>
+        <div class="card-body">
+            @if (session('success'))
+                <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
+            @if (session('error'))
+                <div class="alert alert-danger">{{ session('error') }}</div>
+            @endif
+
+            <table class="table table-bordered table-striped table-hover table-sm" id="table_dosen">
+                <thead>
+                    <tr>
+                        <th>ID Dosen</th>
+                        <th>Nama</th>
+                        <th style="text-align: left">NIP</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
     </div>
-</div>
 @endsection
 
+@push('css')
+<!-- Jika ada tambahan CSS khusus, letakkan di sini -->
+@endpush
+
 @push('js')
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        var dataDosen;
-
-        function modalAction(url = '') {
-            $('#myModal').load(url, function() {
-                $('#myModal').modal('show');
-            });
-        }
-
-        $(document).ready(function() {
-            dataDosen = $('#table_dosen').DataTable({
-                serverSide: true,
-                processing: true,
-                ajax: {
-                    url: "{{ route('admin.datadosen.list') }}",
-                    type: "POST",
-                    data: {
-                        _token: "{{ csrf_token() }}"
-                    },
-                    error: function(xhr) {
-                        console.log('Error:', xhr.responseText);
-                    }
-                },
-                columns: [
-                    { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false, className: 'text-center' },
-                    { data: 'nama', className: 'text-start' },
-                    { data: 'nip', className: 'text-start' },
-                    { data: 'aksi', orderable: false, searchable: false, className: 'text-start' }
-                ]
-            });
+<script>
+    $(document).ready(function() {
+        // Setup ajax CSRF token agar tidak perlu kirim token manual tiap request
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            }
         });
-        // alert dalam function mau hapus data dosen
-        function confirmDelete(id) {
-            Swal.fire({
-                title: 'Yakin ingin menghapus?',
-                text: 'Data akan dihapus secara permanen!',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Ya, hapus!',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    deleteDosen(id);
-                }
-            });
-        }
-        // alert dalam function mau hapus data dosen
 
-        function deleteDosen(id) {
-            $.ajax({
-                url: `/datadosen/${id}/delete_ajax`,
-                type: 'DELETE',
-                data: {
-                    _token: "{{ csrf_token() }}"
+        // Inisialisasi DataTable
+        var dataDosen = $('#table_dosen').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('admin.datadosen.list') }}",
+                type: "POST",
+                dataType: "json"
+            },
+            columns: [
+                {
+                    data: "DT_RowIndex",
+                    className: "text-center",
+                    orderable: false,
+                    searchable: false
                 },
+                {
+                    data: "nama",
+                    className: "",
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: "nip",
+                    className: "",
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: "aksi",
+                    className: "",
+                    orderable: false,
+                    searchable: false
+                }
+            ]
+            // order: [[1, 'asc']] // Uncomment jika ingin sort default berdasarkan nama
+        });
+    });
+</script>
+    <script>
+        // Fungsi untuk menampilkan modal tambah dosen
+        function showModalDosen() {
+            $('#modal-dosen').modal('show');
+        }
+        // Fungsi untuk menampilkan modal edit dosen
+        function showEditModalDosen(dosenId) {
+            $.ajax({
+                url: "{{ url('datadosen') }}/" + dosenId + "/editdosen_ajax",
+                type: "GET",
                 success: function(response) {
                     if (response.status) {
-                        Swal.fire('Berhasil', response.message, 'success');
-                        dataDosen.ajax.reload();
+                        $('#modal-edit-dosen').html(response.html);
+                        $('#modal-edit-dosen').modal('show');
                     } else {
-                        Swal.fire('Gagal', response.message, 'error');
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal',
+                            text: response.message
+                        });
                     }
                 },
-                error: function(xhr) {
-                    Swal.fire('Error', 'Terjadi kesalahan saat menghapus data.', 'error');
+                error: function() {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Gagal',
+                        text: 'Terjadi kesalahan saat mengambil data dosen.'
+                    });
                 }
             });
         }
-
-    </script>
 @endpush

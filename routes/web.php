@@ -242,16 +242,20 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::put('/akunpengguna/{id}/update_ajax', [AdminController::class, 'update_ajax'])->name('admin.update_ajax');
     Route::get('/akunpengguna/{id}/detail_ajax', [AdminController::class, 'show_ajax'])->name('admin.show_ajax');
 
-    // Data Dosen
-    Route::get('/datadosen', [DosenController::class, 'index'])->name('admin.datadosen');
-    Route::post('/datadosen/list', [DosenController::class, 'list'])->name('admin.datadosen.list');
+        // Data Dosen
+        Route::get('/datadosen', [DosenController::class, 'index'])->name('admin.datadosen');
+        Route::post('/datadosen/list', [DosenController::class, 'list'])->name('admin.datadosen.list');
 
-    // Tambah jika kamu punya: create, edit, delete AJAX untuk dosen
-    Route::get('/datadosen/create', [DosenController::class, 'create'])->name('admin.datadosen.create');
-    Route::post('/datadosen/store', [DosenController::class, 'store'])->name('admin.datadosen.store');
-    Route::get('/datadosen/{id}/edit_ajax', [DosenController::class, 'edit_ajax'])->name('admin.datadosen.edit_ajax');
-    Route::put('/datadosen/{id}/update_ajax', [DosenController::class, 'update_ajax'])->name('admin.datadosen.update_ajax');
-    Route::delete('/datadosen/{id}/delete_ajax', [DosenController::class, 'delete_ajax'])->name('admin.datadosen.delete_ajax');
+        // Tambah Dosen
+        Route::get('/datadosen/create', [DosenController::class, 'create'])->name('admin.datadosen.create');
+        Route::post('/datadosen/store', [DosenController::class, 'store'])->name('admin.datadosen.store');
+
+        // Edit dan Update via AJAX
+        Route::get('/datadosen/{id}/edit_ajax', [DosenController::class, 'edit_ajax'])->name('admin.datadosen.edit_ajax');
+        Route::put('/datadosen/{id}/update_ajax', [DosenController::class, 'update_ajax'])->name('admin.datadosen.update_ajax');
+
+        // Hapus via AJAX
+        Route::delete('/datadosen/{id}/delete_ajax', [DosenController::class, 'delete_ajax'])->name('admin.datadosen.delete_ajax');
 });
 
 //// Login sbg dosen
