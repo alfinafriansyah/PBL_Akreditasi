@@ -23,7 +23,7 @@ class DosenController extends Controller
 
         $activeMenu = 'data_dosen';
 
-        return view('admin.datadosen', compact('breadcrumb', 'page', 'activeMenu'));
+        return view('Admin.datadosen', compact('breadcrumb', 'page', 'activeMenu'));
     }
 
     public function list(Request $request)
@@ -34,7 +34,7 @@ class DosenController extends Controller
             return DataTables::of($dosen)
                 ->addIndexColumn()
                 ->addColumn('aksi', function ($row) {
-                    $btn = '<button class="btn btn-sm btn-warning me-1" onclick="modalAction(`' . url("datadosen/{$row->dosen_id}/edit_ajax") . '`)">Edit</button>';
+                    $btn = '<button class="btn btn-sm btn-warning me-1" onclick="modalAction(\'' . url("datadosen/{$row->dosen_id}/editdosen_ajax") . '\')">Edit</button>';
                     $btn .= '<button class="btn btn-sm btn-danger" onclick="confirmDelete(' . $row->dosen_id . ')">Hapus</button>';
                     return $btn;
                 })
@@ -45,12 +45,19 @@ class DosenController extends Controller
 
     public function create()
     {
-        return view('admin.dosen_create');
+        return view('Admin.createdosen_ajax');
     }
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        // Handle JSON request
+        if ($request->isJson()) {
+            $data = $request->json()->all();
+        } else {
+            $data = $request->all();
+        }
+
+        $validator = Validator::make($data, [
             'nama' => 'required|string|min:3|max:100',
             'nip' => 'required|numeric|digits_between:8,20|unique:data_dosen,nip',
         ], [
@@ -70,8 +77,8 @@ class DosenController extends Controller
             DB::beginTransaction();
 
             DosenModel::create([
-                'nip' => $request->nip,
-                'nama' => $request->nama,
+                'nip' => $data['nip'],
+                'nama' => $data['nama'],
             ]);
 
             DB::commit();
@@ -89,14 +96,10 @@ class DosenController extends Controller
         }
     }
 
-    public function edit_ajax($id)
+    public function edit($id)
     {
         $dosen = DosenModel::find($id);
-        if (!$dosen) {
-            return "<div class='alert alert-danger'>Data dosen tidak ditemukan</div>";
-        }
-
-        return view('admin.dosen_edit', compact('dosen'));
+        return view('Admin.editdosen_ajax', compact('dosen'));
     }
 
     public function update_ajax(Request $request, $id)
@@ -122,6 +125,7 @@ class DosenController extends Controller
 
             $dosen = DosenModel::find($id);
             if (!$dosen) {
+                DB::rollBack(); // rollback tambahan agar aman
                 return response()->json([
                     'status' => false,
                     'message' => 'Data dosen tidak ditemukan.'
@@ -129,8 +133,8 @@ class DosenController extends Controller
             }
 
             $dosen->update([
-                'nama' => $request->nama,
-                'nip' => $request->nip,
+                'nama' => $request->input('nama'),
+                'nip' => $request->input('nip'),
             ]);
 
             DB::commit();
