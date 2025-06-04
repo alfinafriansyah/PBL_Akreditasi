@@ -139,7 +139,7 @@
       rules: {
         username: {
           required: true,
-          minlength: 4
+          minlength: 3
         },
         password: {
           required: true,

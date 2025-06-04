@@ -19,6 +19,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
+            $roleKode = $user->role->role_kode ?? null;
 
             // Cek role_id untuk admin
             if ($user->role_id == 10) {
@@ -29,12 +30,50 @@ class AuthController extends Controller
                 ]);
             }
 
-            // Redirect default untuk user biasa
-            return response()->json([
-                'status' => true,
-                'message' => 'Login Berhasil',
-                'redirect' => url('/dashboard'), // bisa diganti ke route user dashboard jika perlu
-            ]);
+            // Kriteria 1-9
+            if (in_array($roleKode, ['KRT1','KRT2','KRT3','KRT4','KRT5','KRT6','KRT7','KRT8','KRT9'])) {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Login Berhasil (Kriteria)',
+                    'redirect' => url('/kriteria/dashboard'),
+                ]);
+            }
+
+            // Koordinator
+            if ($roleKode == 'KOOR') {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Login Berhasil (Koordinator)',
+                    'redirect' => url('/koordinator/dashboard'),
+                ]);
+            }
+
+            // KPSKAJUR
+            if ($roleKode == 'KPSKAJUR') {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Login Berhasil (KPS / KAJUR)',
+                    'redirect' => url('/kpskajur/dashboard'),
+                ]);
+            }
+
+            // KJM
+            if ($roleKode == 'KJM') {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Login Berhasil (KJM)',
+                    'redirect' => url('/kjm/dashboard'),
+                ]);
+            }
+
+            // Direktur
+            if ($roleKode == 'DIR') {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Login Berhasil (Direktur)',
+                    'redirect' => url('/direktur/dashboard'),
+                ]);
+            }
         }
 
         // Login gagal

@@ -37,10 +37,14 @@ Route::middleware('guest')->group(function () {
 // Route untuk user yang sudah login
 Route::middleware('auth')->group(function () {
     Route::get('logout', [AuthController::class, 'logout']);
-    Route::get('/dashboard', [WelcomeController::class, 'index']);
+    Route::get('/kriteria/dashboard', [WelcomeController::class, 'index'])->middleware('role:KRT1,KRT2,KRT3,KRT4,KRT5,KRT6,KRT7,KRT8,KRT9');
+    Route::get('/koordinator/dashboard', [WelcomeController::class, 'koordinator'])->middleware('role:KOOR');
+    Route::get('/kpskajur/dashboard', [WelcomeController::class, 'kpskajur'])->middleware('role:KPSKAJUR');
+    Route::get('/kjm/dashboard', [WelcomeController::class, 'kjm'])->middleware('role:KJM');
+    Route::get('/direktur/dashboard', [WelcomeController::class, 'direktur'])->middleware('role:DIR');
 
     // Kriteria 1 routes
-    Route::prefix('kriteria1')->group(function () {
+    Route::prefix('kriteria1')->middleware('role:KRT1')->group(function () {
         Route::get('/', [Kriteria1Controller::class, 'index']);
         Route::post('/list', [Kriteria1Controller::class, 'list']);
         Route::get('/create', [Kriteria1Controller::class, 'create']);
@@ -56,7 +60,7 @@ Route::middleware('auth')->group(function () {
     });
 
     // Kriteria 2 routes
-    Route::prefix('kriteria2')->group(function () {
+    Route::prefix('kriteria2')->middleware('role:KRT2')->group(function () {
         Route::get('/', [Kriteria2Controller::class, 'index']);
         Route::post('/list', [Kriteria2Controller::class, 'list']);
         Route::get('/create', [Kriteria2Controller::class, 'create']);
@@ -72,7 +76,7 @@ Route::middleware('auth')->group(function () {
     });
 
     // Kriteria 3 routes
-    Route::prefix('kriteria3')->group(function () {
+    Route::prefix('kriteria3')->middleware('role:KRT3')->group(function () {
         Route::get('/', [Kriteria3Controller::class, 'index']);
         Route::post('/list', [Kriteria3Controller::class, 'list']);
         Route::get('/create', [Kriteria3Controller::class, 'create']);
@@ -88,7 +92,7 @@ Route::middleware('auth')->group(function () {
     });
 
     // Kriteria 4 routes
-    Route::prefix('kriteria4')->group(function () {
+    Route::prefix('kriteria4')->middleware('role:KRT4')->group(function () {
         Route::get('/', [Kriteria4Controller::class, 'index']);
         Route::post('/list', [Kriteria4Controller::class, 'list']);
         Route::get('/create', [Kriteria4Controller::class, 'create']);
@@ -104,7 +108,7 @@ Route::middleware('auth')->group(function () {
     });
 
     // Kriteria 5 routes
-    Route::prefix('kriteria5')->group(function () {
+    Route::prefix('kriteria5')->middleware('role:KRT5')->group(function () {
         Route::get('/', [Kriteria5Controller::class, 'index']);
         Route::post('/list', [Kriteria5Controller::class, 'list']);
         Route::get('/create', [Kriteria5Controller::class, 'create']);
@@ -120,7 +124,7 @@ Route::middleware('auth')->group(function () {
     });
 
     // Kriteria 6 routes
-    Route::prefix('kriteria6')->group(function () {
+    Route::prefix('kriteria6')->middleware('role:KRT6')->group(function () {
         Route::get('/', [Kriteria6Controller::class, 'index']);
         Route::post('/list', [Kriteria6Controller::class, 'list']);
         Route::get('/create', [Kriteria6Controller::class, 'create']);
@@ -136,7 +140,7 @@ Route::middleware('auth')->group(function () {
     });
 
     // Kriteria 7 routes
-    Route::prefix('kriteria7')->group(function () {
+    Route::prefix('kriteria7')->middleware('role:KRT7')->group(function () {
         Route::get('/', [Kriteria7Controller::class, 'index']);
         Route::post('/list', [Kriteria7Controller::class, 'list']);
         Route::get('/create', [Kriteria7Controller::class, 'create']);
@@ -152,7 +156,7 @@ Route::middleware('auth')->group(function () {
     });
 
     // Kriteria 8 routes
-    Route::prefix('kriteria8')->group(function () {
+    Route::prefix('kriteria8')->middleware('role:KRT8')->group(function () {
         Route::get('/', [Kriteria8Controller::class, 'index']);
         Route::post('/list', [Kriteria8Controller::class, 'list']);
         Route::get('/create', [Kriteria8Controller::class, 'create']);
@@ -168,7 +172,7 @@ Route::middleware('auth')->group(function () {
     });
 
     // Kriteria 9 routes
-    Route::prefix('kriteria9')->group(function () {
+    Route::prefix('kriteria9')->middleware('role:KRT9')->group(function () {
         Route::get('/', [Kriteria9Controller::class, 'index']);
         Route::post('/list', [Kriteria9Controller::class, 'list']);
         Route::get('/create', [Kriteria9Controller::class, 'create']);
@@ -184,27 +188,39 @@ Route::middleware('auth')->group(function () {
     });
 
     // Route untuk validasi
-    Route::prefix('validasi')->group(function () {
-        // Koordinator
-        Route::get('/koordinator', [ValidasiController::class, 'koordinator'])->name('validasi.koordinator');
-        Route::get('/koordinator/{id}/form', [ValidasiController::class, 'koordinator_form']);
-        Route::get('/koordinator/{id}/validate', [ValidasiController::class, 'koordinator_validate']);
-        // KPS / Kajur
-        Route::get('/kpskajur', [ValidasiController::class, 'kpskajur'])->name('validasi.kpskajur');
-        Route::get('/kpskajur/{id}/form', [ValidasiController::class, 'kpskajur_form']);
-        Route::get('/kpskajur/{id}/validate', [ValidasiController::class, 'kpskajur_validate']);
-        // KJM 
-        Route::get('/kjm', [ValidasiController::class, 'kjm'])->name('validasi.kjm');
-        Route::get('/kjm/{id}/form', [ValidasiController::class, 'kjm_form']);
-        Route::get('/kjm/{id}/validate', [ValidasiController::class, 'kjm_validate']);
-        // Direktur
-        Route::get('/direktur', [ValidasiController::class, 'direktur'])->name('validasi.direktur');
-        Route::get('/direktur/{id}/form', [ValidasiController::class, 'direktur_form']);
-        Route::get('/direktur/{id}/validate', [ValidasiController::class, 'direktur_validate']);
+    Route::prefix('validasi')->middleware('role:KOOR,KPSKAJUR,KJM,DIR')->group(function () {
         // List Kriteria
         Route::post('list', [ValidasiController::class, 'list']);
         // Tambah komentar
         Route::put('/{id}/komentar', [ValidasiController::class, 'addKomentar']);
+    });
+
+    // Validasi Koordinator (hanya role KOORDINATOR)
+    Route::prefix('validasi/koordinator')->middleware('role:KOOR')->group(function () {
+        Route::get('/', [ValidasiController::class, 'koordinator'])->name('validasi.koordinator');
+        Route::get('/{id}/form', [ValidasiController::class, 'koordinator_form']);
+        Route::get('/{id}/validate', [ValidasiController::class, 'koordinator_validate']);
+    });
+
+    // Validasi KPS/Kajur (hanya role KPSKAJUR)
+    Route::prefix('validasi/kpskajur')->middleware('role:KPSKAJUR')->group(function () {
+        Route::get('/', [ValidasiController::class, 'kpskajur'])->name('validasi.kpskajur');
+        Route::get('/{id}/form', [ValidasiController::class, 'kpskajur_form']);
+        Route::get('/{id}/validate', [ValidasiController::class, 'kpskajur_validate']);
+    });
+
+    // Validasi KJM (hanya role KJM)
+    Route::prefix('validasi/kjm')->middleware('role:KJM')->group(function () {
+        Route::get('/', [ValidasiController::class, 'kjm'])->name('validasi.kjm');
+        Route::get('/{id}/form', [ValidasiController::class, 'kjm_form']);
+        Route::get('/{id}/validate', [ValidasiController::class, 'kjm_validate']);
+    });
+
+    // Validasi Direktur (hanya role DIREKTUR)
+    Route::prefix('validasi/direktur')->middleware('role:DIR')->group(function () {
+        Route::get('/', [ValidasiController::class, 'direktur'])->name('validasi.direktur');
+        Route::get('/{id}/form', [ValidasiController::class, 'direktur_form']);
+        Route::get('/{id}/validate', [ValidasiController::class, 'direktur_validate']);
     });
 
     // User routes (Admin mengelola user)
