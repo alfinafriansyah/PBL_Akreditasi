@@ -16,8 +16,8 @@
                             <div class="col-3">
                                 <select name="status" id="status" class="form-select" required>
                                     <option value="">- Semua -</option>
-                                    @foreach ($status as $status)
-                                        <option value="{{ $status->status_id }}">{{ ucfirst($status->keterangan) }}</option>
+                                    @foreach ($status as $item)
+                                        <option value="{{ $item->status_id }}">{{ ucfirst($item->keterangan) }}</option>
                                     @endforeach
                                 </select>
                                 <small class="form-text text-muted">Status Kriteria</small>
@@ -40,18 +40,26 @@
                 </div>
             </div>
           </div>
-            <div id="myModal" class="modal fade animate shake" tabindex="-1" role="dialog" data- backdrop="static" data-keyboard="false" data-width="75%" aria-hidden="true"></div>
+            <div id="myModal" class="modal fade animate shake" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" data-width="75%" aria-hidden="true"></div>
         </div>
     </div>
 </div>
-
 @endsection
 
 @push('css')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 @endpush
 
 @push('js')
 <script>
+// Fungsi helper untuk route di JavaScript
+function route(name, parameters = {}) {
+    const routes = {
+        'validasi.export_pdf': '/validasi/export-pdf/' + (parameters.id || parameters)
+    };
+    return routes[name] || '';
+}
+
 @if(session('success'))
     Swal.fire({
         icon: 'success',
@@ -73,8 +81,10 @@ function modalAction(url = '') {
         $('#myModal').modal('show');
     });
 }
+
 $(document).ready(function() {
     $('#status').val('5');
+    
     dataKriteria = $('#table_kriteria').DataTable({
         serverSide: true,
         processing: true, 
@@ -111,13 +121,13 @@ $(document).ready(function() {
             {
                 data: "status.keterangan",
                 className: "",
-                defaultContent: "-", // Tampilkan "-" jika null
+                defaultContent: "-",
                 orderable: true,
                 searchable: true
             },
             {
                 data: null,
-                className: "",
+                className: "text-center",
                 orderable: false,
                 searchable: false,
                 render: function(data, type, row) {
@@ -128,6 +138,12 @@ $(document).ready(function() {
                     } else {
                         btn += '<a href="direktur/' + row.kriteria_id + '/form" class="btn btn-success btn-sm">Validasi & Komentar</a>';
                     }
+                    
+                    // Tambahkan tombol export PDF jika status_id = 6 (sudah divalidasi direktur)
+                    if (row.status_id == 6) {
+                        btn += ' <a href="' + route('validasi.export_pdf', row.kriteria_id) + '" class="btn btn-primary btn-sm"><i class="fas fa-file-pdf"></i> Export PDF</a>';
+                    }
+                    
                     return btn;
                 }
             }
@@ -137,7 +153,6 @@ $(document).ready(function() {
     $('#status').on('change', function() {
         dataKriteria.ajax.reload();
     });
-
 });
 </script>
 @endpush
