@@ -12,12 +12,12 @@ class DosenController extends Controller
 {
     public function index()
     {
-        $breadcrumb = (object) [
+        $breadcrumb = (object)[
             'title' => 'Data Dosen',
             'list' => 'Data Dosen',
         ];
 
-        $page = (object) [
+        $page = (object)[
             'title' => 'Daftar Dosen yang tersimpan',
         ];
 
@@ -34,14 +34,24 @@ class DosenController extends Controller
             return DataTables::of($dosen)
                 ->addIndexColumn()
                 ->addColumn('aksi', function ($row) {
-                    $btn = '<button class="btn btn-sm btn-warning me-1" onclick="modalAction(\'' . url("datadosen/{$row->dosen_id}/editdosen_ajax") . '\')">Edit</button>';
-                    $btn .= '<button class="btn btn-sm btn-danger" onclick="confirmDelete(' . $row->dosen_id . ')">Hapus</button>';
+                    // Link edit menggunakan route name sesuai web.php
+                    $editUrl = route('admin.datadosen.edit', $row->dosen_id);
+
+                    // Tombol Edit (panggil modalAction dengan URL edit)
+                    $btn = '<button type="button" class="btn btn-sm btn-warning me-1" onclick="modalAction(\'' . $editUrl . '\')">';
+                    $btn .= 'Edit</button> ';
+
+                    // Tombol Hapus (pakai confirm simple lalu redirect ke route hapus)
+                    $btn .= '<button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete(' . $row->dosen_id . ')">Hapus</button>';
                     return $btn;
                 })
                 ->rawColumns(['aksi'])
                 ->make(true);
         }
     }
+
+
+
 
     public function create()
     {
@@ -96,11 +106,13 @@ class DosenController extends Controller
         }
     }
 
+//    perhatikan function edit khususnya return view nya mau kemana
     public function edit($id)
     {
         $dosen = DosenModel::find($id);
         return view('Admin.editdosen_ajax', compact('dosen'));
     }
+
 
     public function update_ajax(Request $request, $id)
     {
@@ -154,25 +166,20 @@ class DosenController extends Controller
 
     public function delete_ajax($id)
     {
-        try {
-            DB::beginTransaction();
-
-            $dosen = DosenModel::findOrFail($id);
-            $dosen->delete();
-
-            DB::commit();
-
-            return response()->json([
-                'status' => true,
-                'message' => 'Data dosen berhasil dihapus.'
-            ]);
-        } catch (\Exception $e) {
-            DB::rollBack();
-
+        $dosen = DosenModel::find($id);
+        if (!$dosen) {
             return response()->json([
                 'status' => false,
-                'message' => 'Terjadi kesalahan saat menghapus data: ' . $e->getMessage()
-            ], 500);
+                'message' => 'Data dosen tidak ditemukan.'
+            ], 404);
         }
+
+        $dosen->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Data dosen berhasil dihapus.'
+        ]);
     }
+
 }

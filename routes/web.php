@@ -251,11 +251,13 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         Route::post('/datadosen/store', [DosenController::class, 'store'])->name('admin.datadosen.store');
 
         // Edit dan Update via AJAX
-        Route::get('/datadosen/{id}/edit_ajax', [DosenController::class, 'edit_ajax'])->name('admin.datadosen.edit_ajax');
-        Route::put('/datadosen/{id}/update_ajax', [DosenController::class, 'update_ajax'])->name('admin.datadosen.update_ajax');
+//    Menyesuaikan penamaan pemanggilan route name agar tidak miss route
+    Route::get('/datadosen/{id}/edit', [DosenController::class, 'edit'])->name('admin.datadosen.edit');
+
+    Route::put('/datadosen/{id}/update_ajax', [DosenController::class, 'update_ajax'])->name('admin.datadosen.update_ajax');
 
         // Hapus via AJAX
-        Route::delete('/datadosen/{id}/delete_ajax', [DosenController::class, 'delete_ajax'])->name('admin.datadosen.delete_ajax');
+    Route::delete('/datadosen/{id}/delete_ajax', [DosenController::class, 'delete_ajax'])->name('admin.datadosen.delete_ajax');
 });
 
 //// Login sbg dosen
