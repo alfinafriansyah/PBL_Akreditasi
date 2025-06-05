@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\StatusModel;
 use App\Models\KriteriaModel;
+use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Date;
 
 class ValidasiController extends Controller
 {
@@ -288,5 +291,33 @@ class ValidasiController extends Controller
         $kriteria->save();
 
         return redirect()->route('validasi.direktur')->with('success', 'Status kriteria berhasil diperbarui.');
+    }
+
+    public function export_pdf($id)
+    {
+        // Cek apakah kriteria sudah divalidasi direktur (status_id = 6)
+        $kriteria = KriteriaModel::with([
+            'penetapan',
+            'pelaksanaan',
+            'evaluasi',
+            'pengendalian',
+            'peningkatan',
+            'status'
+        ])->findOrFail($id);
+
+        if ($kriteria->status_id != 6) {
+            return redirect()->back()->with('error', 'Hanya kriteria yang sudah divalidasi direktur yang dapat di-export.');
+        }
+
+        $pdf = Pdf::loadView('validasi.export_pdf', [
+            'kriteria' => $kriteria,
+            'tanggal' => now()->format('d-m-Y')
+        ]);
+
+        $pdf->setPaper('a4', 'portrait');
+        $pdf->setOption("isRemoteEnabled", true);
+        set_time_limit(300);
+
+        return $pdf->download('Kriteria_' . $kriteria->kriteria_kode . '_' . now()->format('YmdHis') . '.pdf');
     }
 }
