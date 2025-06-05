@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AkunController;
 use App\Http\Controllers\AuthController;
@@ -23,15 +24,36 @@ Route::pattern('id', '[0-9]+');
 
 // Route untuk tamu (belum login)
 Route::middleware('guest')->group(function () {
-    // Redirect root ke landing page jika belum login
-    Route::get('/', function () {
-        return redirect()->route('landing');
-    });
-
     // Route untuk halaman landing
     Route::get('landing', [LandingController::class, 'index'])->name('landing');
     Route::get('login', [AuthController::class, 'login'])->name('login');
     Route::post('login', [AuthController::class, 'postlogin']);
+});
+
+// Redirect dashboard berdasarkan role user 
+Route::get('/', function () {
+    $roleKode = Auth::user()->role->role_kode ?? null;
+
+    if (in_array($roleKode, ['KRT1','KRT2','KRT3','KRT4','KRT5','KRT6','KRT7','KRT8','KRT9'])) {
+        return redirect('/kriteria/dashboard');
+    }
+    if ($roleKode == 'KOOR') {
+        return redirect('/koordinator/dashboard');
+    }
+    if ($roleKode == 'KPSKAJUR') {
+        return redirect('/kpskajur/dashboard');
+    }
+    if ($roleKode == 'KJM') {
+        return redirect('/kjm/dashboard');
+    }
+    if ($roleKode == 'DIR') {
+        return redirect('/direktur/dashboard');
+    }
+    if ($roleKode == 'ADM') {
+        return redirect('/admin/dashboard');
+    }
+    // Default jika role tidak dikenali
+    return redirect('/landing');
 });
 
 // Route untuk user yang sudah login
