@@ -74,6 +74,7 @@ function modalAction(url = '') {
     });
 }
 $(document).ready(function() {
+    $('#status').val('1');
     dataKriteria = $('#table_kriteria').DataTable({
         serverSide: true,
         processing: true, 
