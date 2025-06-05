@@ -123,10 +123,12 @@ $(document).ready(function() {
                 render: function(data, type, row) {
                     let btn = '';
                     // Jika status_id bukan 5, tombol disable
-                    if (row.status_id != 5) {
-                        btn += '<a href="direktur/' + row.kriteria_id + '/form" class="btn btn-success btn-sm disabled" tabindex="-1" aria-disabled="true">Validasi & Komentar</a>';
-                    } else {
+                    if (row.status_id == 5) {
                         btn += '<a href="direktur/' + row.kriteria_id + '/form" class="btn btn-success btn-sm">Validasi & Komentar</a>';
+                    }  else if (row.status_id == 6) {
+                        btn += '<a href="print/' + row.kriteria_id + '" class="btn btn-primary btn-sm">Print PDF</a>';
+                    } else {
+                        btn += '<a href="direktur/' + row.kriteria_id + '/form" class="btn btn-success btn-sm disabled" tabindex="-1" aria-disabled="true">Validasi & Komentar</a>';
                     }
                     return btn;
                 }
