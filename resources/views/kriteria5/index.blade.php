@@ -117,8 +117,33 @@ $(document).ready(function() {
                 data: "status.keterangan",
                 className: "",
                 defaultContent: "-", // Tampilkan "-" jika null
-                orderable: true,
-                searchable: true
+                orderable: false,
+                searchable: true,
+                render: function(data, type, row) {
+                    // Tentukan warna badge berdasarkan status_id
+                    let badgeClass = 'bg-secondary';
+                    switch (row.status_id) {
+                        case 1:
+                            badgeClass = 'bg-warning'; 
+                            break;
+                        case 2:
+                            badgeClass = 'bg-danger'; 
+                            break;
+                        case 3:
+                            badgeClass = 'bg-secondary'; 
+                            break;
+                        case 4:
+                            badgeClass = 'bg-info'; 
+                            break;
+                        case 5:
+                            badgeClass = 'bg-primary'; 
+                            break;
+                        case 6:
+                            badgeClass = 'bg-success'; 
+                            break;
+                    }
+                    return `<span class="badge ${badgeClass}">${data ?? '-'}</span>`;
+                }
             },
             {
                 data: "aksi",
