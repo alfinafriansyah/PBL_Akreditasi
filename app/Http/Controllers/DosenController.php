@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class DosenController extends Controller
 {
@@ -181,5 +182,90 @@ class DosenController extends Controller
             'message' => 'Data dosen berhasil dihapus.'
         ]);
     }
+    public function import()
+    {
+        return view('admin.importdatadosen');
+    }
+
+    public function import_ajax(Request $request)
+    {
+        if($request->ajax() || $request->wantsJson()) {
+            $rules = [
+                'file_datadosen' => ['required', 'mimes:xlsx', 'max:1024']
+            ];
+            $validator = Validator::make($request->all(), $rules);
+
+            if($validator->fails()){
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Validasi Gagal',
+                    'msgField' => $validator->errors()
+                ]);
+            }
+
+            $file = $request->file('file_datadosen');
+
+            $reader = IOFactory::createReader('Xlsx');
+            $reader->setReadDataOnly(false);   //biar bisa akses format cell
+            $spreadsheet = $reader->load($file->getRealPath());
+            $sheet = $spreadsheet->getActiveSheet();
+
+            $insert = [];
+            $nipCount = 0;
+            $errors = [];
+
+            foreach ($sheet->getRowIterator() as $rowIndex => $row) {
+                if ($rowIndex == 1) continue; // skip header
+
+                $cellIterator = $row->getCellIterator();
+                $cellIterator->setIterateOnlyExistingCells(false);
+
+                $cells = iterator_to_array($cellIterator);
+
+                $nipRaw = $cells['A']->getFormattedValue(); // pakai formattedValue
+                $nama   = $cells['B']->getValue();
+
+                $nip = preg_replace('/\D/', '', $nipRaw); // buang karakter non-digit
+
+                if (!empty($nip) && !empty($nama)) {
+                    if (!preg_match('/^\d{18}$/', $nip)) {
+                        $errors[] = "Baris $rowIndex: NIP tidak valid ($nip)";
+                        continue;
+                    }
+
+                    $insert[] = [
+                        'nip' => $nip,
+                        'nama' => $nama,
+                        'created_at' => now()
+                    ];
+                    $nipCount++;
+                }
+            }
+
+            if (!empty($errors)) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Beberapa baris gagal divalidasi:',
+                    'errors' => $errors
+                ]);
+            }
+
+            if ($nipCount < 1) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Tidak ada baris valid ditemukan dalam file.'
+                ]);
+            }
+
+            DosenModel::insertOrIgnore($insert);
+            return response()->json([
+                'status' => true,
+                'message' => "$nipCount data dosen berhasil diimport."
+            ]);
+        }
+
+        return redirect('/');
+    }
+
 
 }
