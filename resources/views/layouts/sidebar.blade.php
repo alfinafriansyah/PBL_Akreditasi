@@ -2,9 +2,9 @@
     $roleKode = Auth::user()->role->role_kode ?? '';
 @endphp
 <!-- Sidebar -->
-<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-1 fixed-start ms-2"
+<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 d-flex flex-column"
        id="sidenav-main"
-       style="background-color: #F5EEDC; height: 100vh; width: 250px; position: fixed; top: 0; left: 0; z-index: 1000;">
+       style="background-color: #F5EEDC; {{--height: 100vh; width: 180px; position: fixed; top: 0; left: 0; z-index: 1000;--}}">
     <!-- Header -->
     <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
@@ -73,35 +73,20 @@
             @endif
 
 
-            <!-- Dropdown Kriteria -->
+            <!-- Daftar Kriteria -->
             @if(Str::startsWith($roleKode, 'KRT'))
-                <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center {{ Str::startsWith($activeMenu, 'kriteria') ? '' : 'collapsed' }}"
-                    data-bs-toggle="collapse"
-                    href="#submenuKriteria"
-                    role="button"
-                    aria-expanded="{{ Str::startsWith($activeMenu, 'kriteria') ? 'true' : 'false' }}"
-                    aria-controls="submenuKriteria">
-                        <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="ni ni-calendar-grid-50 text-dark text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text">Kriteria</span>
-
-                    </a>
-                    <div class="collapse {{ Str::startsWith($activeMenu, 'kriteria') ? 'show' : '' }}" id="submenuKriteria">
-                        <ul class="nav flex-column ms-4 ps-2">
-                            @for ($i = 1; $i <= 9; $i++)
-                                @if($roleKode == 'KRT'.$i)
-                                    <li class="nav-item">
-                                        <a class="nav-link {{ ($activeMenu == 'kriteria'.$i) ? 'active' : '' }}" href="{{ url('/kriteria'.$i) }}">
-                                            Kriteria {{ $i }}
-                                        </a>
-                                    </li>
-                                @endif
-                            @endfor
-                        </ul>
-                    </div>
-                </li>
+                @for ($i = 1; $i <= 9; $i++)
+                    @if($roleKode == 'KRT'.$i)
+                        <li class="nav-item">
+                            <a class="nav-link {{ ($activeMenu == 'kriteria'.$i) ? 'active' : '' }}" href="{{ url('/kriteria'.$i) }}">
+                                <div class="icon icon-shape icon-sm border-radius-md text-center me-1 d-flex align-items-center justify-content-center">
+                                    <i class="ni ni-single-copy-04 text-dark text-sm opacity-10"></i>
+                                </div>
+                                <span class="nav-link-text ms-1">Data Kriteria {{ $i }}</span>
+                            </a>
+                        </li>
+                    @endif
+                @endfor
             @endif
 
             <!-- Validasi Koordinator -->
@@ -109,7 +94,7 @@
                 <li class="nav-item">
                     <a class="nav-link {{ ($activeMenu == 'validasi_koordinator') ? 'active' : '' }}" href="{{ url('/validasi/koordinator') }}">
                         <div class="icon icon-shape icon-sm border-radius-md text-center me-1 d-flex align-items-center justify-content-center">
-                            <i class="ni ni-tv-2 text-dark text-sm opacity-10"></i>
+                            <i class="ni ni-folder-17 text-dark text-sm opacity-10"></i>
                         </div>
                         <span class="nav-link-text ms-1">Validasi Koordinator</span>
                     </a>
@@ -121,7 +106,7 @@
                 <li class="nav-item">
                     <a class="nav-link {{ ($activeMenu == 'validasi_kpskajur') ? 'active' : '' }}" href="{{ url('/validasi/kpskajur') }}">
                         <div class="icon icon-shape icon-sm border-radius-md text-center me-1 d-flex align-items-center justify-content-center">
-                            <i class="ni ni-tv-2 text-dark text-sm opacity-10"></i>
+                            <i class="ni ni-folder-17 text-dark text-sm opacity-10"></i>
                         </div>
                         <span class="nav-link-text ms-1">Validasi KPS / Kajur</span>
                     </a>
@@ -133,7 +118,7 @@
                 <li class="nav-item">
                     <a class="nav-link {{ ($activeMenu == 'validasi_kjm') ? 'active' : '' }}" href="{{ url('/validasi/kjm') }}">
                         <div class="icon icon-shape icon-sm border-radius-md text-center me-1 d-flex align-items-center justify-content-center">
-                            <i class="ni ni-tv-2 text-dark text-sm opacity-10"></i>
+                            <i class="ni ni-folder-17 text-dark text-sm opacity-10"></i>
                         </div>
                         <span class="nav-link-text ms-1">Validasi KJM</span>
                     </a>
@@ -145,7 +130,7 @@
                 <li class="nav-item">
                     <a class="nav-link {{ ($activeMenu == 'validasi_direktur') ? 'active' : '' }}" href="{{ url('/validasi/direktur') }}">
                         <div class="icon icon-shape icon-sm border-radius-md text-center me-1 d-flex align-items-center justify-content-center">
-                            <i class="ni ni-tv-2 text-dark text-sm opacity-10"></i>
+                            <i class="ni ni-folder-17 text-dark text-sm opacity-10"></i>
                         </div>
                         <span class="nav-link-text ms-1">Validasi Direktur</span>
                     </a>
@@ -165,10 +150,10 @@
     </div>
 
     <!-- Logout Tetap di Bawah -->
-    <div class="border-top p-3">
+    <div class="border-top p-3 mt-auto">
         <a href="{{ url('/logout') }}"
            onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-           class="nav-link text-secondary">
+           class="nav-link text-secondary d-flex align-items-center">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                 <i class="ni ni-button-power text-secondary text-sm opacity-10"></i>
             </div>
