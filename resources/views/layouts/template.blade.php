@@ -44,6 +44,13 @@
         #sidenav-main {
         z-index: 1030;
         }
+        #sidenav-main .sidebar-logout {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+        }
         html, body {
             height: 100%;
         }

@@ -2,7 +2,7 @@
     $roleKode = Auth::user()->role->role_kode ?? '';
 @endphp
 <!-- Sidebar -->
-<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 d-flex flex-column"
+<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4"
        id="sidenav-main"
        style="background-color: #F5EEDC; {{--height: 100vh; width: 180px; position: fixed; top: 0; left: 0; z-index: 1000;--}}">
     <!-- Header -->
@@ -150,7 +150,7 @@
     </div>
 
     <!-- Logout Tetap di Bawah -->
-    <div class="border-top p-3 mt-auto">
+    <div class="border-top p-3 sidebar-logout">
         <a href="{{ url('/logout') }}"
            onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
            class="nav-link text-secondary d-flex align-items-center">
