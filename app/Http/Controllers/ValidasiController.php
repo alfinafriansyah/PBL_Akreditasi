@@ -318,6 +318,6 @@ class ValidasiController extends Controller
         $pdf->setOption("isRemoteEnabled", true);
         set_time_limit(300);
 
-        return $pdf->download('Kriteria_' . $kriteria->kriteria_kode . '_' . now()->format('YmdHis') . '.pdf');
+        return $pdf->download('Kriteria ' . $id . '_' . now()->format('YmdHis') . '.pdf');
     }
 }

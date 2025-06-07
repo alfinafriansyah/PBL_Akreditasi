@@ -125,9 +125,11 @@ $(document).ready(function() {
                     // Jika status_id bukan 1, tombol disable
                     if (row.status_id == 1) {
                         btn += '<a href="koordinator/' + row.kriteria_id + '/form" class="btn btn-success btn-sm">Validasi & Komentar</a>';
-                    } else if (row.status_id == 6) {
-                        btn += '<a href="print/' + row.kriteria_id + '" class="btn btn-primary btn-sm">Print PDF</a>';
-                    }else {
+                    } 
+                    // Tambahkan tombol export PDF jika status_id = 6 (sudah divalidasi direktur)  
+                    else if (row.status_id == 6) {
+                        btn += '<a href="' + row.kriteria_id + '/export" class="btn btn-primary btn-sm"><i class="fas fa-file-pdf"></i>Export PDF</a>';
+                    }else { 
                         btn += '<a href="koordinator/' + row.kriteria_id + '/form" class="btn btn-success btn-sm disabled" tabindex="-1" aria-disabled="true">Validasi & Komentar</a>';
                     }
                     return btn;

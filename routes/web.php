@@ -215,6 +215,8 @@ Route::middleware('auth')->group(function () {
         Route::post('list', [ValidasiController::class, 'list']);
         // Tambah komentar
         Route::put('/{id}/komentar', [ValidasiController::class, 'addKomentar']);
+        // Export PDF
+        Route::get('/{id}/export', [ValidasiController::class, 'export_pdf']);
     });
 
     // Validasi Koordinator (hanya role KOORDINATOR)
