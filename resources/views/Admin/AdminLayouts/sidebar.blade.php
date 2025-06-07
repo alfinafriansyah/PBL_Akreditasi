@@ -1,4 +1,4 @@
-<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-2 fixed-start ms-2"
+<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-1 fixed-start ms-2"
        id="sidenav-main"
        style="background-color: #F5EEDC; height: 100vh; overflow: hidden;">
     <div class="sidenav-header">
@@ -9,7 +9,12 @@
             <span class="ms-1 font-weight-bold">Akreditasi</span>
         </a>
     </div>
-
+{{--    posisi sidebar agar berada di belakang --}}
+    <style>
+        #sidenav-main {
+            z-index: 1030;
+        }
+    </style>
     <hr class="horizontal dark mt-0">
 
     <div class="collapse navbar-collapse w-auto flex-grow-1" id="sidenav-scrollbar"

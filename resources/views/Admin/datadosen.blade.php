@@ -4,13 +4,16 @@
     <div class="card card-outline card-primary">
         <div class="card-header">
             <h3 class="card-title">{{ $page->title }}</h3>
-            <div class="card-tools">
-                <a href="javascript:void(0);" class="btn btn-primary float-end me-1"
+            <div style="position: relative; right: 77px;">
+                <a href="javascript:void(0);" class="btn btn-success btn-sm float-end me-2 py-2 px-3"
+                   onclick="modalImport()">
+                    Import Data
+                </a>
+
+                <a href="javascript:void(0);" class="btn btn-facebook btn-sm float-end me-2 py-2 px-3"
                    onclick="modalCreate()">
                     Tambah Data Dosen
                 </a>
-
-
             </div>
         </div>
         <div class="card-body">
@@ -43,7 +46,6 @@
             </div>
         </div>
     </div>
-
 @endsection
 
 @push('css')
@@ -161,13 +163,6 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         function confirmDelete(id) {
             Swal.fire({
                 title: 'Yakin ingin hapus?',
@@ -199,8 +194,23 @@
                 }
             });
         }
+function modalImport() {
+    $.ajax({
+        url: "{{ route('admin.datadosen.import') }}", // route untuk GET form import
+        type: 'GET',
+        success: function (html) {
+            // Inject konten HTML hasil render dari blade ke dalam modal
+            $('#modal-dosen .modal-content').html(html);
 
-
+            // Pastikan modal terlihat
+            $('#modal-dosen').modal('show');
+        },
+        error: function (xhr) {
+            // Tampilkan error jika gagal memuat modal
+            Swal.fire('Error', 'Gagal membuka form import.', 'error');
+        }
+    });
+}
 
     </script>
 @endpush
