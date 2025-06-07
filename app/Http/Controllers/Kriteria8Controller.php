@@ -34,7 +34,9 @@ class Kriteria8Controller extends Controller
 
         $status = StatusModel::all();
  
-        return view('kriteria8.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'page' => $page, 'status' => $status]);
+        $kriteria = KriteriaModel::where('kriteria_kode', 'KRT8')->first();
+        
+        return view('kriteria8.index', compact('breadcrumb', 'activeMenu', 'page', 'kriteria', 'status'));
     }
 
     public function list(Request $request)

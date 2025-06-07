@@ -9,11 +9,14 @@
               <h6>{{ $page->title }}</h6>
             </div>
             <div class="card-body pt-1 p-3">
-                <div class="row">
-                    <div class="col">
-                        <a href="{{ url('kriteria3/create')}}" class="btn btn-primary float-end me-3">Tambah</a>
+                {{-- Hanya menampilkan button tambah juka status null --}}
+                @if ($kriteria->status_id == null)
+                    <div class="row">
+                        <div class="col">
+                            <a href="{{ url('kriteria3/create')}}" class="btn btn-primary float-end me-3">Tambah</a>
+                        </div>
                     </div>
-                </div>
+                @endif
 
                 <div class="row">
                     <div class="col-md-12">
