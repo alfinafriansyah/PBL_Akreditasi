@@ -52,7 +52,7 @@
                 </li>
             @elseif($roleKode == 'KJM')
                 <li class="nav-item">
-                    <a class="nav-link {{ ($activeMenu == 'kjm') ? 'active' : '' }}" href="{{ url('/kjm/dashboard') }}">
+                    <a class="nav-link {{ ($activeMenu == 'dashboard_kjm') ? 'active' : '' }}" href="{{ url('/kjm/dashboard') }}">
                         <div class="icon icon-shape icon-sm border-radius-md text-center me-1 d-flex align-items-center justify-content-center">
                             <i class="ni ni-tv-2 text-dark text-sm opacity-10"></i>
                         </div>
