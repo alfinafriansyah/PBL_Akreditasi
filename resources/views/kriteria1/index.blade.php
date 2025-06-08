@@ -42,7 +42,7 @@
                                 <th>Kode</th>
                                 <th>Nama</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                {{-- <th>Aksi</th> --}}
                             </tr>
                         </thead>
                     </table>
@@ -148,12 +148,12 @@ $(document).ready(function() {
                     return `<span class="badge ${badgeClass}">${data ?? '-'}</span>`;
                 }
             },
-            {
-                data: "aksi",
-                className: "",
-                orderable: false,
-                searchable: false
-            }
+            // {
+            //     data: "aksi",
+            //     className: "",
+            //     orderable: false,
+            //     searchable: false
+            // }
         ]
     });
 
