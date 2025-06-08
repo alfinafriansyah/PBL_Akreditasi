@@ -78,6 +78,9 @@ Route::middleware('auth')->group(function () {
         Route::post('/import_ajax', [Kriteria1Controller::class, 'import_ajax']);
         Route::get('/export_excel', [Kriteria1Controller::class, 'export_excel']);
         Route::get('/export_pdf', [Kriteria1Controller::class, 'export_pdf']);
+        Route::get('/notifikasi', [Kriteria1Controller::class, 'indexEvaluasi']);
+        Route::post('/evaluasi', [Kriteria1Controller::class, 'listEvaluasi']);
+
     });
 
     // Kriteria 2 routes
