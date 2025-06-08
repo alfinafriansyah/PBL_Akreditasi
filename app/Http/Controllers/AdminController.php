@@ -27,6 +27,9 @@ class AdminController extends Controller
         // Hitung total user dan dosen
         $totalUser = UserModel::count('user_id');
         $totalDatadosen = DosenModel::count('dosen_id');
+        $todaydosencreate = DosenModel::whereColumn('created_at', 'updated_at')->count();
+
+
 
         // Ambil semua user yang pernah diupdate (updated_at ≠ created_at) yakni data saat admin update ntar muncul di tabel nya itu
         $updatedUsers  = UserModel::with(['dosen', 'role'])
@@ -41,7 +44,8 @@ class AdminController extends Controller
             'todaysUserEdit', //-> ini kita masukkan untuk ntar di panggil oleh table view di dashboard
             'totalUser',
             'totalDatadosen',
-            'updatedUsers'
+            'updatedUsers',
+            'todaydosencreate',
         ));
     }
 

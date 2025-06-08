@@ -35,8 +35,7 @@
                                 <div class="numbers">
                                     <p class="text-sm mb-0 text-uppercase font-weight-bold">Today's Dosen Name Create</p>
                                     <h5 class="font-weight-bolder">
-                                        {{-- Opsional: jika ingin data dinamis, ganti angka 2 jadi variable --}}
-                                        -
+                                        {{ $todaydosencreate  ?? 0}}
                                     </h5>
                                 </div>
                             </div>
