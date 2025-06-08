@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KriteriaModel;
 use Illuminate\Http\Request;
 
 class WelcomeController extends Controller
@@ -26,8 +27,9 @@ class WelcomeController extends Controller
         ];
 
         $activeMenu = 'dashboard_koordinator';
+        $kriteria = KriteriaModel::with('status')->get();
 
-        return view('dashboard.koordinator', compact('breadcrumb', 'activeMenu'));
+        return view('dashboard.koordinator', compact('breadcrumb', 'activeMenu','kriteria'));
     }
 
     public function kpskajur()
@@ -38,8 +40,8 @@ class WelcomeController extends Controller
         ];
 
         $activeMenu = 'dashboard_kpskajur';
-
-        return view('dashboard.kpskajur', compact('breadcrumb', 'activeMenu'));
+        $kriteria = KriteriaModel::with('status')->get();
+        return view('dashboard.kpskajur', compact('breadcrumb', 'activeMenu','kriteria'));
     }
 
     public function kjm()
@@ -50,8 +52,8 @@ class WelcomeController extends Controller
         ];
 
         $activeMenu = 'dashboard_kjm';
-
-        return view('dashboard.kjm', compact('breadcrumb', 'activeMenu'));
+        $kriteria = KriteriaModel::with('status')->get();
+        return view('dashboard.kjm', compact('breadcrumb', 'activeMenu','kriteria'));
     }
 
     public function direktur()
@@ -62,7 +64,7 @@ class WelcomeController extends Controller
         ];
 
         $activeMenu = 'dashboard_direktur';
-
-        return view('dashboard.direktur', compact('breadcrumb', 'activeMenu'));
+        $kriteria = KriteriaModel::with('status')->get();
+        return view('dashboard.direktur', compact('breadcrumb', 'activeMenu','kriteria'));
     }
 }
