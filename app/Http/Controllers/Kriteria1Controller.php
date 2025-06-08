@@ -52,16 +52,16 @@ class Kriteria1Controller extends Controller
         return DataTables::of($kriterias)
             // Menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
             ->addIndexColumn()
-            // ->addColumn('aksi', function ($kriteria) { 
-            //     $btn = '<button onclick="modalAction(\'' . url('/kriteria1/' . $kriteria->kriteria_id . '/detail') . '\')" class="btn btn-info btn-sm">Detail</button> ';
+            ->addColumn('aksi', function ($kriteria) { 
+                $btn = '<button onclick="modalAction(\'' . url('/kriteria1/' . $kriteria->kriteria_id . '/detail') . '\')" class="btn btn-info btn-sm">Detail</button> ';
 
-            //     $btn .= '<a href="'.url('/kriteria1/' . $kriteria->kriteria_id . '/edit').'" class="btn btn-warning btn-sm">Edit</a> ';
+                $btn .= '<a href="'.url('/kriteria1/' . $kriteria->kriteria_id . '/edit').'" class="btn btn-warning btn-sm">Edit</a> ';
 
-            //     $btn .= '<button onclick="confirmDelete(\'' . url('/kriteria1/' . $kriteria->kriteria_id . '/delete') . '\', \'' . $kriteria->kriteria_id . '\')" class="btn btn-danger btn-sm">Hapus</button> ';
+                $btn .= '<button onclick="confirmDelete(\'' . url('/kriteria1/' . $kriteria->kriteria_id . '/delete') . '\', \'' . $kriteria->kriteria_id . '\')" class="btn btn-danger btn-sm">Hapus</button> ';
 
-            //     return $btn;
-            // })
-            // ->rawColumns(['aksi']) // Memberitahu bahwa kolom aksi adalah HTML
+                return $btn;
+            })
+            ->rawColumns(['aksi']) // Memberitahu bahwa kolom aksi adalah HTML
             ->make(true);
     }
 

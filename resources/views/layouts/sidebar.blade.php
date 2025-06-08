@@ -1,6 +1,9 @@
 @php
+    use App\Models\KriteriaModel;
+
     $roleKode = Auth::user()->role->role_kode ?? '';
     $kriteria_id = Auth::user()->role->role_id ?? '';
+    $kriteria = KriteriaModel::where('kriteria_id', $kriteria_id)->first();
 @endphp
 <!-- Sidebar -->
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4"
@@ -145,25 +148,22 @@
             @endif
 
             <!-- Notifikasi -->
-            <li class="nav-item">
-                <a class="nav-link {{ $activeMenu == 'notifikasi' ? 'active' : '' }}"
-                    href="{{ url('/kriteria' . $kriteria_id . '/notifikasi') }}">
-                    <div
-                        class="icon icon-shape icon-sm border-radius-md text-center me-1 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-bell-55 text-dark text-sm opacity-10"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">Evaluasi</span>
-                </a>
-            </li>
-
-            {{-- <li class="nav-item">
-                <a class="nav-link {{ ($activeMenu == 'notifikasi') ? 'active' : '' }}" href="{{ url('/notifikasi') }}">
-                    <div class="icon icon-shape icon-sm border-radius-md text-center me-1 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-bell-55 text-dark text-sm opacity-10"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">Evaluasi</span>
-                </a>
-            </li> --}}
+            @if(Str::startsWith($roleKode, 'KRT'))
+                @if($kriteria->status_id == 2)
+                    <li class="nav-item">
+                        <a class="nav-link {{ $activeMenu == 'notifikasi' ? 'active' : '' }}"
+                            href="{{ url('/kriteria' . $kriteria_id . '/notifikasi') }}">
+                            <div
+                                class="icon icon-shape icon-sm border-radius-md text-center me-1 d-flex align-items-center justify-content-center">
+                                <i class="ni ni-bell-55 text-dark text-sm opacity-10"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Evaluasi
+                                <span class="p-1 bg-danger border border-light rounded-circle" style="display:inline-block; vertical-align: middle; margin-bottom: 15px;"></span>
+                            </span>
+                        </a>
+                    </li>
+                @endif
+            @endif
         </ul>
     </div>
 
