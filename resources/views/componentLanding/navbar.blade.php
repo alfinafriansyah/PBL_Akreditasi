@@ -59,7 +59,7 @@
 
                 <!-- Login Button -->
                 <li class="nav-item mt-3">
-                    <a href="{{url('/login')}}" target="_blank" class="btn btn-sm bg-white text-dark">Login</a>
+                    <a href="{{route('login')}}" target="_blank" class="btn btn-sm bg-white text-dark">Login</a>
                 </li>
             </ul>
         </div>
