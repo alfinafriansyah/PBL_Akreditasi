@@ -39,7 +39,7 @@
                                 <th>Kode</th>
                                 <th>Nama</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                {{-- <th>Aksi</th> --}}
                             </tr>
                         </thead>
                     </table>
@@ -120,12 +120,12 @@ $(document).ready(function() {
                 orderable: true,
                 searchable: true
             },
-            {
-                data: "aksi",
-                className: "",
-                orderable: false,
-                searchable: false
-            }
+            // {
+            //     data: "aksi",
+            //     className: "",
+            //     orderable: false,
+            //     searchable: false
+            // }
         ]
     });
 
