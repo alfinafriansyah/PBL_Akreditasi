@@ -10,7 +10,7 @@
             background-color: #f8f9fa !important;
         }
     </style>
-    <div class="container mt-4">
+    <div class="container mt-3">
         <form method="GET" action="{{ url()->current() }}" class="d-flex justify-content-between align-items-center mb-3">
             <div class="d-flex align-items-center gap-2">
                 <input type="text" name="search" value="{{ request('search') }}" class="form-control form-control-sm"
@@ -24,7 +24,12 @@
                     @endforeach
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary btn-sm">Filter</button>
+            <div style="position: absolute; right: 50px; top: 130px;">
+                <button type="submit" class="btn btn-primary btn-sm">Filter</button>
+            </div>
+
+
+
         </form>
 
         <div class="card shadow-sm border-0">
@@ -89,7 +94,6 @@
     <div id="modalContainer">
         {{--        kita biarkan kosong --}}
     </div>
-    // dari diatas ini kita ambil id= "modalContainer nya masuk ke function js di bawah"
     <script>
         function modalAction(url) {
             $.get(url, function(data) {

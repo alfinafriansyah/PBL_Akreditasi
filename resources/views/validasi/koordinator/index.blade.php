@@ -112,8 +112,33 @@ $(document).ready(function() {
                 data: "status.keterangan",
                 className: "",
                 defaultContent: "-", // Tampilkan "-" jika null
-                orderable: true,
-                searchable: true
+                orderable: false,
+                searchable: true,
+                render: function(data, type, row) {
+                    // Tentukan warna badge berdasarkan status_id
+                    let badgeClass = 'bg-secondary';
+                    switch (row.status_id) {
+                        case 1:
+                            badgeClass = 'bg-warning'; 
+                            break;
+                        case 2:
+                            badgeClass = 'bg-danger'; 
+                            break;
+                        case 3:
+                            badgeClass = 'bg-secondary'; 
+                            break;
+                        case 4:
+                            badgeClass = 'bg-info'; 
+                            break;
+                        case 5:
+                            badgeClass = 'bg-primary'; 
+                            break;
+                        case 6:
+                            badgeClass = 'bg-success'; 
+                            break;
+                    }
+                    return `<span class="badge ${badgeClass}">${data ?? '-'}</span>`;
+                }
             },
             {
                 data: null,
@@ -125,9 +150,11 @@ $(document).ready(function() {
                     // Jika status_id bukan 1, tombol disable
                     if (row.status_id == 1) {
                         btn += '<a href="koordinator/' + row.kriteria_id + '/form" class="btn btn-success btn-sm">Validasi & Komentar</a>';
-                    } else if (row.status_id == 6) {
-                        btn += '<a href="print/' + row.kriteria_id + '" class="btn btn-primary btn-sm">Print PDF</a>';
-                    }else {
+                    } 
+                    // Tambahkan tombol export PDF jika status_id = 6 (sudah divalidasi direktur)  
+                    else if (row.status_id == 6) {
+                        btn += '<a href="' + row.kriteria_id + '/export" class="btn btn-primary btn-sm"><i class="fas fa-file-pdf"></i>Export PDF</a>';
+                    }else { 
                         btn += '<a href="koordinator/' + row.kriteria_id + '/form" class="btn btn-success btn-sm disabled" tabindex="-1" aria-disabled="true">Validasi & Komentar</a>';
                     }
                     return btn;

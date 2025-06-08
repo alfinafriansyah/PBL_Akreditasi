@@ -33,8 +33,10 @@ class Kriteria1Controller extends Controller
         $activeMenu = 'kriteria1';
 
         $status = StatusModel::all();
-
-        return view('kriteria1.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'page' => $page, 'status' => $status]);
+ 
+        $kriteria = KriteriaModel::where('kriteria_kode', 'KRT1')->first();
+        
+        return view('kriteria1.index', compact('breadcrumb', 'activeMenu', 'page', 'kriteria', 'status'));
     }
 
     public function list(Request $request)

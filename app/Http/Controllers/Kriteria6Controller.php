@@ -34,7 +34,9 @@ class Kriteria6Controller extends Controller
 
         $status = StatusModel::all();
  
-        return view('kriteria6.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'page' => $page, 'status' => $status]);
+        $kriteria = KriteriaModel::where('kriteria_kode', 'KRT6')->first();
+        
+        return view('kriteria6.index', compact('breadcrumb', 'activeMenu', 'page', 'kriteria', 'status'));
     }
 
     public function list(Request $request)

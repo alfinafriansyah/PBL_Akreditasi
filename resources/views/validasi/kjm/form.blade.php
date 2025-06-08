@@ -30,50 +30,60 @@
                 <div class="mb-3">
                     <h5>Penetapan</h5>
                     {!! $kriteria->penetapan->penetapan ?? '-' !!}
-                    <h5>Dokumen Pendukung</h5>
-                    @foreach(json_decode($kriteria->penetapan->dokumen ?? '[]') as $file)
-                        <img src="{{ asset($file) }}" alt="Dokumen" style="max-width:200px;">
-                    @endforeach
+                    @if($kriteria->penetapan->dokumen)
+                        <h5>Dokumen Pendukung</h5>
+                        @foreach(json_decode($kriteria->penetapan->dokumen ?? '[]') as $file)
+                            <img src="{{ asset($file) }}" alt="Dokumen" style="max-width:200px;">
+                        @endforeach
+                    @endif
                 </div>
                 
                 {{-- Pelaksanaan --}}
                 <div class="mb-3">
                     <h5>Pelaksanaan</h5>
                     {!! $kriteria->pelaksanaan->pelaksanaan ?? '-' !!}
-                    <h5>Dokumen Pendukung</h5>
-                    @foreach(json_decode($kriteria->pelaksanaan->dokumen ?? '[]') as $file)
-                        <img src="{{ asset($file) }}" alt="Dokumen" style="max-width:200px;">
-                    @endforeach
+                    @if($kriteria->pelaksanaan->dokumen)
+                        <h5>Dokumen Pendukung</h5>
+                        @foreach(json_decode($kriteria->pelaksanaan->dokumen ?? '[]') as $file)
+                            <img src="{{ asset($file) }}" alt="Dokumen" style="max-width:200px;">
+                        @endforeach
+                    @endif
                 </div>
                                                 
                 {{-- Evaluasi --}}
                 <div class="mb-3">
                     <h5>Evaluasi</h5>
                     {!! $kriteria->evaluasi->evaluasi ?? '-' !!}
-                    <h5>Dokumen Pendukung</h5>
-                    @foreach(json_decode($kriteria->evaluasi->dokumen ?? '[]') as $file)
-                        <img src="{{ asset($file) }}" alt="Dokumen" style="max-width:200px;">
-                    @endforeach
+                    @if($kriteria->evaluasi->dokumen)
+                        <h5>Dokumen Pendukung</h5>
+                        @foreach(json_decode($kriteria->evaluasi->dokumen ?? '[]') as $file)
+                            <img src="{{ asset($file) }}" alt="Dokumen" style="max-width:200px;">
+                        @endforeach
+                    @endif
                 </div>
                                 
                 {{-- Pengendalian --}}
                 <div class="mb-3">
                     <h5>Pengendalian</h5>
                     {!! $kriteria->pengendalian->pengendalian ?? '-' !!}
-                    <h5>Dokumen Pendukung</h5>
-                    @foreach(json_decode($kriteria->pengendalian->dokumen ?? '[]') as $file)
-                        <img src="{{ asset($file) }}" alt="Dokumen" style="max-width:200px;">
-                    @endforeach
+                    @if($kriteria->pengendalian->dokumen)
+                        <h5>Dokumen Pendukung</h5>
+                        @foreach(json_decode($kriteria->pengendalian->dokumen ?? '[]') as $file)
+                            <img src="{{ asset($file) }}" alt="Dokumen" style="max-width:200px;">
+                        @endforeach
+                    @endif
                 </div>
                                 
                 {{-- Peningkatan --}}
                 <div class="mb-3">
                     <h5>Peningkatan</h5>
                     {!! $kriteria->peningkatan->peningkatan ?? '-' !!}
-                    <h5>Dokumen Pendukung</h5>
-                    @foreach(json_decode($kriteria->peningkatan->dokumen ?? '[]') as $file)
-                        <img src="{{ asset($file) }}" alt="Dokumen" style="max-width:200px;">
-                    @endforeach
+                    @if($kriteria->peningkatan->dokumen)
+                        <h5>Dokumen Pendukung</h5>
+                        @foreach(json_decode($kriteria->peningkatan->dokumen ?? '[]') as $file)
+                            <img src="{{ asset($file) }}" alt="Dokumen" style="max-width:200px;">
+                        @endforeach
+                    @endif
                 </div>
             </div>
             <div class="card-footer">

@@ -34,7 +34,9 @@ class Kriteria2Controller extends Controller
 
         $status = StatusModel::all();
  
-        return view('kriteria2.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'page' => $page, 'status' => $status]);
+        $kriteria = KriteriaModel::where('kriteria_kode', 'KRT2')->first();
+        
+        return view('kriteria2.index', compact('breadcrumb', 'activeMenu', 'page', 'kriteria', 'status'));
     }
 
     public function list(Request $request)

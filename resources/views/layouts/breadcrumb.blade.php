@@ -7,7 +7,7 @@
     </ol>
 </nav>
 
-@if ($activeMenu == "dashboard")
+@if(Str::startsWith($activeMenu, 'dashboard'))
     <div class="px-3 mt-1">
         <h4 id="greeting-title" class="text-dark fw-bold">Selamat</h4>
         <p class="text-sm text-dark opacity-75" id="greeting-subtitle">Selamat datang kembali ...</p>

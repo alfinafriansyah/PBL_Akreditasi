@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\AkunController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\WelcomeController;
@@ -27,10 +26,10 @@ Route::middleware('guest')->group(function () {
     // Route untuk halaman landing
     Route::get('landing', [LandingController::class, 'index'])->name('landing');
     Route::get('login', [AuthController::class, 'login'])->name('login');
-    Route::post('login', [AuthController::class, 'postlogin']);
+    Route::post('login', [AuthController::class, 'Postlogin']);
 });
 
-// Redirect dashboard berdasarkan role user 
+// Redirect dashboard berdasarkan role user
 Route::get('/', function () {
     $roleKode = Auth::user()->role->role_kode ?? null;
 
@@ -218,6 +217,8 @@ Route::middleware('auth')->group(function () {
         Route::post('list', [ValidasiController::class, 'list']);
         // Tambah komentar
         Route::put('/{id}/komentar', [ValidasiController::class, 'addKomentar']);
+        // Export PDF
+        Route::get('/{id}/export', [ValidasiController::class, 'export_pdf']);
     });
 
     // Validasi Koordinator (hanya role KOORDINATOR)
@@ -266,23 +267,17 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/akunpengguna/{id}/edit_ajax', [AdminController::class, 'edit_ajax'])->name('admin.edit_ajax');
     Route::put('/akunpengguna/{id}/update_ajax', [AdminController::class, 'update_ajax'])->name('admin.update_ajax');
     Route::get('/akunpengguna/{id}/detail_ajax', [AdminController::class, 'show_ajax'])->name('admin.show_ajax');
-
-        // Data Dosen
-        Route::get('/datadosen', [DosenController::class, 'index'])->name('admin.datadosen');
-        Route::post('/datadosen/list', [DosenController::class, 'list'])->name('admin.datadosen.list');
-
-        // Tambah Dosen
-        Route::get('/datadosen/create', [DosenController::class, 'create'])->name('admin.datadosen.create');
-        Route::post('/datadosen/store', [DosenController::class, 'store'])->name('admin.datadosen.store');
-
-        // Edit dan Update via AJAX
-//    Menyesuaikan penamaan pemanggilan route name agar tidak miss route
+    Route::get('/datadosen', [DosenController::class, 'index'])->name('admin.datadosen');
+    Route::post('/datadosen/list', [DosenController::class, 'list'])->name('admin.datadosen.list');
+    Route::get('/datadosen/create', [DosenController::class, 'create'])->name('admin.datadosen.create');
+    Route::post('/datadosen/store', [DosenController::class, 'store'])->name('admin.datadosen.store');
     Route::get('/datadosen/{id}/edit', [DosenController::class, 'edit'])->name('admin.datadosen.edit');
-
     Route::put('/datadosen/{id}/update_ajax', [DosenController::class, 'update_ajax'])->name('admin.datadosen.update_ajax');
-
-        // Hapus via AJAX
     Route::delete('/datadosen/{id}/delete_ajax', [DosenController::class, 'delete_ajax'])->name('admin.datadosen.delete_ajax');
+    Route::get('/datadosen/import', [DosenController::class, 'import'])->name('admin.datadosen.import');
+    Route::post('/datadosen/import_ajax', [DosenController::class, 'import_ajax'])->name('admin.datadosen.import_ajax');
+
+
 });
 
 //// Login sbg dosen

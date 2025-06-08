@@ -9,11 +9,14 @@
               <h6>{{ $page->title }}</h6>
             </div>
             <div class="card-body pt-1 p-3">
-                <div class="row">
-                    <div class="col">
-                        <a href="{{ url('kriteria3/create')}}" class="btn btn-primary float-end me-3">Tambah</a>
+                {{-- Hanya menampilkan button tambah juka status null --}}
+                @if ($kriteria->status_id == null)
+                    <div class="row">
+                        <div class="col">
+                            <a href="{{ url('kriteria3/create')}}" class="btn btn-primary float-end me-3">Tambah</a>
+                        </div>
                     </div>
-                </div>
+                @endif
 
                 <div class="row">
                     <div class="col-md-12">
@@ -117,8 +120,33 @@ $(document).ready(function() {
                 data: "status.keterangan",
                 className: "",
                 defaultContent: "-", // Tampilkan "-" jika null
-                orderable: true,
-                searchable: true
+                orderable: false,
+                searchable: true,
+                render: function(data, type, row) {
+                    // Tentukan warna badge berdasarkan status_id
+                    let badgeClass = 'bg-secondary';
+                    switch (row.status_id) {
+                        case 1:
+                            badgeClass = 'bg-warning'; 
+                            break;
+                        case 2:
+                            badgeClass = 'bg-danger'; 
+                            break;
+                        case 3:
+                            badgeClass = 'bg-secondary'; 
+                            break;
+                        case 4:
+                            badgeClass = 'bg-info'; 
+                            break;
+                        case 5:
+                            badgeClass = 'bg-primary'; 
+                            break;
+                        case 6:
+                            badgeClass = 'bg-success'; 
+                            break;
+                    }
+                    return `<span class="badge ${badgeClass}">${data ?? '-'}</span>`;
+                }
             },
             {
                 data: "aksi",

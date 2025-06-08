@@ -5,125 +5,163 @@
         body {
             font-family: "Times New Roman", Times, serif;
             margin: 6px 20px 5px 20px;
-            line-height: 1.5;
+            line-height: 15px;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
         }
-        td, th {
-            padding: 8px;
-            vertical-align: top;
+
+        td,
+        th {
+            padding: 4px 3px;
         }
+
         th {
             text-align: left;
         }
-        .text-center {
-            text-align: center;
+
+        .d-block {
+            display: block;
         }
+
+        img.image {
+            width: auto;
+            height: 80px;
+            max-width: 150px;
+            max-height: 150px;
+        }
+
         .text-right {
             text-align: right;
         }
-        .border-bottom {
-            border-bottom: 1px solid #000;
+
+        .text-center {
+            text-align: center;
         }
-        .border-all {
-            border: 1px solid #000;
+
+        .p-1 {
+            padding: 5px 1px 5px 1px;
         }
-        .mt-3 {
-            margin-top: 1rem;
+
+        .font-10 {
+            font-size: 10pt;
         }
-        .mb-3 {
-            margin-bottom: 1rem;
+
+        .font-11 {
+            font-size: 11pt;
         }
+
         .font-12 {
             font-size: 12pt;
         }
-        .font-14 {
-            font-size: 14pt;
+
+        .font-13 {
+            font-size: 13pt;
         }
-        .page-break {
-            page-break-after: always;
+
+        .border-bottom-header {
+            border-bottom: 1px solid;
+        }
+
+        .border-all,
+        .border-all th,
+        .border-all td {
+            border: 1px solid;
         }
     </style>
 </head>
 <body>
-    <table>
+    <table class="border-bottom-header">
         <tr>
             <td width="15%" class="text-center">
-                <img src="{{ public_path('polinema-bw.jpeg') }}" style="height: 80px;">
+                @php
+                    $path = public_path('polinema-bw.jpeg');
+                    $type = pathinfo($path, PATHINFO_EXTENSION);
+                    $data = file_get_contents($path);
+                    $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+                @endphp
+                <img src="{{ $base64 }}" class="image">
             </td>
             <td width="85%">
-                <div class="text-center font-14" style="font-weight: bold;">KEMENTERIAN PENDIDIKAN, KEBUDAYAAN, RISET, DAN TEKNOLOGI</div>
-                <div class="text-center font-14" style="font-weight: bold;">POLITEKNIK NEGERI MALANG</div>
-                <div class="text-center">Jl. Soekarno-Hatta No. 9 Malang 65141</div>
-                <div class="text-center">Telepon (0341) 404424 Pes. 101-105, 0341-404420, Fax. (0341) 404420</div>
-                <div class="text-center">Laman: www.polinema.ac.id</div>
+                <span class="text-center d-block font-11 font-bold mb-1">
+                    KEMENTERIAN PENDIDIKAN, KEBUDAYAAN, RISET, DAN TEKNOLOGI
+                </span>
+                <span class="text-center d-block font-13 font-bold mb-1">
+                    POLITEKNIK NEGERI MALANG
+                </span>
+                <span class="text-center d-block font-10">
+                    Jl. Soekarno-Hatta No. 9 Malang 65141
+                </span>
+                <span class="text-center d-block font-10">
+                    Telepon (0341) 404424 Pes. 101-105, 0341-404420, Fax. (0341) 404420
+                </span>
+                <span class="text-center d-block font-10">
+                    Laman: www.polinema.ac.id
+                </span>
             </td>
         </tr>
     </table>
 
-    <div class="border-bottom mt-3 mb-3"></div>
-
-    <h2 class="text-center">LAPORAN KRITERIA {{ $kriteria->kriteria_kode }}</h2>
+    <h2 class="text-center">{{ $kriteria->kriteria_nama }}</h2>
     <p class="text-center">Tanggal: {{ $tanggal }}</p>
 
     <div class="mt-3">
         <h3>1. Penetapan</h3>
-        <p>{!! nl2br(e($kriteria->penetapan->penetapan)) !!}</p>
+        {!! nl2br($kriteria->penetapan->penetapan) !!}
         
         @if($kriteria->penetapan->dokumen)
             <h4>Dokumen Pendukung:</h4>
-            @foreach(json_decode($kriteria->penetapan->dokumen) as $doc)
-                <div>{{ basename($doc) }}</div>
+            @foreach(json_decode($kriteria->penetapan->dokumen ?? '[]') as $file)
+                <img src="{{ public_path($file) }}" style="max-width:200px;">
             @endforeach
         @endif
     </div>
 
     <div class="mt-3">
         <h3>2. Pelaksanaan</h3>
-        <p>{!! nl2br(e($kriteria->pelaksanaan->pelaksanaan)) !!}</p>
+        {!! nl2br($kriteria->pelaksanaan->pelaksanaan) !!}
         
         @if($kriteria->pelaksanaan->dokumen)
             <h4>Dokumen Pendukung:</h4>
-            @foreach(json_decode($kriteria->pelaksanaan->dokumen) as $doc)
-                <div>{{ basename($doc) }}</div>
+            @foreach(json_decode($kriteria->pelaksanaan->dokumen ?? '[]') as $file)
+                <img src="{{ public_path($file) }}" style="max-width:200px;">
             @endforeach
         @endif
     </div>
 
     <div class="mt-3">
         <h3>3. Evaluasi</h3>
-        <p>{!! nl2br(e($kriteria->evaluasi->evaluasi)) !!}</p>
+        {!! nl2br($kriteria->evaluasi->evaluasi) !!}
         
         @if($kriteria->evaluasi->dokumen)
-            <h4>Dokumen Pendukung:</h4>
-            @foreach(json_decode($kriteria->evaluasi->dokumen) as $doc)
-                <div>{{ basename($doc) }}</div>
+            @foreach(json_decode($kriteria->evaluasi->dokumen ?? '[]') as $file)
+                <img src="{{ public_path($file) }}" style="max-width:200px;">
             @endforeach
         @endif
     </div>
 
     <div class="mt-3">
         <h3>4. Pengendalian</h3>
-        <p>{!! nl2br(e($kriteria->pengendalian->pengendalian)) !!}</p>
+        {!! nl2br($kriteria->pengendalian->pengendalian) !!}
         
         @if($kriteria->pengendalian->dokumen)
             <h4>Dokumen Pendukung:</h4>
-            @foreach(json_decode($kriteria->pengendalian->dokumen) as $doc)
-                <div>{{ basename($doc) }}</div>
+            @foreach(json_decode($kriteria->pengendalian->dokumen ?? '[]') as $file)
+                <img src="{{ public_path($file) }}" style="max-width:200px;">
             @endforeach
         @endif
     </div>
 
     <div class="mt-3">
         <h3>5. Peningkatan</h3>
-        <p>{!! nl2br(e($kriteria->peningkatan->peningkatan)) !!}</p>
+        {!! nl2br($kriteria->peningkatan->peningkatan) !!}
         
         @if($kriteria->peningkatan->dokumen)
             <h4>Dokumen Pendukung:</h4>
-            @foreach(json_decode($kriteria->peningkatan->dokumen) as $doc)
-                <div>{{ basename($doc) }}</div>
+            @foreach(json_decode($kriteria->peningkatan->dokumen ?? '[]') as $file)
+                <img src="{{ public_path($file) }}" style="max-width:200px;">
             @endforeach
         @endif
     </div>
@@ -131,12 +169,12 @@
     <div class="mt-5">
         <table>
             <tr>
-                <td width="70%"></td>
+                <td width="50%"></td>
                 <td class="text-center">
                     <p>Malang, {{ $tanggal }}</p>
                     <p>Direktur Politeknik Negeri Malang</p>
                     <br><br><br>
-                    <p><u>Prof. Dr. Ir. ...................................................................</u></p>
+                    <p><u>Prof. Dr. Ir. ....................................</u></p>
                     <p>NIP. .......................................</p>
                 </td>
             </tr>
