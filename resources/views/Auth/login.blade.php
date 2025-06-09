@@ -7,7 +7,7 @@
 
   <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  
+
   <!-- Google Font: Poppins -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -89,6 +89,62 @@
       margin-top: 10px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
+    /* Header logo styling */
+    .header-logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    /* Ukuran logo */
+    .logo-img {
+        width: 50px;
+        height: auto;
+    }
+
+    /* Typing effect container */
+    .typing-text {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #0c2d48;
+        white-space: nowrap;
+        overflow: hidden;
+        border-right: 2px solid;
+    }
+
+    /* Blink cursor */
+    .typing-text::after {
+        content: '';
+        display: inline-block;
+        width: 5px;
+        height: 1em;
+        background-color: #0c2d48;
+        animation: blink 0.8s infinite;
+        vertical-align: middle;
+        margin-left: 5px;
+    }
+
+    @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+    }
+
+    /* Slide up untuk seluruh wrapper */
+    .login-wrapper {
+        opacity: 0;
+        transform: translateY(30px);
+        animation: slideUp 0.8s ease-out forwards;
+    }
+
+    @keyframes slideUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
   </style>
 </head>
 <body>
@@ -113,6 +169,11 @@
         <input type="password" name="password" class="form-control" placeholder="Password">
       </div>
       <button type="submit" class="btn btn-login w-100">Login</button>
+        <div class="mt-3">
+            <a href="{{ url('/') }}" class="text-decoration-none" style="font-size: 13px; color: #0c2d48;">
+                &larr; Kembali ke halaman utama
+            </a>
+        </div>
     </form>
 
     <div class="info-box mt-4">
@@ -189,6 +250,23 @@
         $(element).removeClass('is-invalid');
       }
     });
+  });
+
+  document.addEventListener("DOMContentLoaded", function () {
+      const text = "Selamat Datang!";
+      const target = document.getElementById("welcomeText");
+      let index = 0;
+
+      function type() {
+          if (index < text.length) {
+              target.textContent += text.charAt(index);
+              index++;
+              setTimeout(type, 100);
+          }
+      }
+
+      target.textContent = "";
+      type();
   });
 </script>
 </div>
