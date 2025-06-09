@@ -377,21 +377,26 @@ class Kriteria7Controller extends Controller
             // Hapus file dokumen pada setiap relasi jika ada
             $relasiList = ['penetapan', 'pelaksanaan', 'evaluasi', 'pengendalian', 'peningkatan'];
             foreach ($relasiList as $relasi) {
-                if ($kriteria->$relasi && $kriteria->$relasi->dokumen) {
-                    $files = json_decode($kriteria->$relasi->dokumen, true) ?? [];
-                    foreach ($files as $file) {
-                        $storagePath = str_replace('storage/', 'public/', $file);
-                        if (Storage::exists($storagePath)) {
-                            Storage::delete($storagePath);
+                $relasiData = $kriteria->$relasi;
+                if ($relasiData) {
+                    // Hapus file dokumen jika ada
+                    if ($relasiData->dokumen) {
+                        $files = json_decode($relasiData->dokumen, true) ?? [];
+                        foreach ($files as $file) {
+                            $storagePath = str_replace('storage/', 'public/', $file);
+                            if (Storage::exists($storagePath)) {
+                                Storage::delete($storagePath);
+                            }
                         }
                     }
                     // Hapus data relasi
-                    $kriteria->$relasi->delete();
+                    $relasiData->delete();
                 }
             }
 
-            // Update status_id menjadi null
+            // Update status_id dan komentar menjadi null
             $kriteria->status_id = null;
+            $kriteria->komentar = null;
             $kriteria->save();
 
             DB::commit();
