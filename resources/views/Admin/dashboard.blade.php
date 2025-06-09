@@ -10,7 +10,7 @@
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Today's User Edit</p>
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Edit Data User Hari ini</p>
                                     <h5 class="font-weight-bolder">
                                         {{ $todaysUserEdit ?? 0 }}
                                     </h5>
@@ -33,7 +33,7 @@
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Today's Dosen Name Create</p>
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Penambahan Data Dosen</p>
                                     <h5 class="font-weight-bolder">
                                         {{ $todaydosencreate  ?? 0}}
                                     </h5>
@@ -56,7 +56,7 @@
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Total User</p>
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Akun Pengguna</p>
                                     <h5 class="font-weight-bolder">
                                         {{ $totalUser ?? 0 }}
                                     </h5>
@@ -79,7 +79,7 @@
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Data Dosen</p>
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Data Dosen </p>
                                     <h5 class="font-weight-bolder">
                                         {{ $totalDatadosen ?? 0 }}
                                     </h5>

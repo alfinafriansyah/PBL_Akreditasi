@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\KriteriaModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class WelcomeController extends Controller
 {
@@ -15,9 +17,24 @@ class WelcomeController extends Controller
         ];
 
         $activeMenu = 'dashboard_kriteria';
+        $kriteria = KriteriaModel::with('status')->get();
+        $revisiCount = KriteriaModel::where('status_id', 2)->count();
+        $datatervalidasi = KriteriaModel::where('status_id', 6)->count();
 
-        return view('dashboard.kriteria', compact('breadcrumb', 'activeMenu'));
+        $dosen = Auth::user()->dosen;
+        $namaLengkap = $dosen->nama;
+        $namaPendek = collect(explode(' ', $namaLengkap))->take(2)->implode(' ');
+
+        return view('dashboard.kriteria', compact(
+            'breadcrumb',
+            'activeMenu',
+            'kriteria',
+            'revisiCount',
+            'namaPendek',
+            'datatervalidasi',
+        ));
     }
+
 
     public function koordinator()
     {
@@ -28,8 +45,14 @@ class WelcomeController extends Controller
 
         $activeMenu = 'dashboard_koordinator';
         $kriteria = KriteriaModel::with('status')->get();
+        $revisiCount = KriteriaModel::where('status_id', 2)->count();
+        $datatervalidasi = KriteriaModel::where('status_id', 6)->count();
 
-        return view('dashboard.koordinator', compact('breadcrumb', 'activeMenu','kriteria'));
+        $dosen = Auth::user()->dosen;
+        $namaLengkap = $dosen->nama;
+        $namaPendek = collect(explode(' ', $namaLengkap))->take(2)->implode(' ');
+
+        return view('dashboard.koordinator', compact('breadcrumb', 'activeMenu','kriteria','revisiCount','namaPendek','datatervalidasi','dosen'));
     }
 
     public function kpskajur()
@@ -41,7 +64,13 @@ class WelcomeController extends Controller
 
         $activeMenu = 'dashboard_kpskajur';
         $kriteria = KriteriaModel::with('status')->get();
-        return view('dashboard.kpskajur', compact('breadcrumb', 'activeMenu','kriteria'));
+        $revisiCount = KriteriaModel::where('status_id', 2)->count();
+        $datatervalidasi = KriteriaModel::where('status_id', 6)->count();
+
+        $dosen = Auth::user()->dosen;
+        $namaLengkap = $dosen->nama;
+        $namaPendek = collect(explode(' ', $namaLengkap))->take(2)->implode(' ');
+        return view('dashboard.kpskajur', compact('breadcrumb', 'activeMenu','kriteria','revisiCount','namaPendek','datatervalidasi','dosen'));
     }
 
     public function kjm()
@@ -53,7 +82,13 @@ class WelcomeController extends Controller
 
         $activeMenu = 'dashboard_kjm';
         $kriteria = KriteriaModel::with('status')->get();
-        return view('dashboard.kjm', compact('breadcrumb', 'activeMenu','kriteria'));
+        $revisiCount = KriteriaModel::where('status_id', 2)->count();
+        $datatervalidasi = KriteriaModel::where('status_id', 6)->count();
+
+        $dosen = Auth::user()->dosen;
+        $namaLengkap = $dosen->nama;
+        $namaPendek = collect(explode(' ', $namaLengkap))->take(2)->implode(' ');
+        return view('dashboard.kjm', compact('breadcrumb', 'activeMenu','kriteria','revisiCount','namaPendek','datatervalidasi','dosen'));
     }
 
     public function direktur()
@@ -65,6 +100,12 @@ class WelcomeController extends Controller
 
         $activeMenu = 'dashboard_direktur';
         $kriteria = KriteriaModel::with('status')->get();
-        return view('dashboard.direktur', compact('breadcrumb', 'activeMenu','kriteria'));
+        $revisiCount = KriteriaModel::where('status_id', 2)->count();
+        $datatervalidasi = KriteriaModel::where('status_id', 6)->count();
+
+        $dosen = Auth::user()->dosen;
+        $namaLengkap = $dosen->nama;
+        $namaPendek = collect(explode(' ', $namaLengkap))->take(2)->implode(' ');
+        return view('dashboard.direktur', compact('breadcrumb', 'activeMenu','kriteria','revisiCount','namaPendek','datatervalidasi','dosen'));
     }
 }
