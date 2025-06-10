@@ -11,7 +11,8 @@ class KriteriaModel extends Model
 
     protected $table = 'kriteria';
     protected $primaryKey = 'kriteria_id';
-    protected $fillable = ['kriteria_kode', 'status_id', 'komentar', 'created_at', 'updated_at'];
+    public $timestamps = True;
+    protected $fillable = ['kriteria_kode', 'status_id', 'komentar'];
 
     public function status()
     {

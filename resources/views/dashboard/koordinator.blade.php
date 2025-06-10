@@ -11,7 +11,7 @@
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-uppercase font-weight-bold">Revisi</p>
                                 <h5 class="font-weight-bolder">
-                                    0
+                                    {{ $revisiCount ?? 0}}
                                 </h5>
                             </div>
                         </div>
@@ -33,7 +33,7 @@
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-uppercase font-weight-bold">Anggota</p>
                                 <h5 class="font-weight-bolder">
-                                    4
+                                    {{$namaPendek ?? 0 }}
                                 </h5>
                             </div>
                         </div>
@@ -55,7 +55,7 @@
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-uppercase font-weight-bold">Terverifikasi</p>
                                 <h5 class="font-weight-bolder">
-                                    2
+                                    {{ $datatervalidasi ?? 0 }}
                                 </h5>
                             </div>
                         </div>
@@ -75,9 +75,9 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="numbers">
-                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Komentar</p>
+                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Jumlah Kriteria</p>
                                 <h5 class="font-weight-bolder">
-                                    12
+                                    9
                                 </h5>
                             </div>
                         </div>

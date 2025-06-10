@@ -7,7 +7,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="{{url('img/jti.png')}}">
     <link rel="icon" type="image/png" href="img/jti.png">
     <title>
-        Sistem Informasi Akreditasi JTI
+        Sistem Informasi Akreditasi
     </title>
     <!-- Fonts and icons -->
     <link rel="stylesheet" type="text/css"
@@ -32,6 +32,10 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
+
+        html {
+            scroll-behavior: smooth;
+        }
         /* Timeline Style */
         .timeline {
             position: relative;
@@ -142,89 +146,21 @@
     <!-- -------- Welcoming Bar ------- -->
 @include('componentLanding.header')
 <!-- -------- END Welcoming Bar ------- -->
-<!-- -------- START CTA -------- -->
-<section class="py-7 position-relative" style="background-color:#FFFFFF; overflow: hidden; height: 700px" id="informasi-umum">
-    <div>
-        <section id="profil" class="about">
-            <div class="container aos-init aos-animate" data-aos="fade-up">
-                <div class="row feture-tabs aos-init aos-animate gx-8" data-aos="fade-up">
-                <div class="col-lg-6">
-                        <ul class="nav nav-pills mb-3">
-                            <li><a class="nav-link getstarted active" data-bs-toggle="pill" href="#tab1">Profil</a></li>
-                            <li><a class="nav-link getstarted" data-bs-toggle="pill" href="#tab2">Visi</a></li>
-                            <li><a class="nav-link getstarted" data-bs-toggle="pill" href="#tab3">Misi</a></li>
-                            <li><a class="nav-link getstarted" data-bs-toggle="pill" href="#tab4">Tujuan</a></li>
-                            <li><a class="nav-link getstarted" data-bs-toggle="pill" href="#tab5">Sasaran</a></li>
-                        </ul>
-
-                        <div class="tab-content" style="max-height: 400px; overflow-y: auto;">
-                        <div class="card tab-pane fade show active" id="tab1">
-                                <p>Berawal dari Fakultas Non Gelar Teknologi Universitas Brawijaya yang beroperasi setelah disahkannya Surat Keputusan Presiden Republik Indonesia No. 59 Tahun 1982, Politeknik Negeri Malang saat ini telah berkembang menjadi institusi pendidikan vokasi mandiri.</p>
-                                <p>Perubahan status tersebut tercantum dalam Surat Keputusan Menteri Pendidikan dan Kebudayaan No. 0313/O/1991. Politeknik Negeri Malang berupaya secara terus menerus untuk melakukan perubahan ke arah perbaikan, khususnya dalam bidang Pendidikan, Penelitian dan Pengabdian kepada Masyarakat yang berorientasi pada teknologi terapan.</p>
-                                <p>Usaha tersebut menunjukkan hasil yang positif, yang ditunjukkan dengan pencapaian akreditasi A pada tahun 2018 (SK 409/SK/BAN-PT/Akred/PT/XII/2018) dan akreditasi internasional ASIC (Accreditation Service for International School College and University) pada tahun 2020 untuk 20 program studi.</p>
-                                <p>Program studi D4-SIB didirikan pada tahun 2010 berdasarkan Surat Keputusan Menteri Pendidikan Nasional No. 50/D/O/2010. Awalnya program studi D4 Sistem Informasi Bisnis berada di bawah jurusan Teknik Elektro Politeknik Negeri Malang, sebelum akhirnya mulai aktif tahun 2015 setelah didirikannya jurusan Teknologi Informasi.</p>
-                                <p>Pada tahun 2018, program studi D4-SIB mendapatkan peringkat B untuk akreditasi program studi dari BAN-PT, berdasarkan SK Nomor 1810/SK/BAN-PT/Akred/Dipl-IV/VII/2018.</p>
-                            </div>
-
-                            <div class="card tab-pane fade" id="tab2">
-                                <p>Menjadi Program Studi yang Unggul dalam Bidang Sistem Informasi Bisnis baik di Tingkat Nasional maupun Internasional.</p>
-                            </div>
-
-                            <div class="card tab-pane fade" id="tab3">
-                                <ol>
-                                    <li>Melaksanakan pendidikan vokasi yang inovatif berbasis sistem pendidikan terapan dan teknologi.</li>
-                                    <li>Menyelenggarakan penelitian terapan berbasis produk dan jasa di bidang Sistem Informasi Bisnis.</li>
-                                    <li>Melaksanakan pengabdian masyarakat menggunakan kemajuan sistem informasi bisnis untuk kesejahteraan.</li>
-                                    <li>Mewujudkan kerjasama saling menguntungkan dengan berbagai pihak di dalam dan luar negeri.</li>
-                                </ol>
-                            </div>
-
-                            <div class="card tab-pane fade" id="tab4">
-                                <ol>
-                                    <li>Menghasilkan lulusan yang beretika, bermoral, kompeten, dan siap kerja/berwirausaha di bidang Sistem Informasi Bisnis.</li>
-                                    <li>Menghasilkan penelitian terapan yang mendukung industri, berorientasi pada HaKI dan kesejahteraan masyarakat.</li>
-                                    <li>Melaksanakan pengabdian kepada masyarakat melalui ilmu pengetahuan dan teknologi.</li>
-                                    <li>Menghasilkan sistem manajemen pendidikan yang memenuhi prinsip tata kelola yang baik.</li>
-                                    <li>Membangun kerjasama strategis dengan pihak nasional dan internasional.</li>
-                                </ol>
-                            </div>
-
-                            <div class="card tab-pane fade" id="tab5">
-                                <ol>
-                                    <li>Meningkatkan akses, relevansi, dan kualitas pendidikan Program Studi D4-SIB.</li>
-                                    <li>Meningkatkan kualitas pembelajaran dan kemahasiswaan.</li>
-                                    <li>Meningkatkan pembinaan karier dan kesiapan lulusan.</li>
-                                    <li>Meningkatkan jumlah dan mutu penelitian yang bermanfaat bagi masyarakat.</li>
-                                    <li>Meningkatkan pengabdian masyarakat yang berdampak pada kesejahteraan sosial.</li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 mt-lg-2 d-flex align-items-center justify-content-center">
-                        <div class="w-100" style="max-width: 700px; min-height: 500px;">
-                            <img src="https://jti.polinema.ac.id/wp-content/uploads/2024/08/WhatsApp-Image-2024-07-03-at-21.52.40.jpeg"
-                                 style="width: 100%; height: 500px; object-fit: cover; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);"
-                                 alt="Gambar Profil Akreditasi">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-</section>
+@include('componentLanding.informasiwebsite')
 {{--content apa kata mereka--}}
 @include('componentLanding.tentangkami')
 
+
+
     <!-- -------- START CTA -------- -->
-<section class="position-relative" style="background-color:#DDA853; height: 700px;">
+<section class="position-relative" style="background-color:#FFFFFF; height: 700px;">
     <div class="container h-100 d-flex justify-content-center align-items-center">
         <div class="text-center slide-trigger opacity-0">
-            <h2 class="text-white fw-bold mb-4">Siap Memulai Proses Akreditasi?</h2>
-            <p class="text-white opacity-75 mb-4">
+            <h2 class=" fw-bold mb-4" style="color: #000000;">Siap Memulai Proses Akreditasi?</h2>
+            <p class=" opacity-75 mb-4" style="color: #000000;">
                 Login sekarang untuk mengakses semua fitur sistem akreditasi kami.
             </p>
-            <a href="{{ url('login') }}" target="_blank" class="btn btn-dark btn-lg">
+            <a href="{{ url('login') }}" target="_blank" class="btn btn-dark btn-lg" style="color: #ffffff;">
                 Login Sekarang
             </a>
         </div>

@@ -11,8 +11,9 @@ class DetailModel extends Model
 
     protected $table = 'detail_kriteria';
     protected $primaryKey = 'detail_id';
+    public $timestamps = True;
 
-    protected $fillable = ['user_id', 'kriteria_id', 'penetapan_id', 'pelaksanaan_id', 'evaluasi_id', 'pengendalian_id', 'peningkatan_id', 'created_at', 'updated_at'];
+    protected $fillable = ['user_id', 'kriteria_id', 'penetapan_id', 'pelaksanaan_id', 'evaluasi_id', 'pengendalian_id', 'peningkatan_id'];
 
     public function user()
     {
@@ -48,5 +49,5 @@ class DetailModel extends Model
     {
         return $this->belongsTo(PeningkatanModel::class, 'peningkatan_id', 'peningkatan_id');
     }
-        
+
 }
