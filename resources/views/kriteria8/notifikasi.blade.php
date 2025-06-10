@@ -9,30 +9,12 @@
                         <h6>{{ $page->title }}</h6>
                     </div>
                     <div class="card-body pt-1 p-3">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group row">
-                                    <label class="col-1 control-label col-form-label">Filter:</label>
-                                    <div class="col-3">
-                                        <select name="status" id="status" class="form-select" required>
-                                            <option value="">- Semua -</option>
-                                            @foreach ($status as $status)
-                                                <option value="{{ $status->status_id }}">{{ ucfirst($status->keterangan) }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        <small class="form-text text-muted">Status Kriteria</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="table-responsive">
                             <table class="table table-bordered table-striped" id="table_kriteria8">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
-                                        <th>Evaluasi</th>
-                                        
+                                        <th style="width: 10%;">No</th>
+                                        <th style="width: 90%;">Evaluasi</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -118,7 +100,10 @@
                     //         return btn;
                     //     }
                     // }
-                ]
+                ],
+                language: {
+                    emptyTable: "Tidak ada data yang perlu dievaluasi"
+                }
             });
 
             $('#status').on('change', function() {
