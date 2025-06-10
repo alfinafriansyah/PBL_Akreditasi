@@ -54,10 +54,15 @@ class Kriteria1Controller extends Controller
             ->addIndexColumn()
             ->addColumn('aksi', function ($kriteria) { 
                 $btn = '<button onclick="modalAction(\'' . url('/kriteria1/' . $kriteria->kriteria_id . '/detail') . '\')" class="btn btn-info btn-sm">Detail</button> ';
-
-                $btn .= '<a href="'.url('/kriteria1/' . $kriteria->kriteria_id . '/edit').'" class="btn btn-warning btn-sm">Edit</a> ';
-
+            // ondisi untuk disable Edit jika status_id != 2
+            if ($kriteria->status_id == 6) {
+                $btn .= '<button class="btn btn-primary btn-sm" disabled>Edit</button> ';
+                $btn .= '<button class="btn btn-warning btn-sm" disabled>Hapus</button> ';
+            } else {
+                $btn .= '<a href="' . url('/kriteria1/' . $kriteria->kriteria_id . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
                 $btn .= '<button onclick="confirmDelete(\'' . url('/kriteria1/' . $kriteria->kriteria_id . '/delete') . '\', \'' . $kriteria->kriteria_id . '\')" class="btn btn-danger btn-sm">Hapus</button> ';
+            }
+
 
                 return $btn;
             })
@@ -434,231 +439,44 @@ class Kriteria1Controller extends Controller
 
     public function listEvaluasi(Request $request)
     {
-        $kriterias = KriteriaModel::select('kriteria_id', 'komentar')
+        $kriterias = KriteriaModel::select('kriteria_id', 'komentar', 'status_id')
             ->with('status')
             ->where('kriteria_kode', 'KRT1');
 
         if ($request->status) {
             $kriterias->where('status_id', $request->status);
         }
+        // Jika request status ada, filter lagi berdasarkan status
+        if ($request->status) {
+            $kriterias->where('status_id', $request->status);
+        }
 
-        return DataTables::of($kriterias)
+        // Ambil data sebagai koleksi
+        $data = $kriterias->get();
+
+        // Cek apakah ada yang memiliki status_id == 2
+        if (!$data->contains('status_id', 2)) {
+            // Jika tidak ada yang status_id == 2, return DataTables kosong
+            return DataTables::of(collect([]))->make(true);
+        }
+
+        // if($kriterias->status_id == 2){
+        return DataTables::of($kriterias) 
             // Menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
             ->addIndexColumn()
             ->editColumn('komentar', function ($kriteria) {
                 return strip_tags($kriteria->komentar); // Hilangkan tag HTML
             })
-            ->addColumn('aksi', function ($kriteria) { 
-                $btn = '<button onclick="modalAction(\'' . url('/kriteria1/' . $kriteria->kriteria_id . '/detail') . '\')" class="btn btn-info btn-sm">Detail</button> ';
+            // ->addColumn('aksi', function ($kriteria) { 
+            //     $btn = '<button onclick="modalAction(\'' . url('/kriteria1/' . $kriteria->kriteria_id . '/detail') . '\')" class="btn btn-info btn-sm">Detail</button> ';
 
-                $btn .= '<a href="'.url('/kriteria1/' . $kriteria->kriteria_id . '/edit').'" class="btn btn-warning btn-sm">Edit</a> ';
+            //     $btn .= '<a href="'.url('/kriteria1/' . $kriteria->kriteria_id . '/edit').'" class="btn btn-warning btn-sm">Edit</a> ';
 
 
-                return $btn;
-            })
-            ->rawColumns(['aksi']) // Memberitahu bahwa kolom aksi adalah HTML
+            //     return $btn;
+            // })
+            // ->rawColumns(['aksi']) // Memberitahu bahwa kolom aksi adalah HTML
             ->make(true);
+        // }
     }
-
-    // public function detailEvaluasi(string $id)
-    // {
-    //     $kriteria = KriteriaModel::with([
-    //         'penetapan',
-    //         'pelaksanaan',
-    //         'evaluasi',
-    //         'pengendalian',
-    //         'peningkatan'
-    //     ])->find($id);
-
-    //     return view('kriteria1.detail', compact('kriteria'));
-    // }
-
-    // public function editEvaluasi(string $id)
-    // {
-
-    //     $breadcrumb = (object) [
-    //         'title' => 'Edit Data Kriteria 1',
-    //         'list' => 'Edit Kriteria 1',
-    //     ];
-
-    //     $page = (object) [
-    //         'title' => 'Edit data kriteria 1',
-    //     ];
-
-    //     $activeMenu = 'kriteria1';
-
-    //     $kriteria = KriteriaModel::with([
-    //         'penetapan',
-    //         'pelaksanaan',
-    //         'evaluasi',
-    //         'pengendalian',
-    //         'peningkatan'
-    //     ])->findOrFail($id);
-
-    //     // Jika data kosong, tampilkan error
-    //     if (
-    //         !$kriteria->penetapan &&
-    //         !$kriteria->pelaksanaan &&
-    //         !$kriteria->evaluasi &&
-    //         !$kriteria->pengendalian &&
-    //         !$kriteria->peningkatan
-    //     ) {
-    //         return redirect()->back()->with('error', 'Data kriteria tidak ditemukan atau belum diisi.');
-    //     }
-
-    //     return view('kriteria1.edit', compact('kriteria', 'breadcrumb', 'activeMenu', 'page'));
-    // }
-
-    // public function updateEvaluasi(Request $request, $id)
-    // {
-    //     $validator = Validator::make($request->all(), [
-    //         'penetapan' => 'required',
-    //         'pelaksanaan' => 'required',
-    //         'evaluasi' => 'required',
-    //         'pengendalian' => 'required',
-    //         'peningkatan' => 'required',
-    //         'doc_penetapan.*' => 'nullable|file|mimes:jpg,jpeg,png,gif,webp|max:2048',
-    //         'doc_pelaksanaan.*' => 'nullable|file|mimes:jpg,jpeg,png,gif,webp|max:2048',
-    //         'doc_evaluasi.*' => 'nullable|file|mimes:jpg,jpeg,png,gif,webp|max:2048',
-    //         'doc_pengendalian.*' => 'nullable|file|mimes:jpg,jpeg,png,gif,webp|max:2048',
-    //         'doc_peningkatan.*' => 'nullable|file|mimes:jpg,jpeg,png,gif,webp|max:2048',
-    //     ]);
-
-    //     if ($validator->fails()) {
-    //         return redirect()->back()
-    //             ->withErrors($validator)
-    //             ->withInput();
-    //     }
-
-    //     DB::beginTransaction();
-    //     try {
-    //         $kriteria = KriteriaModel::with([
-    //             'penetapan',
-    //             'pelaksanaan',
-    //             'evaluasi',
-    //             'pengendalian',
-    //             'peningkatan'
-    //         ])->findOrFail($id);
-
-    //         $documentFields = [
-    //             'doc_penetapan' => 'penetapan',
-    //             'doc_pelaksanaan' => 'pelaksanaan',
-    //             'doc_evaluasi' => 'evaluasi',
-    //             'doc_pengendalian' => 'pengendalian',
-    //             'doc_peningkatan' => 'peningkatan',
-    //         ];
-    //         $documentPaths = [];
-
-    //         foreach ($documentFields as $field => $relasi) {
-    //             $paths = [];
-    //             if ($request->hasFile($field)) {
-    //                 // Hapus file lama
-    //                 $oldFiles = json_decode(optional($kriteria->$relasi)->dokumen ?? '[]');
-    //                 foreach ($oldFiles as $oldFile) {
-    //                     $storagePath = str_replace('storage/', 'public/', $oldFile);
-    //                     if (Storage::exists($storagePath)) {
-    //                         Storage::delete($storagePath);
-    //                     }
-    //                 }
-    //                 // Simpan file baru
-    //                 foreach ($request->file($field) as $file) {
-    //                     $path = $file->store("public/documents/kriteria1/{$relasi}");
-    //                     $paths[] = str_replace('public/', 'storage/', $path);
-    //                 }
-    //                 $documentPaths[$field] = !empty($paths) ? json_encode($paths) : null;
-    //             } else {
-    //                 // Pakai dokumen lama jika tidak upload baru
-    //                 $documentPaths[$field] = optional($kriteria->$relasi)->dokumen;
-    //             }
-    //         }
-
-    //         // Update relasi
-    //         if ($kriteria->penetapan) {
-    //             $kriteria->penetapan->update([
-    //                 'penetapan' => $request->penetapan,
-    //                 'dokumen' => $documentPaths['doc_penetapan'],
-    //             ]);
-    //         }
-    //         if ($kriteria->pelaksanaan) {
-    //             $kriteria->pelaksanaan->update([
-    //                 'pelaksanaan' => $request->pelaksanaan,
-    //                 'dokumen' => $documentPaths['doc_pelaksanaan'],
-    //             ]);
-    //         }
-    //         if ($kriteria->evaluasi) {
-    //             $kriteria->evaluasi->update([
-    //                 'evaluasi' => $request->evaluasi,
-    //                 'dokumen' => $documentPaths['doc_evaluasi'],
-    //             ]);
-    //         }
-    //         if ($kriteria->pengendalian) {
-    //             $kriteria->pengendalian->update([
-    //                 'pengendalian' => $request->pengendalian,
-    //                 'dokumen' => $documentPaths['doc_pengendalian'],
-    //             ]);
-    //         }
-    //         if ($kriteria->peningkatan) {
-    //             $kriteria->peningkatan->update([
-    //                 'peningkatan' => $request->peningkatan,
-    //                 'dokumen' => $documentPaths['doc_peningkatan'],
-    //             ]);
-    //         }
-
-    //         $kriteria->status_id = 1;
-    //         $kriteria->komentar = null; // Reset komentar jika ada
-    //         $kriteria->save();
-
-    //         DB::commit();
-
-    //         return redirect('/kriteria1')->with('success', 'Data berhasil diupdate!');
-    //     } catch (\Exception $e) {
-    //         DB::rollBack();
-    //         return redirect()->back()->with('error', 'Gagal update: ' . $e->getMessage())->withInput();
-    //     }
-    // }
-
-    // public function destroyEvaluasi($id)
-    // {
-    //     DB::beginTransaction();
-    //     try {
-    //         $kriteria = KriteriaModel::with([
-    //             'penetapan',
-    //             'pelaksanaan',
-    //             'evaluasi',
-    //             'pengendalian',
-    //             'peningkatan'
-    //         ])->findOrFail($id);
-
-    //         // Hapus detail jika ada
-    //         if ($kriteria->detail) {
-    //             $kriteria->detail->delete();
-    //         }
-
-    //         // Hapus file dokumen pada setiap relasi jika ada
-    //         $relasiList = ['penetapan', 'pelaksanaan', 'evaluasi', 'pengendalian', 'peningkatan'];
-    //         foreach ($relasiList as $relasi) {
-    //             if ($kriteria->$relasi && $kriteria->$relasi->dokumen) {
-    //                 $files = json_decode($kriteria->$relasi->dokumen, true) ?? [];
-    //                 foreach ($files as $file) {
-    //                     $storagePath = str_replace('storage/', 'public/', $file);
-    //                     if (Storage::exists($storagePath)) {
-    //                         Storage::delete($storagePath);
-    //                     }
-    //                 }
-    //                 // Hapus data relasi
-    //                 $kriteria->$relasi->delete();
-    //             }
-    //         }
-
-    //         // Update status_id menjadi null
-    //         $kriteria->status_id = null;
-    //         $kriteria->save();
-
-    //         DB::commit();
-    //         return redirect('/kriteria1')->with('success', 'Data berhasil dihapus!');
-    //     } catch (\Exception $e) {
-    //         DB::rollBack();
-    //         return redirect('/kriteria1')->with('error', 'Gagal menghapus data: ' . $e->getMessage());
-    //     }
-    // }
 }

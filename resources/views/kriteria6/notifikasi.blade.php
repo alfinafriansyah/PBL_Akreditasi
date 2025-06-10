@@ -27,7 +27,7 @@
                             </div>
                         </div>
                         <div class="table-responsive">
-                            <table class="table table-bordered table-striped" id="table_kriteria1">
+                            <table class="table table-bordered table-striped" id="table_kriteria6">
                                 <thead>
                                     <tr>
                                         <th>No</th>
@@ -66,7 +66,7 @@
             });
         @endif
 
-        var dataKriteria1;
+        var dataKriteria6;
 
         function modalAction(url = '') {
             $('#myModal').load(url, function() {
@@ -74,11 +74,11 @@
             });
         }
         $(document).ready(function() {
-            dataKriteria1 = $('#table_kriteria1').DataTable({
+            dataKriteria6 = $('#table_kriteria6').DataTable({
                 serverSide: true,
                 processing: true,
                 ajax: {
-                    url: "{{ url('kriteria1/evaluasi') }}",
+                    url: "{{ url('kriteria6/evaluasi') }}",
                     type: "POST",
                     data: function(d) {
                         d.status = $('#status').val();
@@ -122,7 +122,7 @@
             });
 
             $('#status').on('change', function() {
-                dataKriteria1.ajax.reload();
+                dataKriteria6.ajax.reload();
             });
 
         });

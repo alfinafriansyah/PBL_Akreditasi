@@ -54,11 +54,14 @@ class Kriteria7Controller extends Controller
             ->addIndexColumn()
             ->addColumn('aksi', function ($kriteria) { 
                 $btn = '<button onclick="modalAction(\'' . url('/kriteria7/' . $kriteria->kriteria_id . '/detail') . '\')" class="btn btn-info btn-sm">Detail</button> ';
- 
-                $btn .= '<a href="'.url('/kriteria7/' . $kriteria->kriteria_id . '/edit').'" class="btn btn-warning btn-sm">Edit</a> ';
 
+            if ($kriteria->status_id == 6) {
+                $btn .= '<button class="btn btn-primary btn-sm" disabled>Edit</button> ';
+                $btn .= '<button class="btn btn-warning btn-sm" disabled>Hapus</button> ';
+            } else {
+                $btn .= '<a href="' . url('/kriteria7/' . $kriteria->kriteria_id . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
                 $btn .= '<button onclick="confirmDelete(\'' . url('/kriteria7/' . $kriteria->kriteria_id . '/delete') . '\', \'' . $kriteria->kriteria_id . '\')" class="btn btn-danger btn-sm">Hapus</button> ';
-                
+            }
                 return $btn;
             })
             ->rawColumns(['aksi']) // Memberitahu bahwa kolom aksi adalah HTML
@@ -407,4 +410,55 @@ class Kriteria7Controller extends Controller
         }
     }
 
+      //evaluasi
+      public function indexEvaluasi()
+      {
+          $breadcrumb = (object) [
+              'title' => 'Evaluasi',
+              'list' => 'Evaluasi Kriteria 7',
+          ];
+  
+          $page = (object) [
+              'title' => 'Daftar Evaluasi Kriteria',
+          ];
+  
+          $activeMenu = 'notifikasi';
+  
+          $status = StatusModel::all();
+  
+          return view('kriteria7.notifikasi', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'page' => $page, 'status' => $status]);
+      }
+  
+      public function listEvaluasi(Request $request)
+      {
+          $kriterias = KriteriaModel::select('kriteria_id', 'komentar', 'status_id')
+              ->with('status')
+              ->where('kriteria_kode', 'KRT7');
+  
+          if ($request->status) {
+              $kriterias->where('status_id', $request->status);
+          }
+          // Jika request status ada, filter lagi berdasarkan status
+          if ($request->status) {
+              $kriterias->where('status_id', $request->status);
+          }
+  
+          // Ambil data sebagai koleksi
+          $data = $kriterias->get();
+  
+          // Cek apakah ada yang memiliki status_id == 2
+          if (!$data->contains('status_id', 2)) {
+              // Jika tidak ada yang status_id == 2, return DataTables kosong
+              return DataTables::of(collect([]))->make(true);
+          }
+  
+          // if($kriterias->status_id == 2){
+          return DataTables::of($kriterias) 
+              // Menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
+              ->addIndexColumn()
+              ->editColumn('komentar', function ($kriteria) {
+                  return strip_tags($kriteria->komentar); // Hilangkan tag HTML
+              })
+            ->make(true);
+      }
 }

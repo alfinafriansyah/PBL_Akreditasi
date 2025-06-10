@@ -27,7 +27,7 @@
                             </div>
                         </div>
                         <div class="table-responsive">
-                            <table class="table table-bordered table-striped" id="table_kriteria1">
+                            <table class="table table-bordered table-striped" id="table_kriteria3">
                                 <thead>
                                     <tr>
                                         <th>No</th>
@@ -66,7 +66,7 @@
             });
         @endif
 
-        var dataKriteria1;
+        var dataKriteria3;
 
         function modalAction(url = '') {
             $('#myModal').load(url, function() {
@@ -74,11 +74,11 @@
             });
         }
         $(document).ready(function() {
-            dataKriteria1 = $('#table_kriteria1').DataTable({
+            dataKriteria3 = $('#table_kriteria3').DataTable({
                 serverSide: true,
                 processing: true,
                 ajax: {
-                    url: "{{ url('kriteria1/evaluasi') }}",
+                    url: "{{ url('kriteria3/evaluasi') }}",
                     type: "POST",
                     data: function(d) {
                         d.status = $('#status').val();
@@ -100,29 +100,11 @@
                         orderable: true,
                         searchable: true
                     },
-                    // {
-                    //     data: "aksi",
-                    //     className: "",
-                    //     orderable: false,
-                    //     searchable: false,
-                    //     render: function(data, type, row) {
-                    //         let btn = '';
-                    //         // Jika status_id bukan 1, tombol disable
-                    //         if (row.status_id == 2) {
-                    //             btn += '<a href="kriteria/' + row.kriteria_id +
-                    //                 '/form" class="btn btn-success btn-sm">Detail</a>';
-                    //         } else {
-                    //             btn += '<a href="koordinator/' + row.kriteria_id +
-                    //                 '/form" class="btn btn-success btn-sm disabled" tabindex="-1" aria-disabled="true">Detail</a>';
-                    //         }
-                    //         return btn;
-                    //     }
-                    // }
                 ]
             });
 
             $('#status').on('change', function() {
-                dataKriteria1.ajax.reload();
+                dataKriteria3.ajax.reload();
             });
 
         });

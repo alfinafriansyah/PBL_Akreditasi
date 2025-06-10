@@ -7,8 +7,7 @@
 @endphp
 <!-- Sidebar -->
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4"
-       id="sidenav-main"
-       style="background-color: #F5EEDC; {{--height: 100vh; width: 180px; position: fixed; top: 0; left: 0; z-index: 1000;--}}">
+    id="sidenav-main" style="background-color: #F5EEDC; {{-- height: 100vh; width: 180px; position: fixed; top: 0; left: 0; z-index: 1000; --}}">
     <!-- Header -->
     <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
@@ -62,8 +61,10 @@
                 </li>
             @elseif($roleKode == 'KJM')
                 <li class="nav-item">
-                    <a class="nav-link {{ ($activeMenu == 'dashboard_kjm') ? 'active' : '' }}" href="{{ url('/kjm/dashboard') }}">
-                        <div class="icon icon-shape icon-sm border-radius-md text-center me-1 d-flex align-items-center justify-content-center">
+                    <a class="nav-link {{ $activeMenu == 'dashboard_kjm' ? 'active' : '' }}"
+                        href="{{ url('/kjm/dashboard') }}">
+                        <div
+                            class="icon icon-shape icon-sm border-radius-md text-center me-1 d-flex align-items-center justify-content-center">
                             <i class="ni ni-tv-2 text-dark text-sm opacity-10"></i>
                         </div>
                         <span class="nav-link-text ms-1">Dashboard</span>
@@ -84,12 +85,14 @@
             @endif
 
             <!-- Daftar Kriteria -->
-            @if(Str::startsWith($roleKode, 'KRT'))
+            @if (Str::startsWith($roleKode, 'KRT'))
                 @for ($i = 1; $i <= 9; $i++)
-                    @if($roleKode == 'KRT'.$i)
+                    @if ($roleKode == 'KRT' . $i)
                         <li class="nav-item">
-                            <a class="nav-link {{ ($activeMenu == 'kriteria'.$i) ? 'active' : '' }}" href="{{ url('/kriteria'.$i) }}">
-                                <div class="icon icon-shape icon-sm border-radius-md text-center me-1 d-flex align-items-center justify-content-center">
+                            <a class="nav-link {{ $activeMenu == 'kriteria' . $i ? 'active' : '' }}"
+                                href="{{ url('/kriteria' . $i) }}">
+                                <div
+                                    class="icon icon-shape icon-sm border-radius-md text-center me-1 d-flex align-items-center justify-content-center">
                                     <i class="ni ni-single-copy-04 text-dark text-sm opacity-10"></i>
                                 </div>
                                 <span class="nav-link-text ms-1">Data Kriteria {{ $i }}</span>
@@ -102,8 +105,10 @@
             <!-- Validasi Koordinator -->
             @if ($roleKode == 'KOOR')
                 <li class="nav-item">
-                    <a class="nav-link {{ ($activeMenu == 'validasi_koordinator') ? 'active' : '' }}" href="{{ url('/validasi/koordinator') }}">
-                        <div class="icon icon-shape icon-sm border-radius-md text-center me-1 d-flex align-items-center justify-content-center">
+                    <a class="nav-link {{ $activeMenu == 'validasi_koordinator' ? 'active' : '' }}"
+                        href="{{ url('/validasi/koordinator') }}">
+                        <div
+                            class="icon icon-shape icon-sm border-radius-md text-center me-1 d-flex align-items-center justify-content-center">
                             <i class="ni ni-folder-17 text-dark text-sm opacity-10"></i>
                         </div>
                         <span class="nav-link-text ms-1">Validasi Koordinator</span>
@@ -114,8 +119,10 @@
             <!-- Validasi KPS / Kajur -->
             @if ($roleKode == 'KPSKAJUR')
                 <li class="nav-item">
-                    <a class="nav-link {{ ($activeMenu == 'validasi_kpskajur') ? 'active' : '' }}" href="{{ url('/validasi/kpskajur') }}">
-                        <div class="icon icon-shape icon-sm border-radius-md text-center me-1 d-flex align-items-center justify-content-center">
+                    <a class="nav-link {{ $activeMenu == 'validasi_kpskajur' ? 'active' : '' }}"
+                        href="{{ url('/validasi/kpskajur') }}">
+                        <div
+                            class="icon icon-shape icon-sm border-radius-md text-center me-1 d-flex align-items-center justify-content-center">
                             <i class="ni ni-folder-17 text-dark text-sm opacity-10"></i>
                         </div>
                         <span class="nav-link-text ms-1">Validasi KPS / Kajur</span>
@@ -126,8 +133,10 @@
             <!-- Validasi KJM -->
             @if ($roleKode == 'KJM')
                 <li class="nav-item">
-                    <a class="nav-link {{ ($activeMenu == 'validasi_kjm') ? 'active' : '' }}" href="{{ url('/validasi/kjm') }}">
-                        <div class="icon icon-shape icon-sm border-radius-md text-center me-1 d-flex align-items-center justify-content-center">
+                    <a class="nav-link {{ $activeMenu == 'validasi_kjm' ? 'active' : '' }}"
+                        href="{{ url('/validasi/kjm') }}">
+                        <div
+                            class="icon icon-shape icon-sm border-radius-md text-center me-1 d-flex align-items-center justify-content-center">
                             <i class="ni ni-folder-17 text-dark text-sm opacity-10"></i>
                         </div>
                         <span class="nav-link-text ms-1">Validasi KJM</span>
@@ -138,8 +147,10 @@
             <!-- Validasi Direktur -->
             @if ($roleKode == 'DIR')
                 <li class="nav-item">
-                    <a class="nav-link {{ ($activeMenu == 'validasi_direktur') ? 'active' : '' }}" href="{{ url('/validasi/direktur') }}">
-                        <div class="icon icon-shape icon-sm border-radius-md text-center me-1 d-flex align-items-center justify-content-center">
+                    <a class="nav-link {{ $activeMenu == 'validasi_direktur' ? 'active' : '' }}"
+                        href="{{ url('/validasi/direktur') }}">
+                        <div
+                            class="icon icon-shape icon-sm border-radius-md text-center me-1 d-flex align-items-center justify-content-center">
                             <i class="ni ni-folder-17 text-dark text-sm opacity-10"></i>
                         </div>
                         <span class="nav-link-text ms-1">Validasi Direktur</span>
@@ -148,21 +159,22 @@
             @endif
 
             <!-- Notifikasi -->
-            @if(Str::startsWith($roleKode, 'KRT'))
-                @if($kriteria->status_id == 2)
-                    <li class="nav-item">
-                        <a class="nav-link {{ $activeMenu == 'notifikasi' ? 'active' : '' }}"
-                            href="{{ url('/kriteria' . $kriteria_id . '/notifikasi') }}">
-                            <div
-                                class="icon icon-shape icon-sm border-radius-md text-center me-1 d-flex align-items-center justify-content-center">
-                                <i class="ni ni-bell-55 text-dark text-sm opacity-10"></i>
-                            </div>
-                            <span class="nav-link-text ms-1">Evaluasi
-                                <span class="p-1 bg-danger border border-light rounded-circle" style="display:inline-block; vertical-align: middle; margin-bottom: 15px;"></span>
-                            </span>
-                        </a>
-                    </li>
-                @endif
+            @if (Str::startsWith($roleKode, 'KRT'))
+                <li class="nav-item">
+                    <a class="nav-link {{ $activeMenu == 'notifikasi' ? 'active' : '' }}"
+                        href="{{ url('/kriteria' . $kriteria_id . '/notifikasi') }}">
+                        <div
+                            class="icon icon-shape icon-sm border-radius-md text-center me-1 d-flex align-items-center justify-content-center">
+                            <i class="ni ni-bell-55 text-dark text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Evaluasi
+                            @if ($kriteria->status_id == 2)
+                            <span class="p-1 bg-danger border border-light rounded-circle"
+                                style="display:inline-block; vertical-align: middle; margin-bottom: 15px;"></span>
+                            @endif
+                        </span>
+                    </a>
+                </li>
             @endif
         </ul>
     </div>
@@ -170,9 +182,10 @@
     <!-- Logout Tetap di Bawah -->
     <div class="border-top p-3 sidebar-logout">
         <a href="{{ url('/logout') }}"
-           onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-           class="nav-link text-secondary d-flex align-items-center">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+            onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+            class="nav-link text-secondary d-flex align-items-center">
+            <div
+                class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                 <i class="ni ni-button-power text-secondary text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Logout</span>
