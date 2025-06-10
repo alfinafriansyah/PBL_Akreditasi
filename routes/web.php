@@ -97,6 +97,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/import_ajax', [Kriteria2Controller::class, 'import_ajax']);
         Route::get('/export_excel', [Kriteria2Controller::class, 'export_excel']);
         Route::get('/export_pdf', [Kriteria2Controller::class, 'export_pdf']);
+        Route::get('/notifikasi', [Kriteria2Controller::class, 'indexEvaluasi']);
+        Route::post('/evaluasi', [Kriteria2Controller::class, 'listEvaluasi']);
     });
 
     // Kriteria 3 routes
@@ -113,6 +115,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/import_ajax', [Kriteria3Controller::class, 'import_ajax']);
         Route::get('/export_excel', [Kriteria3Controller::class, 'export_excel']);
         Route::get('/export_pdf', [Kriteria3Controller::class, 'export_pdf']);
+        Route::get('/notifikasi', [Kriteria3Controller::class, 'indexEvaluasi']);
+        Route::post('/evaluasi', [Kriteria3Controller::class, 'listEvaluasi']);
     });
 
     // Kriteria 4 routes
@@ -129,6 +133,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/import_ajax', [Kriteria4Controller::class, 'import_ajax']);
         Route::get('/export_excel', [Kriteria4Controller::class, 'export_excel']);
         Route::get('/export_pdf', [Kriteria4Controller::class, 'export_pdf']);
+        Route::get('/notifikasi', [Kriteria4Controller::class, 'indexEvaluasi']);
+        Route::post('/evaluasi', [Kriteria4Controller::class, 'listEvaluasi']);
     });
 
     // Kriteria 5 routes
@@ -145,6 +151,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/import_ajax', [Kriteria5Controller::class, 'import_ajax']);
         Route::get('/export_excel', [Kriteria5Controller::class, 'export_excel']);
         Route::get('/export_pdf', [Kriteria5Controller::class, 'export_pdf']);
+        Route::get('/notifikasi', [Kriteria5Controller::class, 'indexEvaluasi']);
+        Route::post('/evaluasi', [Kriteria5Controller::class, 'listEvaluasi']);
     });
 
     // Kriteria 6 routes
@@ -161,6 +169,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/import_ajax', [Kriteria6Controller::class, 'import_ajax']);
         Route::get('/export_excel', [Kriteria6Controller::class, 'export_excel']);
         Route::get('/export_pdf', [Kriteria6Controller::class, 'export_pdf']);
+        Route::get('/notifikasi', [Kriteria6Controller::class, 'indexEvaluasi']);
+        Route::post('/evaluasi', [Kriteria6Controller::class, 'listEvaluasi']);
     });
 
     // Kriteria 7 routes
@@ -177,6 +187,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/import_ajax', [Kriteria7Controller::class, 'import_ajax']);
         Route::get('/export_excel', [Kriteria7Controller::class, 'export_excel']);
         Route::get('/export_pdf', [Kriteria7Controller::class, 'export_pdf']);
+        Route::get('/notifikasi', [Kriteria7Controller::class, 'indexEvaluasi']);
+        Route::post('/evaluasi', [Kriteria7Controller::class, 'listEvaluasi']);
     });
 
     // Kriteria 8 routes
@@ -193,6 +205,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/import_ajax', [Kriteria8Controller::class, 'import_ajax']);
         Route::get('/export_excel', [Kriteria8Controller::class, 'export_excel']);
         Route::get('/export_pdf', [Kriteria8Controller::class, 'export_pdf']);
+        Route::get('/notifikasi', [Kriteria8Controller::class, 'indexEvaluasi']);
+        Route::post('/evaluasi', [Kriteria8Controller::class, 'listEvaluasi']);
     });
 
     // Kriteria 9 routes
@@ -209,6 +223,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/import_ajax', [Kriteria9Controller::class, 'import_ajax']);
         Route::get('/export_excel', [Kriteria9Controller::class, 'export_excel']);
         Route::get('/export_pdf', [Kriteria9Controller::class, 'export_pdf']);
+        Route::get('/notifikasi', [Kriteria9Controller::class, 'indexEvaluasi']);
+        Route::post('/evaluasi', [Kriteria9Controller::class, 'listEvaluasi']);
     });
 
     // Route untuk validasi
