@@ -1,8 +1,8 @@
 <!-- Navbar Transparent -->
-<nav class="navbar navbar-expand-lg position-absolute top-0 z-index-2 w-100 shadow-none py-3 navbar-transparent">
+<nav class="navbar navbar-expand-lg position-absolute top-0 z-index-2 w-100 shadow-none py-3">
     <div class="container d-flex align-items-center justify-content-between">
         <!-- Branding -->
-        <a class="navbar-brand text-white fw-bold fs-5 mt-3" href="#">Sistem Akreditasi</a>
+        <a class="navbar-brand text-dark fw-bold fs-5 mt-3" href="#">Sistem Akreditasi</a>
 
         <!-- Toggle button (for mobile) -->
         <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse"
@@ -20,11 +20,11 @@
             <ul class="navbar-nav ms-auto align-items-center gap-3">
                 <!-- Dropdown Kriteria -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-white d-flex align-items-center" href="#"
+                    <a class="nav-link dropdown-toggle text-dark d-flex align-items-center" href="#"
                        id="dropdownKriteria" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="material-symbols-rounded me-1">dashboard</i> Kriteria
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-white" aria-labelledby="dropdownKriteria" style="z-index:5000; position:absolute;">
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownKriteria" style="z-index:5000; position:absolute;">
                         <li><a class="dropdown-item" href="#">Kriteria 1</a></li>
                         <li><a class="dropdown-item" href="#">Kriteria 2</a></li>
                         <li><a class="dropdown-item" href="#">Kriteria 3</a></li>
@@ -39,11 +39,11 @@
 
                 <!-- Dropdown Informasi -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-white d-flex align-items-center" href="#"
+                    <a class="nav-link dropdown-toggle text-dark d-flex align-items-center" href="#"
                        id="dropdownInformasi" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="material-symbols-rounded me-1">info</i> Informasi
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-white" aria-labelledby="dropdownInformasi">
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownInformasi">
                         <li><a class="dropdown-item" href="#informasi-umum">Informasi Umum</a></li>
                         <li><a class="dropdown-item" href="#testimoni">Testimoni</a></li>
                         <li><a class="dropdown-item" href="#kontak">Kontak</a></li>
@@ -52,15 +52,11 @@
 
                 <!-- Website Polinema -->
                 <li class="nav-item">
-                    <a class="nav-link text-white d-flex align-items-center" href="https://www.polinema.ac.id/" target="_blank">
+                    <a class="nav-link text-dark d-flex align-items-center" href="https://www.polinema.ac.id/" target="_blank">
                         <i class="fa fa-globe me-1"></i> Website Polinema
                     </a>
                 </li>
 
-                <!-- Login Button -->
-                <li class="nav-item mt-3">
-                    <a href="{{route('login')}}" target="_blank" class="btn btn-sm bg-white text-dark">Login</a>
-                </li>
             </ul>
         </div>
     </div>
