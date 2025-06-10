@@ -1,6 +1,5 @@
-<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-1 fixed-start ms-2"
-       id="sidenav-main"
-       style="background-color: #F5EEDC; height: 100vh; overflow: hidden;">
+<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4"
+    id="sidenav-main" style="background-color: #F5EEDC; {{-- height: 100vh; width: 180px; position: fixed; top: 0; left: 0; z-index: 1000; --}}">
     <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
            aria-hidden="true" id="iconSidenav"></i>
@@ -9,12 +8,7 @@
             <span class="ms-1 font-weight-bold">Akreditasi</span>
         </a>
     </div>
-{{--    posisi sidebar agar berada di belakang --}}
-    <style>
-        #sidenav-main {
-            z-index: 1030;
-        }
-    </style>
+
     <hr class="horizontal dark mt-0">
 
     <div class="collapse navbar-collapse w-auto flex-grow-1" id="sidenav-scrollbar"
@@ -48,28 +42,27 @@
                 <a class="nav-link {{ ($activeMenu == 'datadosen') ? 'active' : '' }}"
                    href="{{ route('admin.datadosen') }}">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-bell-55 text-dark text-sm opacity-10"></i>
+                        <i class="ni ni-badge text-dark text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text ms-1">Data Dosen</span>
                 </a>
             </li>
-
-
-            <!-- Logout -->
-            <li class="nav-item mt-3">
-                <a href="{{ url('/logout') }}"
-                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                   class="nav-link">
-                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-button-power text-danger text-sm opacity-10"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">Logout</span>
-                </a>
-                <form id="logout-form" action="{{ url('/logout') }}" method="GET" class="d-none">
-                    @csrf
-                </form>
-            </li>
-
         </ul>
+    </div>
+    
+    <!-- Logout Tetap di Bawah -->
+    <div class="border-top p-3 sidebar-logout">
+        <a href="{{ url('/logout') }}"
+            onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+            class="nav-link text-secondary d-flex align-items-center">
+            <div
+                class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="ni ni-button-power text-secondary text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Logout</span>
+        </a>
+        <form id="logout-form" action="{{ url('/logout') }}" method="GET" class="d-none">
+            @csrf
+        </form>
     </div>
 </aside>
