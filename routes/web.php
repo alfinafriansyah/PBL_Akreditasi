@@ -74,10 +74,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/{id}/edit', [Kriteria1Controller::class, 'edit']);
         Route::put('/{id}', [Kriteria1Controller::class, 'update']);
         Route::get('/{id}/delete', [Kriteria1Controller::class, 'destroy']);
-        Route::get('/import', [Kriteria1Controller::class, 'import']);
-        Route::post('/import_ajax', [Kriteria1Controller::class, 'import_ajax']);
-        Route::get('/export_excel', [Kriteria1Controller::class, 'export_excel']);
-        Route::get('/export_pdf', [Kriteria1Controller::class, 'export_pdf']);
         Route::get('/notifikasi', [Kriteria1Controller::class, 'indexEvaluasi']);
         Route::post('/evaluasi', [Kriteria1Controller::class, 'listEvaluasi']);
 
@@ -93,10 +89,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/{id}/edit', [Kriteria2Controller::class, 'edit']);
         Route::put('/{id}', [Kriteria2Controller::class, 'update']);
         Route::get('/{id}/delete', [Kriteria2Controller::class, 'destroy']);
-        Route::get('/import', [Kriteria2Controller::class, 'import']);
-        Route::post('/import_ajax', [Kriteria2Controller::class, 'import_ajax']);
-        Route::get('/export_excel', [Kriteria2Controller::class, 'export_excel']);
-        Route::get('/export_pdf', [Kriteria2Controller::class, 'export_pdf']);
         Route::get('/notifikasi', [Kriteria2Controller::class, 'indexEvaluasi']);
         Route::post('/evaluasi', [Kriteria2Controller::class, 'listEvaluasi']);
     });
@@ -111,10 +103,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/{id}/edit', [Kriteria3Controller::class, 'edit']);
         Route::put('/{id}', [Kriteria3Controller::class, 'update']);
         Route::get('/{id}/delete', [Kriteria3Controller::class, 'destroy']);
-        Route::get('/import', [Kriteria3Controller::class, 'import']);
-        Route::post('/import_ajax', [Kriteria3Controller::class, 'import_ajax']);
-        Route::get('/export_excel', [Kriteria3Controller::class, 'export_excel']);
-        Route::get('/export_pdf', [Kriteria3Controller::class, 'export_pdf']);
         Route::get('/notifikasi', [Kriteria3Controller::class, 'indexEvaluasi']);
         Route::post('/evaluasi', [Kriteria3Controller::class, 'listEvaluasi']);
     });
@@ -129,10 +117,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/{id}/edit', [Kriteria4Controller::class, 'edit']);
         Route::put('/{id}', [Kriteria4Controller::class, 'update']);
         Route::get('/{id}/delete', [Kriteria4Controller::class, 'destroy']);
-        Route::get('/import', [Kriteria4Controller::class, 'import']);
-        Route::post('/import_ajax', [Kriteria4Controller::class, 'import_ajax']);
-        Route::get('/export_excel', [Kriteria4Controller::class, 'export_excel']);
-        Route::get('/export_pdf', [Kriteria4Controller::class, 'export_pdf']);
         Route::get('/notifikasi', [Kriteria4Controller::class, 'indexEvaluasi']);
         Route::post('/evaluasi', [Kriteria4Controller::class, 'listEvaluasi']);
     });
@@ -147,10 +131,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/{id}/edit', [Kriteria5Controller::class, 'edit']);
         Route::put('/{id}', [Kriteria5Controller::class, 'update']);
         Route::get('/{id}/delete', [Kriteria5Controller::class, 'destroy']);
-        Route::get('/import', [Kriteria5Controller::class, 'import']);
-        Route::post('/import_ajax', [Kriteria5Controller::class, 'import_ajax']);
-        Route::get('/export_excel', [Kriteria5Controller::class, 'export_excel']);
-        Route::get('/export_pdf', [Kriteria5Controller::class, 'export_pdf']);
         Route::get('/notifikasi', [Kriteria5Controller::class, 'indexEvaluasi']);
         Route::post('/evaluasi', [Kriteria5Controller::class, 'listEvaluasi']);
     });
@@ -165,10 +145,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/{id}/edit', [Kriteria6Controller::class, 'edit']);
         Route::put('/{id}', [Kriteria6Controller::class, 'update']);
         Route::get('/{id}/delete', [Kriteria6Controller::class, 'destroy']);
-        Route::get('/import', [Kriteria6Controller::class, 'import']);
-        Route::post('/import_ajax', [Kriteria6Controller::class, 'import_ajax']);
-        Route::get('/export_excel', [Kriteria6Controller::class, 'export_excel']);
-        Route::get('/export_pdf', [Kriteria6Controller::class, 'export_pdf']);
         Route::get('/notifikasi', [Kriteria6Controller::class, 'indexEvaluasi']);
         Route::post('/evaluasi', [Kriteria6Controller::class, 'listEvaluasi']);
     });
@@ -183,10 +159,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/{id}/edit', [Kriteria7Controller::class, 'edit']);
         Route::put('/{id}', [Kriteria7Controller::class, 'update']);
         Route::get('/{id}/delete', [Kriteria7Controller::class, 'destroy']);
-        Route::get('/import', [Kriteria7Controller::class, 'import']);
-        Route::post('/import_ajax', [Kriteria7Controller::class, 'import_ajax']);
-        Route::get('/export_excel', [Kriteria7Controller::class, 'export_excel']);
-        Route::get('/export_pdf', [Kriteria7Controller::class, 'export_pdf']);
         Route::get('/notifikasi', [Kriteria7Controller::class, 'indexEvaluasi']);
         Route::post('/evaluasi', [Kriteria7Controller::class, 'listEvaluasi']);
     });
@@ -201,10 +173,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/{id}/edit', [Kriteria8Controller::class, 'edit']);
         Route::put('/{id}', [Kriteria8Controller::class, 'update']);
         Route::get('/{id}/delete', [Kriteria8Controller::class, 'destroy']);
-        Route::get('/import', [Kriteria8Controller::class, 'import']);
-        Route::post('/import_ajax', [Kriteria8Controller::class, 'import_ajax']);
-        Route::get('/export_excel', [Kriteria8Controller::class, 'export_excel']);
-        Route::get('/export_pdf', [Kriteria8Controller::class, 'export_pdf']);
         Route::get('/notifikasi', [Kriteria8Controller::class, 'indexEvaluasi']);
         Route::post('/evaluasi', [Kriteria8Controller::class, 'listEvaluasi']);
     });
@@ -219,10 +187,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/{id}/edit', [Kriteria9Controller::class, 'edit']);
         Route::put('/{id}', [Kriteria9Controller::class, 'update']);
         Route::get('/{id}/delete', [Kriteria9Controller::class, 'destroy']);
-        Route::get('/import', [Kriteria9Controller::class, 'import']);
-        Route::post('/import_ajax', [Kriteria9Controller::class, 'import_ajax']);
-        Route::get('/export_excel', [Kriteria9Controller::class, 'export_excel']);
-        Route::get('/export_pdf', [Kriteria9Controller::class, 'export_pdf']);
         Route::get('/notifikasi', [Kriteria9Controller::class, 'indexEvaluasi']);
         Route::post('/evaluasi', [Kriteria9Controller::class, 'listEvaluasi']);
     });
