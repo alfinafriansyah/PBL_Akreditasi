@@ -1,66 +1,83 @@
-<!-- AOS CSS (Letakkan di <head>) -->
+<!-- AOS CSS (di <head>) -->
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
-<section class="py-9" style="background-color: #ffffff;" id="informasi-umum">
+<section class="py-5 bg-white" id="informasi-umum">
     <div class="container">
-        <div class="row g-4">
-            <!-- KOLOM KIRI: PROFILE & VISI MISI -->
-            <div class="col-md-6 d-flex flex-column gap-4">
-                <!-- PROFILE -->
-                <div class="p-4" style="background-color: #F8F0E3; border-radius: 12px;"
-                     data-aos="fade-up" data-aos-delay="0">
-                    <h2 class="fw-bold" style="color: #000000;">Profile</h2>
-                    <p style="color: #000000;">
-                        Politeknik Negeri Malang (Polinema) berawal dari Fakultas Non Gelar Teknologi Universitas Brawijaya yang resmi beroperasi melalui SK Presiden RI No. 59 Tahun 1982, dan menjadi institusi mandiri melalui SK Mendikbud No. 0313/O/1991. Polinema terus berkembang di bidang pendidikan, penelitian, dan pengabdian masyarakat berbasis teknologi terapan.
+        <div class="row g-5">
 
-                        Lembaga ini meraih akreditasi A pada 2018 dan akreditasi internasional ASIC pada 2020 untuk 20 program studi. Program Studi D4-Sistem Informasi Bisnis (SIB) berdiri tahun 2010 dan mulai aktif pada 2015 di bawah Jurusan Teknologi Informasi. Pada 2018, program ini memperoleh akreditasi B dari BAN-PT.
+            <!-- Atas: Gambar kiri, teks kanan -->
+            <div class="col-md-6" data-aos="slide-up">
+                <img src="img/ilust1.png" alt="Login" class="img-fluid rounded-4 w-100 h-100 object-fit-cover float-animate">
+            </div>
+            <div class="col-md-6 d-flex align-items-center" data-aos="fade-left">
+                <div class="p-4 rounded-4 shadow-sm w-100 hover-card">
+                    <h5 class="fw-bold text-dark">Lingkup</h5>
+                    <p class="text-muted small mb-0">
+                        Website Akreditasi Program Studi Sistem Informasi Bisnis Politeknik Negeri Malang adalah aplikasi berbasis web yang dirancang untuk memfasilitasi pengelolaan dan pemantauan dokumen serta data terkait proses akreditasi program studi.
+                        <br><br>
+                        Sistem ini bertujuan untuk menyajikan informasi secara terstruktur, meningkatkan efisiensi dalam pengelolaan data akreditasi, serta memudahkan koordinasi antar pihak terkait.
                     </p>
-                </div>
-
-                <!-- VISI & MISI -->
-                <div class="p-4" style="background-color: #F8F0E3; border-radius: 12px;"
-                     data-aos="fade-up" data-aos-delay="200">
-                    <h2 class="fw-bold" style="color: #000000;">Visi & Misi</h2>
-                    <ul style="color: #000000; padding-left: 20px;">
-                        <p>Menjadi Program Studi yang Unggul dalam Bidang Sistem Informasi Bisnis baik di Tingkat Nasional maupun Internasional.</p>
-                        <li>Melaksanakan pendidikan vokasi yang inovatif berbasis sistem pendidikan terapan dan teknologi.</li>
-                        <li>Menyelenggarakan penelitian terapan berbasis produk dan jasa di bidang Sistem Informasi Bisnis.</li>
-                        <li>Melaksanakan pengabdian masyarakat menggunakan kemajuan sistem informasi bisnis untuk kesejahteraan.</li>
-                        <li>Mewujudkan kerjasama saling menguntungkan dengan berbagai pihak di dalam dan luar negeri.</li>
-                    </ul>
                 </div>
             </div>
 
-            <!-- KOLOM KANAN: MISI & TUJUAN -->
-            <div class="col-md-6">
-                <div class="p-4 h-100" style="background-color: #F8F0E3; border-radius: 12px;"
-                     data-aos="fade-up" data-aos-delay="400">
-                    <h2 class="fw-bold" style="color: #000000;">Tujuan dan sasaran</h2>
-                    <ul style="color: #000000; padding-left: 20px;">
-                        <strong>Tujuan </strong>
-                        <li>Menghasilkan lulusan yang beretika, bermoral, kompeten, dan siap kerja/berwirausaha di bidang Sistem Informasi Bisnis.</li>
-                        <li>Menghasilkan penelitian terapan yang mendukung industri, berorientasi pada HaKI dan kesejahteraan masyarakat.</li>
-                        <li>Melaksanakan pengabdian kepada masyarakat melalui ilmu pengetahuan dan teknologi.</li>
-                        <li>Menghasilkan sistem manajemen pendidikan yang memenuhi prinsip tata kelola yang baik.</li>
-                        <li>Membangun kerjasama strategis dengan pihak nasional dan internasional.</li>
-                        <br>
-                        <strong>Sasaran </strong>
-                        <li>Meningkatkan akses, relevansi, dan kualitas pendidikan Program Studi D4-SIB.</li>
-                        <li>Meningkatkan kualitas pembelajaran dan kemahasiswaan.</li>
-                        <li>Meningkatkan pembinaan karier dan kesiapan lulusan.</li>
-                        <li>Meningkatkan jumlah dan mutu penelitian yang bermanfaat bagi masyarakat.</li>
-                        <li>Meningkatkan pengabdian masyarakat yang berdampak pada kesejahteraan sosial.</li>
+            <!-- Tengah: Teks kiri, gambar kanan -->
+            <div class="col-md-6 d-flex align-items-center" data-aos="fade-right">
+                <div class="p-4 rounded-4 shadow-sm w-100 hover-card">
+                    <ul class="small text-muted ps-3 mb-0">
+                        <h5 class="fw-bold text-dark">Informasi Penggunaan</h5>
+                        Berdasarkan analisis kebutuhan pengguna, Sistem Informasi Akreditasi Prodi ini diharapkan memiliki antarmuka website yang modern, intuitif, dan nyaman secara visual.
+                        <br> <br>
+                        Sistem ini juga dilengkapi dengan dashboard yang dikembangkan khusus sesuai dengan peran pengguna, yaitu: (Admin,Kriteria, Koordinator Akreditasi, KPS/KAJUR, KJM, SPI Direktur) di mana masing-masing peran dari user di atas memiliki akses dan fitur yang relevan dan saling berkaitan dan bertahap.
                     </ul>
                 </div>
+            </div>
+            <div class="col-md-6" data-aos="slide-up">
+                <img src="img/ilust3.png" alt="Pantau Status" class="img-fluid rounded-4 w-100 h-100 object-fit-cover float-animate">
             </div>
         </div>
     </div>
 </section>
 
-<!-- AOS JS (Letakkan sebelum </body>) -->
+<!-- AOS Script -->
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script>
-    AOS.init({
-        once: false // animasi hanya jalan sekali
-    });
+    AOS.init({ duration: 900, easing: 'ease-in-out', once: true });
 </script>
+
+<!-- Tambahan CSS -->
+<style>
+    .object-fit-cover {
+        object-fit: cover;
+        height: 100%;
+        min-height: 280px;
+        transition: transform 0.5s ease, box-shadow 0.5s ease;
+    }
+
+    @media (max-width: 767.98px) {
+        .object-fit-cover {
+            height: auto;
+            min-height: auto;
+        }
+    }
+
+    /* Animasi mengambang (seperti di air) */
+    @keyframes float {
+        0%   { transform: translateY(0px); }
+        50%  { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
+    }
+
+    .float-animate {
+        animation: float 3.5s ease-in-out infinite;
+    }
+
+    /* Efek hover pada card */
+    .hover-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .hover-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+</style>
