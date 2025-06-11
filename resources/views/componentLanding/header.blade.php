@@ -1,4 +1,4 @@
-<div class="container-fluid min-vh-100 d-flex align-items-center" style="background-color: #ffffff;">
+<div class="container-fluid min-vh-100 d-flex align-items-center" style="background-color: #ffffff;" id="header">
     <div class="row w-100 align-items-center">
         <!-- Left Section -->
         <div class="col-md-6 p-5">
@@ -11,7 +11,7 @@
             </p>
             <div class="mt-4">
                 <a href="{{route('login')}}" class="btn btn-lg me-3 text-light btn-animated" style="background-color: #083c91;">Login</a>
-                <a href="#more-info" class="btn btn-link btn-animated" style="color: #083c91;">Learn more &rarr;</a>
+                <a href="#more-info" class="btn btn-link btn-animated" style="color: #083c91;">Get started &rarr;</a>
             </div>
         </div>
 

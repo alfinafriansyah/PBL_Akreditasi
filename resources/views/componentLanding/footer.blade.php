@@ -1,4 +1,4 @@
-<footer class="footer pt-5" style="background-color: #F5ECDC;" id="kontak">
+<footer class="footer pt-5" style="background-color: #DBE2EF;" id="kontak">
     <div class="container">
         <div class="row">
             <!-- Logo dan Link -->

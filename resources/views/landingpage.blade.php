@@ -90,7 +90,7 @@
             width: 0;
             z-index: 1;
             right: 30px;
-            border: medium solid #f8f9fa;
+            border: medium solid #ffffff;
             border-width: 10px 0 10px 10px;
             border-color: transparent transparent transparent #f8f9fa;
         }
@@ -146,57 +146,16 @@
     <!-- -------- Welcoming Bar ------- -->
 @include('componentLanding.header')
 <!-- -------- END Welcoming Bar ------- -->
+@include('componentLanding.about')
 @include('componentLanding.informasiwebsite')
-{{--content apa kata mereka--}}
-@include('componentLanding.tentangkami')
 
-
-
-    <!-- -------- START CTA -------- -->
-<section class="position-relative" style="background-color:#FFFFFF; height: 700px;">
-    <div class="container h-100 d-flex justify-content-center align-items-center">
-        <div class="text-center slide-trigger opacity-0">
-            <h2 class=" fw-bold mb-4" style="color: #000000;">Siap Memulai Proses Akreditasi?</h2>
-            <p class=" opacity-75 mb-4" style="color: #000000;">
-                Login sekarang untuk mengakses semua fitur sistem akreditasi kami.
-            </p>
-            <a href="{{ url('login') }}" target="_blank" class="btn btn-dark btn-lg" style="color: #ffffff;">
-                Login Sekarang
-            </a>
-        </div>
-    </div>
-</section>
-
+@include('componentLanding.tahapan')
     <!-- -------- END CTA -------- -->
+@include('componentLanding.trywithus')
 @include('componentLanding.footer')
 
 {{--script ini untuk memberikan efek slide saat user ke card ini --}}
-<script>
-    function isInViewport(element) {
-        const rect = element.getBoundingClientRect();
-        return (
-            rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
-            rect.bottom >= 0
-        );
-    }
 
-    function handleScrollAnimation() {
-        const elements = document.querySelectorAll('.slide-trigger');
-
-        elements.forEach(el => {
-            if (isInViewport(el)) {
-                el.classList.add('animate-slide-up');
-                el.classList.remove('opacity-0');
-            } else {
-                el.classList.remove('animate-slide-up');
-                el.classList.add('opacity-0');
-            }
-        });
-    }
-
-    document.addEventListener('DOMContentLoaded', handleScrollAnimation);
-    window.addEventListener('scroll', handleScrollAnimation);
-</script>
     <!-- Core JS Files -->
     <script src="{{ asset('assets/js/core/popper.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/js/core/bootstrap.min.js') }}" type="text/javascript"></script>

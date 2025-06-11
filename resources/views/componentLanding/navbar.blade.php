@@ -20,10 +20,6 @@
             <ul class="navbar-nav ms-auto align-items-center gap-3">
                 <!-- Dropdown Kriteria -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-dark d-flex align-items-center" href="#"
-                       id="dropdownKriteria" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="material-symbols-rounded me-1">dashboard</i> Kriteria
-                    </a>
                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownKriteria" style="z-index:5000; position:absolute;">
                         <li><a class="dropdown-item" href="#">Kriteria 1</a></li>
                         <li><a class="dropdown-item" href="#">Kriteria 2</a></li>
