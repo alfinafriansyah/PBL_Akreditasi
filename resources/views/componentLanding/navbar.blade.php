@@ -18,37 +18,10 @@
         <!-- Navigation Items -->
         <div class="collapse navbar-collapse" id="navigation">
             <ul class="navbar-nav ms-auto align-items-center gap-3">
-                <!-- Dropdown Kriteria -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-dark d-flex align-items-center" href="#"
-                       id="dropdownKriteria" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="material-symbols-rounded me-1">dashboard</i> Kriteria
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownKriteria" style="z-index:5000; position:absolute;">
-                        <li><a class="dropdown-item" href="#">Kriteria 1</a></li>
-                        <li><a class="dropdown-item" href="#">Kriteria 2</a></li>
-                        <li><a class="dropdown-item" href="#">Kriteria 3</a></li>
-                        <li><a class="dropdown-item" href="#">Kriteria 4</a></li>
-                        <li><a class="dropdown-item" href="#">Kriteria 5</a></li>
-                        <li><a class="dropdown-item" href="#">Kriteria 6</a></li>
-                        <li><a class="dropdown-item" href="#">Kriteria 7</a></li>
-                        <li><a class="dropdown-item" href="#">Kriteria 8</a></li>
-                        <li><a class="dropdown-item" href="#">Kriteria 9</a></li>
-                    </ul>
-                </li>
-
-                <!-- Dropdown Informasi -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-dark d-flex align-items-center" href="#"
-                       id="dropdownInformasi" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="material-symbols-rounded me-1">info</i> Informasi
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownInformasi">
-                        <li><a class="dropdown-item" href="#informasi-umum">Informasi Umum</a></li>
-                        <li><a class="dropdown-item" href="#testimoni">Testimoni</a></li>
-                        <li><a class="dropdown-item" href="#kontak">Kontak</a></li>
-                    </ul>
-                </li>
+                <!-- Informasi -->
+                <li class="nav-item"><a class="nav-link text-dark" href="#informasi-umum">Informasi Umum</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="#infofitur"> fiturkami</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="#kontak"> Kontak</a></li>
 
                 <!-- Website Polinema -->
                 <li class="nav-item">
