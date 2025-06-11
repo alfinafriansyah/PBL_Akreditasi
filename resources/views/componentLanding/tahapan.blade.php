@@ -1,5 +1,5 @@
 <section class="py-5" style="background-color: #ffffff;" id="more-info">
-    <div class="container py-5">
+    <div class="container py-5" id="infofitur">
         <h2 class="fw-bold mb-3">Apa saja fitur yang kami hadirkan di dalam website ini </h2>
         <p class="text-muted mb-5">Berikut adalah fitur-fitur yang kami tawarkan dalam website ini</p>
 
